@@ -1,9 +1,9 @@
 from datetime import datetime
 import argparse, os, json, time
-from prompts import ALL_BIASES
-from util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
-from scenario import ScenarioLoader
-from agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
+from .prompts import ALL_BIASES
+from .util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
+from .scenario import ScenarioLoader
+from .agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
 
 """ 
 RELEASE NOTES:

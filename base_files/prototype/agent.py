@@ -1,5 +1,5 @@
-from util import query_model
-from prompts import ALL_BIASES
+from .util import query_model
+from .prompts import ALL_BIASES
 
 # --- Agent Classes ---
 class Agent:
