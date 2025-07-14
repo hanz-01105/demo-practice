@@ -106,14 +106,24 @@ class DoctorAgent(Agent):
 
     def get_final_diagnosis(self):
         """Generates the final diagnosis prompt after all interactions."""
-        prompt = f"\nHere is the complete history of your dialogue with the patient and the specialist ({self.specialist_type}):\n{self.agent_hist}\nBased on this entire consultation, please provide your final diagnosis now in the format 'DIAGNOSIS READY: [Your Diagnosis Here]'."
+        prompt = f"\nHere is the complete history of your dialogue with the patient and the specialist ({self.specialist_type}):\n{self.agent_hist}\nBased on this entire consultation, please provide your final diagnosis and your confidence level in percent now in the format 'DIAGNOSIS READY: [Your Diagnosis Here] \n CONFIDENCE: [Your Confidence % here]'."
         system_prompt = f"You are Dr. Agent. You have finished interviewing the patient and consulting with a {self.specialist_type}. Review the entire history and provide your single, most likely final diagnosis in the required format."
         response = query_model(prompt, system_prompt)
 
-        if "DIAGNOSIS READY:" not in response:
-            return f"DIAGNOSIS READY: {response}"
-        diagnosis_text = response.split("DIAGNOSIS READY:", 1)[-1].strip()
-        return f"DIAGNOSIS READY: {diagnosis_text}"
+        diagnosis_text = ""
+        confidence = ""
+
+        if "DIAGNOSIS READY:" in response:
+            diagnosis_text = response.split("DIAGNOSIS READY:")[1].split("CONFIDENCE:")[0].strip()
+
+        if "CONFIDENCE:" in response:
+            confidence = response.split("CONFIDENCE:")[1].strip()
+
+        return {
+            "diagnosis": diagnosis_text,
+            "confidence": confidence
+        }
+
 
 class MeasurementAgent(Agent):
     def _init_data(self):

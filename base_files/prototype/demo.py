@@ -132,21 +132,27 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
         last_specialist_response = specialist_response
         time.sleep(0.5)
 
-    # --- Final Diagnosis Phase --- # 
-    # ----------------------------- # 
+    # --- Final Diagnosis Phase ---
     print("\n--- Phase 4: Final Diagnosis ---")
-    final_diagnosis_full = doctor_agent.get_final_diagnosis()
-    if "DIAGNOSIS READY:" in final_diagnosis_full:
-         final_diagnosis_text = final_diagnosis_full.split("DIAGNOSIS READY:", 1)[-1].strip()
-    else:
-         final_diagnosis_text = "No diagnosis provided in correct format."
+    final_diagnosis_result = doctor_agent.get_final_diagnosis()
 
-    # Log diagnosis results 
+    final_diagnosis_text = final_diagnosis_result["diagnosis"]
+    confidence_score = final_diagnosis_result["confidence"]
+
+    # Fallback if the LLM didn’t output it cleanly
+    if not final_diagnosis_text:
+        final_diagnosis_text = "No diagnosis provided in correct format."
+
+    # Log the final diagnosis and confidence
     print(f"\nFinal Diagnosis by Doctor: {final_diagnosis_text}")
     print(f"Correct Diagnosis: {scenario.diagnosis_information()}")
+    print(f"Doctor's Self-Confidence: {confidence_score}")
+
     is_correct = compare_results(final_diagnosis_text, scenario.diagnosis_information())
     print(f"Scenario {scenario_idx}: Diagnosis was {'CORRECT' if is_correct else 'INCORRECT'}")
+
     run_log["final_doctor_diagnosis"] = final_diagnosis_text
+    run_log["self_confidence"] = confidence_score 
     run_log["is_correct"] = is_correct
 
     # --- Consultation Analysis Phase (Moved here) --- # 
