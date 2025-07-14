@@ -1,11 +1,17 @@
+import os
 import json
+from datetime import datetime
 from base_files.prototype.demo import run_single_scenario
 from base_files.prototype.scenario import ScenarioMedQA
+
+
+os.makedirs("base_files/logs", exist_ok=True)
+
 
 with open("base_files/data/agentclinic_medqa_extended.jsonl", "r") as f:
     scenarios = [ScenarioMedQA(json.loads(line)) for line in f]
 
-#for debugging
+# For debugging
 scenarios = scenarios[:2]
 
 DATASET = "MedQA"
@@ -23,13 +29,24 @@ for idx, scenario in enumerate(scenarios):
         scenario_idx=idx,
         bias=None
     )
+    
+    if "dialogue_history" in result:
+        del result["dialogue_history"]
     all_results.append(result)
 
-print("\n=== Scenario Logs (excluding dialogue_history) ===")
-for idx, log in enumerate(all_results):
-    print(f"\n--- Scenario {idx + 1} ---")
-    log_copy = log.copy()
-    if "dialogue_history" in log_copy:
-        del log_copy["dialogue_history"]
-    print(json.dumps(log_copy, indent=2, default=str))
-    print(f"Dialogue turns: {len(log['dialogue_history'])}")
+# Save logs with timestamped filename
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+output_path = f"base_files/logs/agentclinic_run_{timestamp}.json"
+
+metadata = {
+    "run_timestamp": timestamp,
+    "num_scenarios": len(all_results),
+    "logs": all_results
+}
+
+with open(output_path, "w") as f:
+    json.dump(metadata, f, indent=2, default=str)
+
+print(f"\n✅ Saved {len(all_results)} scenario logs to {output_path}")
+
+

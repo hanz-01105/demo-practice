@@ -39,6 +39,7 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
         "max_consultation_turns": max_consultation_turns,
         "correct_diagnosis": scenario.diagnosis_information(),
         "dialogue_history": [],
+        "num_dialogue_turns": 0,
         "requested_tests": [],
         "tests_requested_count": 0,
         "available_tests": available_tests,
@@ -154,6 +155,7 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     run_log["final_doctor_diagnosis"] = final_diagnosis_text
     run_log["self_confidence"] = confidence_score 
     run_log["is_correct"] = is_correct
+    run_log["num_dialogue_turns"] = len(run_log["dialogue_history"])
 
     # --- Consultation Analysis Phase (Moved here) --- # 
     # ------------------------------------------------ # 
