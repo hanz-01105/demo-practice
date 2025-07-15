@@ -1,0 +1,104 @@
+{
+  "run_timestamp": "20250714_235003",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-14 23:48:38.818418",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis",
+          "Ocular myasthenia gravis",
+          "Lambert-Eaton myasthenic syndrome",
+          "Multiple sclerosis"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Ocular myasthenia gravis with early signs of generalized involvement, including limb weakness and dysphagia.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Imaging",
+        "Electromyography",
+        "Blood_Tests"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Neurologist**. **Rationale:** - The patient's symptoms\u2014fluctuating double vision, drooping eyelids (ptosis), difficulty swallowing, limb weakness, and eye movement issues\u2014are characteristic of neuromuscular junction disorders such as myasthenia gravis. - The diagnostic approach involves specialized neurological examinations and tests like acetylcholine receptor antibody testing and electromyography (EMG), which are within a neurologist's expertise. - Management of autoimmune neuromuscular conditions requires a neurologist's assessment and treatment plan. **Summary:** A neurologist is best suited to evaluate, diagnose, and manage this patient's neuromuscular symptoms.",
+      "self_confidence": "90%",
+      "demographics": {
+        "age_group": "30-40",
+        "gender": "Male",
+        "smoking_status": "Non-smoker",
+        "alcohol_use": "Drinker",
+        "drug_use": "Unknown",
+        "occupation_type": "Unknown",
+        "ses_proxy": "Unknown",
+        "rare_medication": "Unknown",
+        "family_support": "Unknown",
+        "comorbidity_status": "Unknown",
+        "symptom_presentation": "Single Symptom Only"
+      }
+    },
+    {
+      "timestamp": "2025-07-14 23:49:22.544631",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Progressive Multifocal Leukoencephalopathy (PML)",
+          "Multiple Sclerosis (MS)"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Probable Natalizumab-associated Progressive Multifocal Leukoencephalopathy (PML)",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Neurologist.",
+      "self_confidence": "85%",
+      "demographics": {
+        "age_group": "30-40",
+        "gender": "unknown",
+        "smoking_status": "Unknown",
+        "alcohol_use": "Unknown",
+        "drug_use": "Unknown",
+        "occupation_type": "Unknown",
+        "ses_proxy": "Unknown",
+        "rare_medication": "Unknown",
+        "family_support": "Unknown",
+        "comorbidity_status": "Unknown",
+        "symptom_presentation": "Unknown"
+      }
+    }
+  ]
+}

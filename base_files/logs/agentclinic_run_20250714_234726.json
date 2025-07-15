@@ -1,0 +1,103 @@
+{
+  "run_timestamp": "20250714_234726",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-14 23:46:04.386480",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "myasthenia gravis",
+          "ocular myositis",
+          "cranial nerve palsy"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia gravis (ocular and generalized form)",
+      "is_correct": true,
+      "tests_left_out": [
+        "Electromyography",
+        "Blood_Tests",
+        "Imaging"
+      ],
+      "specialist_reason": "The patient's symptoms\u2014fluctuating muscle weakness, ptosis (eyelid heaviness), diplopia (double vision), and symptoms that worsen with activity and improve with rest\u2014are characteristic of a neuromuscular junction disorder, most notably myasthenia gravis. Given this clinical picture, a neurologist is the most appropriate specialist to evaluate, diagnose, and manage this condition. Neurologists specialize in disorders of the nervous system, including neuromuscular diseases, and are equipped to perform specialized examinations, order diagnostic tests such as antibody assays, electromyography (EMG), and nerve conduction studies, and initiate appropriate treatment plans. **In summary:** The most relevant medical specialist for this patient's presentation is a **Neurologist**.",
+      "self_confidence": "95%",
+      "demographics": {
+        "age_group": "30-40",
+        "gender": "Male",
+        "smoking_status": "Non-smoker",
+        "alcohol_use": "Drinker",
+        "drug_use": "Unknown",
+        "occupation_type": "Unknown",
+        "ses_proxy": "Unknown",
+        "rare_medication": "Unknown",
+        "family_support": "Unknown",
+        "comorbidity_status": "Unknown",
+        "symptom_presentation": "Single Symptom Only"
+      }
+    },
+    {
+      "timestamp": "2025-07-14 23:46:46.225641",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Multiple Sclerosis (MS)",
+          "Paraneoplastic or autoimmune cerebellar degeneration"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Autoimmune cerebellar degeneration potentially associated with Crohn's disease, possibly paraneoplastic in origin, presenting with subacute cerebellar ataxia and limb weakness.",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The patient's presentation of progressive gait and limb ataxia, unsteadiness, right arm weakness, and no significant sensory or cranial nerve deficits suggests a neurological disorder affecting coordination and motor control. The gradual progression over weeks points toward a central nervous system process rather than peripheral causes. Given these features, the most appropriate specialist to evaluate and manage this patient is a **Neurologist**. A neurologist specializes in diagnosing and treating disorders of the nervous system, including cerebellar ataxias, multiple sclerosis, brain tumors, strokes, and other neurodegenerative or inflammatory conditions that could cause such symptoms. **Summary:** The patient's symptoms are neurological in origin, involving coordination and motor control, which makes a neurologist the most relevant specialist for further assessment, diagnosis, and treatment planning.",
+      "self_confidence": "85%",
+      "demographics": {
+        "age_group": "30-40",
+        "gender": "unknown",
+        "smoking_status": "Unknown",
+        "alcohol_use": "Unknown",
+        "drug_use": "Unknown",
+        "occupation_type": "Unknown",
+        "ses_proxy": "Unknown",
+        "rare_medication": "Unknown",
+        "family_support": "Unknown",
+        "comorbidity_status": "Unknown",
+        "symptom_presentation": "Unknown"
+      }
+    }
+  ]
+}

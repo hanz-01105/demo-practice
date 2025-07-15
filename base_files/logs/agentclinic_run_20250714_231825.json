@@ -1,0 +1,80 @@
+{
+  "run_timestamp": "20250714_231825",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-14 23:16:42.514241",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis",
+          "Lambert-Eaton myasthenic syndrome",
+          "Multiple sclerosis",
+          "Congenital myasthenic syndromes",
+          "Other neuromuscular disorders"
+        ],
+        "diagnoses_considered_count": 5,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia gravis (autoimmune neuromuscular junction disorder characterized by fluctuating muscle weakness, ptosis, and fatigability)",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Tests",
+        "Imaging",
+        "Electromyography"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a neurologist. **Reasoning:** The patient's symptoms\u2014muscle weakness that worsens with activity and improves with rest, drooping eyelids (ptosis), difficulty holding up the head, and fluctuating symptoms\u2014are characteristic of a neuromuscular junction disorder, such as myasthenia gravis. These are complex neurological symptoms involving muscle control and nerve-muscle communication, which fall within the expertise of a neurologist. **Summary:** A neurologist specializes in diagnosing and managing neurological and neuromuscular disorders, making them the most appropriate specialist to evaluate, confirm diagnosis, and initiate treatment for this patient's suspected myasthenia gravis.",
+      "self_confidence": "95%"
+    },
+    {
+      "timestamp": "2025-07-14 23:17:37.272921",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Multiple Sclerosis (MS)",
+          "Progressive Multifocal Leukoencephalopathy (PML)",
+          "Nutritional deficiency-related ataxia (e.g., B12 deficiency)"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Progressive multifocal leukoencephalopathy (PML) presenting with cerebellar and motor deficits in a patient on natalizumab therapy for Crohn's disease.",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a Neurologist. **Rationale:** - The patient exhibits neurological symptoms such as gait and limb ataxia, limb weakness, coordination difficulties, and unsteadiness, which are within the scope of neurological assessment. - The history of Crohn's disease and use of natalizumab raises concern for potential neurological complications, including demyelinating conditions like multiple sclerosis or natalizumab-associated progressive multifocal leukoencephalopathy (PML). - The absence of sensory deficits or cranial nerve involvement narrows the focus to central or peripheral nervous system pathology. - The gradual progression of symptoms over weeks suggests a neurological process that warrants specialized evaluation, including neuroimaging and possibly cerebrospinal fluid analysis. **In summary:** A neurologist is best equipped to evaluate, diagnose, and manage the neurological aspects of this patient's condition, especially considering the complex interplay of autoimmune disease, medication effects, and neurological symptoms.",
+      "self_confidence": "85%"
+    }
+  ]
+}

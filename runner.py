@@ -3,16 +3,15 @@ import json
 from datetime import datetime
 from base_files.prototype.demo import run_single_scenario
 from base_files.prototype.scenario import ScenarioMedQA
-
+from base_files.prototype.categorizer import categorize_scenario
 
 os.makedirs("base_files/logs", exist_ok=True)
-
 
 with open("base_files/data/agentclinic_medqa_extended.jsonl", "r") as f:
     scenarios = [ScenarioMedQA(json.loads(line)) for line in f]
 
 # For debugging
-scenarios = scenarios[:2]
+scenarios = scenarios[:10]
 
 DATASET = "MedQA"
 TOTAL_INFERENCES = 10
@@ -29,9 +28,19 @@ for idx, scenario in enumerate(scenarios):
         scenario_idx=idx,
         bias=None
     )
-    
+
     if "dialogue_history" in result:
         del result["dialogue_history"]
+
+    # Add demographics
+    patient_info = scenario.patient_information()
+    result["demographics"] = categorize_scenario(patient_info)
+
+    # Print debug info
+    print(f"\n[Scenario {idx}]")
+    print("Patient Info:", patient_info)
+    print("Demographics:", result["demographics"])
+
     all_results.append(result)
 
 # Save logs with timestamped filename
@@ -48,5 +57,3 @@ with open(output_path, "w") as f:
     json.dump(metadata, f, indent=2, default=str)
 
 print(f"\n✅ Saved {len(all_results)} scenario logs to {output_path}")
-
-
