@@ -1,0 +1,83 @@
+{
+  "run_timestamp": "20250714_155954",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-14 15:58:21.292840",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis (MG)",
+          "Lambert-Eaton myasthenic syndrome (LEMS)",
+          "Botulism"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia gravis (MG), primarily ocular and possibly generalized, presenting with ptosis, diplopia, fatigable muscle weakness, and symptom fluctuation.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Imaging",
+        "Blood_Tests",
+        "Electromyography"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Neurologist**. **Rationale:** - The patient's symptoms\u2014gradual double vision, eyelid drooping (ptosis), muscle weakness that improves with rest, and worsening after activity\u2014are characteristic of neuromuscular junction disorders, particularly myasthenia gravis. - The discussion about performing specialized tests such as the Tensilon (edrophonium) test, which is used to diagnose myasthenia gravis, falls within the expertise of a neurologist. - Neurologists specialize in diagnosing and managing disorders of the nervous system, including neuromuscular diseases, which aligns with this patient's presentation. **Summary:** Given the clinical features and planned diagnostic approach, a **Neurologist** is the most appropriate specialist to evaluate, confirm, and manage this patient's condition.",
+      "self_confidence": "95%"
+    },
+    {
+      "timestamp": "2025-07-14 15:59:09.315726",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Vascular causes (cerebellar stroke or TIA)",
+          "Neurodegenerative disorders (spinocerebellar ataxias)",
+          "Inflammatory or autoimmune processes (multiple sclerosis)",
+          "Infectious causes (post-infectious cerebellitis)",
+          "Demyelinating disease",
+          "Infectious or inflammatory cerebellitis",
+          "Autoimmune or paraneoplastic processes",
+          "Vitamin deficiencies (B12, E)"
+        ],
+        "diagnoses_considered_count": 8,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Probable cerebellar demyelinating lesion, most consistent with multiple sclerosis presenting with subacute cerebellar ataxia and unilateral limb weakness.",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a Neurologist.",
+      "self_confidence": "85%"
+    }
+  ]
+}
