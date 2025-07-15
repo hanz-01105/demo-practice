@@ -1,0 +1,80 @@
+{
+  "run_timestamp": "20250715_142715",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-15 14:25:33.221341",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis",
+          "Ocular myasthenia gravis",
+          "Multiple sclerosis"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Ocular myasthenia gravis (MG) with likely acetylcholine receptor (AChR) antibody positivity.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Tests",
+        "Imaging",
+        "Electromyography"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Neurologist**. **Rationale:** The patient's symptoms\u2014gradually worsening double vision, eyelid drooping (ptosis), muscle weakness that improves with rest, and symptoms that fluctuate throughout the day\u2014are characteristic of neuromuscular junction disorders, particularly myasthenia gravis. These conditions are within the expertise of a neurologist, who specializes in diagnosing and managing neurological and neuromuscular diseases. The neurologist can perform specialized examinations, order appropriate antibody tests (such as acetylcholine receptor antibodies), and initiate suitable treatment plans.",
+      "self_confidence": "90%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                          Creative\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                           None\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:26:23.912955",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Demyelinating processes (particularly PML)",
+          "Multiple sclerosis (MS)",
+          "Other causes of cerebellar ataxia"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Probable Progressive Multifocal Leukoencephalopathy (PML) in a patient on natalizumab therapy, presenting with subacute cerebellar and limb ataxia, limb weakness, and sensory symptoms.",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The patient's neurological symptoms\u2014progressive gait and limb ataxia, limb weakness, tingling sensations, and balance issues\u2014along with their history of natalizumab use, suggest a concern for demyelinating or neuroinflammatory conditions affecting the central nervous system. Given these factors, a neurologist is the most appropriate specialist to evaluate, diagnose, and manage this patient's condition.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Unknown\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    }
+  ]
+}

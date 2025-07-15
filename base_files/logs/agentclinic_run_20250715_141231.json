@@ -1,0 +1,196 @@
+{
+  "run_timestamp": "20250715_141231",
+  "num_scenarios": 5,
+  "logs": [
+    {
+      "timestamp": "2025-07-15 14:07:33.697638",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis (MG)",
+          "Lambert-Eaton myasthenic syndrome (LEMS)",
+          "Thymoma"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia gravis (seropositive for acetylcholine receptor antibodies)",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Tests",
+        "Imaging",
+        "Electromyography"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Neurologist.",
+      "self_confidence": "95%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                          Creative\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                           None\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:08:59.095671",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Progressive multifocal leukoencephalopathy (PML)",
+          "Multiple Sclerosis (MS)",
+          "autoimmune cerebellar ataxia",
+          "paraneoplastic syndromes"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Progressive multifocal leukoencephalopathy (PML) secondary to natalizumab therapy in a patient with Crohn's disease presenting with subacute progressive gait and limb ataxia, right arm weakness, and characteristic MRI findings.",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The patient's neurological symptoms\u2014progressive gait disturbance, limb ataxia, limb weakness, unsteadiness, and the use of natalizumab\u2014indicate a neurological condition potentially related to demyelination or other central nervous system pathology. Given these details, the most relevant medical specialist to consult is a **Neurologist**.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Unknown\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:09:47.641115",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 2,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Hirschsprung disease",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Test",
+        "Abdominal_X-ray",
+        "Barium_Enema"
+      ],
+      "determined_specialist": "Pediatric Gastroenterologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Constipation leading to fecal impaction",
+          "Intestinal obstruction",
+          "Hirschsprung disease"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Hirschsprung disease (congenital aganglionic megacolon)",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Test",
+        "Abdominal_X-ray",
+        "Barium_Enema"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this case is a Pediatric Gastroenterologist.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                    0-10\ngender                                       Male\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                           None\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:10:33.381723",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 3,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Diffuse large B-cell lymphoma",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Work",
+        "Imaging",
+        "Biopsy"
+      ],
+      "determined_specialist": "Oncologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Lymphoma (Hodgkin or Non-Hodgkin)",
+          "Tuberculosis (Extrapulmonary)"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Non-Hodgkin Lymphoma (likely diffuse large B-cell lymphoma or similar subtype) presenting with systemic B symptoms, cervical lymphadenopathy, abdominal discomfort, weight loss, night sweats, and constitutional symptoms.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Work",
+        "Biopsy",
+        "Imaging"
+      ],
+      "specialist_reason": "The patient's symptoms\u2014persistent fatigue, abdominal pain, night sweats, significant weight loss, enlarged lymph nodes (notably in the neck), and systemic symptoms\u2014are highly suggestive of a possible lymphatic or hematologic malignancy, such as lymphoma. These symptoms warrant specialized evaluation, diagnosis, and management by a medical professional trained in cancers of the lymphatic system. Therefore, the most relevant medical specialist for this patient's condition is an **Oncologist**, specifically one with expertise in hematologic malignancies like lymphoma.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   50-60\ngender                                       Male\nsmoking_status                            Unknown\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Unknown\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:11:35.047737",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 4,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Acute interstitial nephritis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "determined_specialist": "Infectious Disease",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Pyelonephritis",
+          "Atypical or subclinical urinary tract infection",
+          "Renal abscess",
+          "Drug reaction or hypersensitivity"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Atypical or partially treated pyelonephritis, possibly complicated by renal involvement such as a renal abscess, given persistent fever, flank pain, recent antibiotic use, and lack of classic urinary symptoms. The absence of flank tenderness and urinary abnormalities does not exclude renal infection, especially considering recent antibiotic therapy that may have masked typical signs.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "specialist_reason": "Based on the detailed history of flank pain, fever, fatigue, recent antibiotic use, and the consideration of urinary tract or kidney involvement, the most relevant medical specialist would be an **Infectious Disease specialist**. This specialist is particularly suited to evaluate and manage potential infections such as pyelonephritis (kidney infection), especially given the recent antibiotic exposure and the need for targeted diagnosis and treatment.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                     60+\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                         Education\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Chronic\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "run_timestamp": "20250715_142145",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-15 14:20:04.883528",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia Gravis",
+          "Lambert-Eaton Myasthenic Syndrome"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia Gravis (MG), seropositive for acetylcholine receptor (AChR) antibodies",
+      "is_correct": true,
+      "tests_left_out": [
+        "Electromyography",
+        "Blood_Tests",
+        "Imaging"
+      ],
+      "specialist_reason": "The patient's symptoms\u2014including progressive double vision, eyelid heaviness, difficulty swallowing, limb weakness that improves with rest, and eye movement issues\u2014are characteristic of a neuromuscular disorder affecting the connection between nerves and muscles. These features strongly suggest a diagnosis such as myasthenia gravis. Therefore, the most relevant medical specialist for this patient is a **Neurologist**, particularly one with expertise in neuromuscular disorders.",
+      "self_confidence": "95%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                          Creative\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                           None\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:20:56.661900",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Demyelinating processes (PML)",
+          "Cerebellar pathology (stroke, tumor, demyelination)",
+          "Multiple sclerosis",
+          "Paraneoplastic syndromes",
+          "Autoimmune cerebellar ataxias"
+        ],
+        "diagnoses_considered_count": 5,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Probable Progressive Multifocal Leukoencephalopathy (PML) secondary to natalizumab therapy in a patient with Crohn's disease presenting with subacute cerebellar ataxia and right arm weakness.",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Neurologist**.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Unknown\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "run_timestamp": "20250715_143153",
+  "num_scenarios": 2,
+  "logs": [
+    {
+      "timestamp": "2025-07-15 14:30:17.314563",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia Gravis (MG)",
+          "Ocular Myopathies",
+          "Cranial Nerve Palsies",
+          "Systemic Autoimmune Diseases (e.g., thyroid disease, lupus)"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Ocular Myasthenia Gravis",
+      "is_correct": true,
+      "tests_left_out": [
+        "Electromyography",
+        "Blood_Tests",
+        "Imaging"
+      ],
+      "specialist_reason": "Based on the patient's symptoms\u2014muscle weakness that improves with rest, eyelid drooping (ptosis), double vision (diplopia), and fatigue\u2014along with the consideration of a neuromuscular disorder such as myasthenia gravis, the most relevant medical specialist to consult is a **Neurologist**.",
+      "self_confidence": "90%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                          Creative\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                           None\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-15 14:31:05.667409",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Paraneoplastic or autoimmune cerebellar degeneration",
+          "Multiple sclerosis (MS)",
+          "Infectious causes (viral cerebellitis)"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Autoimmune cerebellar degeneration, likely paraneoplastic in origin, associated with Crohn's disease.",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a neurologist.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   30-40\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\nses_proxy                                 Unknown\nrare_medication                           Unknown\nfamily_support                            Unknown\ncomorbidity_status                        Unknown\nsymptom_presentation    Multiple Classic Symptoms\ndtype: object"
+    }
+  ]
+}
