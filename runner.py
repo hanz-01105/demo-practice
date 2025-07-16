@@ -4,7 +4,7 @@ from datetime import datetime
 from base_files.prototype.demo import run_single_scenario
 from base_files.prototype.scenario import ScenarioMedQA
 from base_files.prototype.categorizer import categorize_scenario
-from base_files.prototype.statistical_analysis import run_analysis
+from venv.statistical_analysis import run_analysis
 
 # Ensure logs directory exists
 os.makedirs("base_files/logs", exist_ok=True)
@@ -18,7 +18,7 @@ scenarios = scenarios[:10]
 
 # Parameters
 DATASET = "MedQA"
-TOTAL_INFERENCES = 10
+TOTAL_INFERENCES = 100
 MAX_CONSULTATION_TURNS = 5
 
 all_results = []

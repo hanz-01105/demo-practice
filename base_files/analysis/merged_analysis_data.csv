@@ -1,4 +1,4 @@
-timestamp,model,dataset,scenario_id,bias_applied,max_patient_turns,max_consultation_turns,correct_diagnosis,num_dialogue_turns,requested_tests,tests_requested_count,available_tests,determined_specialist,final_doctor_diagnosis,is_correct,tests_left_out,specialist_reason,self_confidence,demographics,consultation_analysis.premature_conclusion,consultation_analysis.diagnoses_considered,consultation_analysis.diagnoses_considered_count,consultation_analysis.disagreements,demo_gender,demo_age_group,demo_comorbidity_status
+timestamp,model,dataset,scenario_id,bias_applied,max_patient_turns,max_consultation_turns,correct_diagnosis,num_dialogue_turns,requested_tests,tests_requested_count,available_tests,determined_specialist,final_doctor_diagnosis,is_correct,tests_left_out,specialist_reason,self_confidence,demographics,consultation_analysis.premature_conclusion,consultation_analysis.diagnoses_considered,consultation_analysis.diagnoses_considered_count,consultation_analysis.disagreements,demo_age_group,demo_gender,demo_smoking_status,demo_alcohol_use,demo_drug_use,demo_occupation_type,demo_ses_proxy,demo_rare_medication,demo_family_support,demo_comorbidity_status,demo_symptom_presentation
 2025-07-15 14:41:00.673133,gpt-4.1,MedQA,0,,10,5,Myasthenia gravis,32,[],0,"['Blood_Tests', 'Electromyography', 'Imaging']",Neurologist,Myasthenia gravis,True,"['Imaging', 'Electromyography', 'Blood_Tests']","The most relevant medical specialist for this patient's condition is a Neurologist. **Rationale:** - The patient's symptoms—gradual muscle weakness, ptosis (drooping eyelids), difficulty swallowing, and double vision—are characteristic of neuromuscular disorders, particularly myasthenia gravis. - Diagnostic findings such as elevated acetylcholine receptor antibodies and decreased muscle response on repetitive stimulation are specific to neuromuscular junction disorders. - Management and confirmation of myasthenia gravis, including performing specialized tests like the Tensilon (edrophonium) test, are within the expertise of a neurologist. - Neurologists specialize in diagnosing and treating disorders of the nervous system, including neuromuscular diseases like myasthenia gravis. **In summary:** A neurologist is the most appropriate specialist to evaluate, confirm, and manage this patient's neuromuscular condition.",95%,"age_group                                   30-40
 gender                                     Female
 smoking_status                         Non-smoker
@@ -10,7 +10,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,['myasthenia gravis (MG)'],1,0,Unknown,Unknown,Unknown
+dtype: object",False,['myasthenia gravis (MG)'],1,0,30-40,Female,Non-smoker,Drinker,Unknown,Creative,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
 2025-07-15 14:41:52.810109,gpt-4.1,MedQA,1,,10,5,Progressive multifocal encephalopathy (PML),32,[],0,['MRI_Brain'],Neurologist,"Cerebellar or brainstem ischemic stroke presenting with acute gait ataxia and limb weakness, possibly related to small vessel disease or embolic event, in the context of Crohn's disease.",False,['MRI_Brain'],"The most relevant medical specialist for this patient's presentation is a **Neurologist**. **Rationale:** - The patient exhibits neurological symptoms such as gait disturbance, limb ataxia, limb weakness, and coordination issues, which are within the scope of neurological assessment. - The symptoms have a subacute onset and involve multiple neurological domains, suggesting central nervous system involvement. - The history of Crohn's disease raises considerations of autoimmune or inflammatory neurological conditions, such as multiple sclerosis, neurosarcoidosis, or other demyelinating or inflammatory processes. - The absence of sensory changes and other systemic symptoms helps narrow the focus to neurological causes rather than peripheral or systemic illnesses. Given these factors, a neurologist is best equipped to evaluate, diagnose, and manage the underlying neurological condition.",85%,"age_group                                   30-40
 gender                                     Female
 smoking_status                            Unknown
@@ -22,7 +22,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                        Unknown
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Multiple Sclerosis (MS)', 'Vascular events (stroke or transient ischemic attack)']",2,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Multiple Sclerosis (MS)', 'Vascular events (stroke or transient ischemic attack)']",2,0,30-40,Female,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Multiple Classic Symptoms
 2025-07-15 14:42:43.886365,gpt-4.1,MedQA,2,,10,5,Hirschsprung disease,32,[],0,"['Blood_Test', 'Abdominal_X-ray', 'Barium_Enema']",Pediatric Gastroenterologist,Midgut volvulus causing intestinal obstruction with secondary bowel distension and feeding intolerance.,False,"['Abdominal_X-ray', 'Blood_Test', 'Barium_Enema']","The most relevant medical specialist for this case is a Pediatric Gastroenterologist. **Rationale:** The infant presents with abdominal distension, firmness, fussiness, feeding difficulties, and no signs of vomiting or bleeding. These symptoms suggest a potential gastrointestinal issue that requires specialized evaluation and management. A Pediatric Gastroenterologist specializes in diagnosing and treating digestive system disorders in children, including conditions like intestinal obstructions, congenital anomalies, or other gastrointestinal pathologies that could cause abdominal swelling and discomfort in infants.",85%,"age_group                                    0-10
 gender                                       Male
 smoking_status                            Unknown
@@ -34,7 +34,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Intestinal Obstruction', 'Necrotizing Enterocolitis (NEC)', 'Hirschsprung Disease', 'Intra-abdominal Mass or Tumor']",4,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Intestinal Obstruction', 'Necrotizing Enterocolitis (NEC)', 'Hirschsprung Disease', 'Intra-abdominal Mass or Tumor']",4,0,0-10,Male,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
 2025-07-15 14:43:28.893249,gpt-4.1,MedQA,3,,10,5,Diffuse large B-cell lymphoma,32,[],0,"['Blood_Work', 'Imaging', 'Biopsy']",Oncologist,"Classic Hodgkin lymphoma presenting as a solitary supraclavicular lymphadenopathy with systemic B symptoms (weight loss, night sweats, fatigue) and no other significant lymphadenopathy or infectious history.",False,"['Blood_Work', 'Imaging', 'Biopsy']","The most relevant medical specialist for this patient's condition is an oncologist. This is because the patient's symptoms—persistent fatigue, weight loss, night sweats, and an enlarged lymph node—are concerning for a possible malignancy such as lymphoma or other cancers. An oncologist specializes in diagnosing and treating cancers, including those involving lymphatic tissues, and would be the appropriate specialist to evaluate biopsy results, interpret imaging studies, and develop a comprehensive treatment plan.",85%,"age_group                                   50-60
 gender                                       Male
 smoking_status                            Unknown
@@ -46,7 +46,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                        Unknown
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['lymphoma', 'Hodgkin lymphoma', 'Non-Hodgkin lymphoma', 'Tuberculous lymphadenitis', 'Metastatic carcinoma']",5,0,Unknown,Unknown,Unknown
+dtype: object",False,"['lymphoma', 'Hodgkin lymphoma', 'Non-Hodgkin lymphoma', 'Tuberculous lymphadenitis', 'Metastatic carcinoma']",5,0,50-60,Male,Unknown,Drinker,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Multiple Classic Symptoms
 2025-07-15 14:44:18.825357,gpt-4.1,MedQA,4,,10,5,Acute interstitial nephritis,32,[],0,"['Serum_Biochemistry', 'Urinalysis']",Urologist,Acute pyelonephritis complicated by possible renal abscess or obstructive uropathy,False,"['Urinalysis', 'Serum_Biochemistry']",The most relevant medical specialist for this patient's condition is a Urologist.,85%,"age_group                                     60+
 gender                                     Female
 smoking_status                         Non-smoker
@@ -58,7 +58,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                        Chronic
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Pyelonephritis', 'Renal abscess', 'Obstructive uropathy']",3,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Pyelonephritis', 'Renal abscess', 'Obstructive uropathy']",3,0,60+,Female,Non-smoker,Drinker,Unknown,Education,Unknown,Unknown,Unknown,Chronic,Multiple Classic Symptoms
 2025-07-15 14:45:07.452971,gpt-4.1,MedQA,5,,10,5,Pes anserine bursitis,32,[],0,"['X-Ray_Knee', 'MRI_Knee']",Orthopedic Surgeon,Medial Meniscal Tear with Possible Anterior Cruciate Ligament (ACL) Sprain or Partial Tear,False,"['MRI_Knee', 'X-Ray_Knee']","The patient's presentation of acute knee pain following twisting injury during volleyball, with pain on movement, some instability, and difficulty bearing weight, suggests a musculoskeletal injury involving the knee joint. Given these details, an Orthopedic Surgeon is the most appropriate specialist to evaluate and manage this condition, as they specialize in diagnosing and treating musculoskeletal injuries, including ligament tears, meniscal injuries, and other structural knee problems.",85%,"age_group                                   20-30
 gender                                     Female
 smoking_status                            Unknown
@@ -70,7 +70,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                        Unknown
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Meniscal injury', 'Ligamentous injury (ACL or MCL)', 'Chondral injury or osteochondral fracture', 'Patellar injury']",4,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Meniscal injury', 'Ligamentous injury (ACL or MCL)', 'Chondral injury or osteochondral fracture', 'Patellar injury']",4,0,20-30,Female,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Multiple Classic Symptoms
 2025-07-15 14:45:51.325366,gpt-4.1,MedQA,6,,10,5,Situational syncope,32,[],0,"['Blood_Tests', 'Electrocardiogram']",Neurologist,"Vasovagal syncope secondary to autonomic dysregulation, likely triggered by positional change during routine activity, with orthostatic hypotension as a contributing factor. No evidence currently suggests seizure activity or structural neurological pathology.",True,"['Electrocardiogram', 'Blood_Tests']","The most relevant medical specialist for this patient's presentation is a Neurologist. **Reasoning:** The patient experienced a sudden loss of consciousness with no warning signs, which could be indicative of neurological causes such as seizures, syncope related to neurological issues, or other brain-related conditions. The absence of cardiac symptoms and the lack of prior neurological symptoms like headaches, weakness, or speech difficulties suggests that a neurological evaluation is appropriate to rule out central nervous system causes. A neurologist specializes in diagnosing and managing conditions related to the brain and nervous system, making them the most suitable specialist for further assessment.",85%,"age_group                                   50-60
 gender                                       Male
 smoking_status                         Non-smoker
@@ -82,7 +82,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['vasovagal syncope', 'orthostatic hypotension', 'cardiac arrhythmias', 'neurological causes', 'seizures', 'autonomic dysfunction']",6,0,Unknown,Unknown,Unknown
+dtype: object",False,"['vasovagal syncope', 'orthostatic hypotension', 'cardiac arrhythmias', 'neurological causes', 'seizures', 'autonomic dysfunction']",6,0,50-60,Male,Non-smoker,Drinker,Unknown,Education,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
 2025-07-15 14:46:42.167170,gpt-4.1,MedQA,7,,10,5,Congenital Rubella Infection,32,[],0,"['TORCH_Screen', 'Echocardiogram', 'Ophthalmologic_Consult', 'Hearing_Test']",Pediatric Cardiologist,Transposition of the Great Arteries (TGA) with duct-dependent circulation,False,"['Echocardiogram', 'Hearing_Test', 'Ophthalmologic_Consult', 'TORCH_Screen']","The most relevant medical specialist for this patient's condition is a Pediatric Cardiologist. The dialogue indicates concerns about congenital heart defects, cyanosis (bluish discoloration of lips and skin), a continuous heart murmur, and episodes of cyanosis during feeding or crying—all signs pointing toward potential cardiac anomalies in an infant. A Pediatric Cardiologist specializes in diagnosing and managing heart conditions in children, making this specialist the most appropriate choice for further evaluation and treatment.",95%,"age_group                                     0-1
 gender                                     Female
 smoking_status                            Unknown
@@ -94,7 +94,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Patent Ductus Arteriosus (PDA)', 'Transposition of the Great Arteries (TGA)', 'Total Anomalous Pulmonary Venous Return (TAPVR)', 'Ventricular Septal Defect (VSD)']",4,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Patent Ductus Arteriosus (PDA)', 'Transposition of the Great Arteries (TGA)', 'Total Anomalous Pulmonary Venous Return (TAPVR)', 'Ventricular Septal Defect (VSD)']",4,0,0-1,Female,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
 2025-07-15 14:47:38.167267,gpt-4.1,MedQA,8,,10,5,Phyllodes tumor,32,[],0,"['Mammography', 'Biopsy']",Oncologist,"Likely phyllodes tumor (benign or borderline) or invasive ductal carcinoma of the breast, with a higher suspicion for phyllodes tumor given the rapid growth and absence of skin changes or systemic symptoms.",True,"['Mammography', 'Biopsy']","The most relevant medical specialist for this patient is an Oncologist, specifically a breast oncologist. The patient's presentation of a rapidly enlarging, non-tender breast mass without skin changes or systemic symptoms warrants further evaluation for potential malignancy. An oncologist specializes in diagnosing and managing cancers, including breast cancer, and would coordinate appropriate imaging, biopsy, and treatment planning if necessary.",85%,"age_group                                   40-50
 gender                                     Female
 smoking_status                         Non-smoker
@@ -106,7 +106,7 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Fibroadenoma', 'Breast cysts', 'Invasive ductal carcinoma', 'Phyllodes tumor']",4,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Fibroadenoma', 'Breast cysts', 'Invasive ductal carcinoma', 'Phyllodes tumor']",4,0,40-50,Female,Non-smoker,Drinker,Unknown,Education,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
 2025-07-15 14:48:25.994062,gpt-4.1,MedQA,9,,10,5,Endometritis,32,[],0,"['Complete_Blood_Count', 'Urinalysis', 'Vital_Signs_at_Presentation']",Infectious Disease,Postpartum endometritis presenting with fever and lower abdominal tenderness in a patient with an uncomplicated vaginal delivery.,True,"['Complete_Blood_Count', 'Vital_Signs_at_Presentation', 'Urinalysis']","Based on the dialogue, the patient's symptoms of fever, abdominal tenderness, increased urinary frequency, and postpartum status suggest a possible postpartum infection, such as endometritis or urinary tract infection. These conditions often require specialized evaluation and management by a medical professional with expertise in infectious processes, particularly those related to postpartum and reproductive health. The most relevant medical specialist type for this case is an **Infectious Disease specialist**. They are experts in diagnosing and treating infections, especially complex or atypical cases, and can provide targeted therapy if needed.",85%,"age_group                                   20-30
 gender                                     Female
 smoking_status                         Non-smoker
@@ -118,4 +118,4 @@ rare_medication                           Unknown
 family_support                            Unknown
 comorbidity_status                           None
 symptom_presentation    Multiple Classic Symptoms
-dtype: object",False,"['Postpartum Endometritis', 'Urinary Tract Infection (UTI)', 'Pyelonephritis']",3,0,Unknown,Unknown,Unknown
+dtype: object",False,"['Postpartum Endometritis', 'Urinary Tract Infection (UTI)', 'Pyelonephritis']",3,0,20-30,Female,Non-smoker,Unknown,Unknown,Unknown,Unknown,Unknown,Unknown,None,Multiple Classic Symptoms
