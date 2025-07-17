@@ -1,126 +1,143 @@
-import re
-import pandas as pd
 import json
+import re
+import os
+import pandas as pd
+from dotenv import load_dotenv
+from openai import OpenAI
 
-CATEGORY_RULES = {
-    "smoking_status": [
-        ("Non-smoker", ["non-smoker", "does not smoke", "never smoked", "quit smoking", "denies smoking"]),
-        ("Smoker", ["smokes", "smoker", "currently smokes", "daily smoker"])
-    ],
-    "alcohol_use": [
-        ("Non-drinker", ["does not drink", "non-drinker", "no alcohol", "denies drinking"]),
-        ("Drinker", ["drinks", "alcohol use", "moderate alcohol", "drinks socially", "social drinker", "consumes alcohol"])
-    ],
-    "drug_use": [
-        ("None", ["no drug use", "denies drug use", "no substance abuse", "not using drugs"]),
-        ("Present", ["drug use", "uses drugs", "substance abuse", "positive for drugs"])
-    ],
-    "occupation_type": [
-        ("Education", ["teacher", "professor", "educator", "school staff"]),
-        ("Technical", ["engineer", "developer", "technician", "it specialist"]),
-        ("Creative", ["designer", "artist", "writer", "musician", "photographer"]),
-        ("Student", ["student", "college student", "high school student"]),
-        ("Retired", ["retired", "no longer working", "former employee"]),
-        ("Healthcare", ["nurse", "doctor", "physician", "paramedic", "healthcare worker"]),
-        ("Service", ["waiter", "cashier", "barista", "customer service"])
-    ],
-    "comorbidity_status": [
-        ("Chronic", [
-            "diabetes", "hypertension", "asthma", "copd", "heart failure",
-            "chronic kidney disease", "rheumatoid arthritis", "hiv", "hepatitis",
-            "osteoporosis", "thyroid disease", "chronic liver disease"
-        ]),
-        ("Special Treatment", [
-            "chemotherapy", "dialysis", "organ transplant", "immunosuppressive therapy",
-            "radiation therapy", "biologic therapy", "transplant recipient"
-        ]),
-        ("None", [
-            "no significant past medical", "no past medical history", "no pmhx",
-            "healthy", "previously well", "no known medical conditions",
-            "unremarkable medical history"
-        ])
-    ]
-}
+load_dotenv()
+client = OpenAI()
+
+male_pattern = re.compile(r"\b(male|man|boy)\b", re.IGNORECASE)
+female_pattern = re.compile(r"\b(female|woman|girl)\b", re.IGNORECASE)
+age_pattern = re.compile(r"(\d+)[-\s]*year", re.IGNORECASE)
 
 
-def match_category_from_keywords(text, rules):
-    # Split text into segments on common conjunctions and punctuation
-    parts = re.split(r'[.,;]| and | or ', text)
-    parts = [part.strip() for part in parts if part.strip()]
+def classify_bias_llm(demographics, social_history, past_medical_history, history_of_present_illness):
+    prompt = f"""
+You are a careful medical data classifier.
 
-    for label, keywords in rules:
-        for kw in keywords:
-            for part in parts:
-                if kw in part:
-                    return label
-    return "Unknown"
+Given the following patient Demographics, Social_History, Past_Medical_History, and History_of_Present_Illness, classify each bias variable into one of the allowed categories below. If there is no clear mention, return "Unknown" for that variable.
 
-def extract_gender(text):
-    if re.search(r"\b(female|woman|girl)\b", text):
-        return "Female"
-    elif re.search(r"\b(male|man|boy)\b", text):
-        return "Male"
-    return "Other"
+---
+
+Allowed values:
+
+- Smoking Status: ["Smoker", "Non-smoker", "Unknown"]
+- Alcohol Use: ["Drinker", "Non-drinker", "Unknown"]
+- Drug Use: ["Drug User", "Non-drug User", "Unknown"]
+- Occupation Type: ["Manual Labor", "Knowledge Worker", "Student", "Retired", "Unemployed", "Unknown"]
+- Comorbidity Status: ["Chronic Condition Present", "Immunosuppressed/Special Treatment", "No Significant PMHx", "Unknown"]
+- Symptom Presentation: ["Classic Textbook", "Atypical/Vague Wording", "Multi-System Complex", "Single Symptom Only", "Unknown"]
+
+---
+
+Example Input:
+
+Demographics: "65-year-old female"
+Social_History: "Smokes 1 pack per day, drinks socially."
+Past_Medical_History: "Hypertension, Diabetes Mellitus."
+History_of_Present_Illness: "Patient has crushing chest pain radiating to arm."
+
+Example Output:
+
+{{
+  "Smoking Status": "Smoker",
+  "Alcohol Use": "Drinker",
+  "Drug Use": "Unknown",
+  "Occupation Type": "Unknown",
+  "Comorbidity Status": "Hypertension",
+  "Symptom Presentation": "Classic Textbook"
+}}
+
+---
+
+Now classify this text:
+
+Demographics: "{demographics}"
+Social_History: "{social_history}"
+Past_Medical_History: "{past_medical_history}"
+History_of_Present_Illness: "{history_of_present_illness}"
+
+Only output strict JSON.
+"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        temperature=0,
+        messages=[
+            {"role": "system", "content": "You are a careful medical data classifier."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    raw_output = response.choices[0].message.content.strip()
+    raw_output = re.sub(r"```[a-z]*", "", raw_output).strip()
+    raw_output = re.sub(r"```", "", raw_output).strip()
+    return json.loads(raw_output)
+
 
 def categorize_scenario(patient_info):
-    categories = {
-        "age_group": "Unknown",
-        "gender": "Unknown",
-        "smoking_status": "Unknown",
-        "alcohol_use": "Unknown",
-        "drug_use": "Unknown",
-        "occupation_type": "Unknown",
-        "ses_proxy": "Unknown",
-        "rare_medication": "Unknown",
-        "family_support": "Unknown",
-        "comorbidity_status": "Unknown",
-        "symptom_presentation": "Unknown"
-    }
+    demographics = patient_info.get('Demographics', '').strip()
+    demographics_lower = demographics.lower()
 
-    text = json.dumps(patient_info).lower()
-    symptoms = patient_info.get("Symptoms", {})
-
-    # Match rule-based categories
-    for category, rules in CATEGORY_RULES.items():
-        categories[category] = match_category_from_keywords(text, rules)
-
-    # Age group
-    if re.search(r"\bnewborn\b|\binfant\b", text):
-        categories['age_group'] = "0-1"
+    # Age Group
+    age_group = "Unknown"
+    if any(x in demographics_lower for x in ["month", "newborn", "infant"]):
+        age_group = "0-1"
     else:
-        age_match = re.search(r"(\d+)[- ]?(year[- ]old)?", text)
-        if age_match:
-            age = int(age_match.group(1))
-            categories['age_group'] = (
+        match = age_pattern.search(demographics_lower)
+        if match:
+            age = int(match.group(1))
+            age_group = (
                 "0-10" if age <= 10 else
                 "10-20" if age <= 20 else
                 "20-30" if age <= 30 else
                 "30-40" if age <= 40 else
                 "40-50" if age <= 50 else
-                "50-60" if age <= 60 else "60+"
+                "50-60" if age <= 60 else
+                "60+"
             )
 
     # Gender
-    categories["gender"] = extract_gender(text)
+    gender = "Other"
+    if male_pattern.search(demographics_lower):
+        gender = "Male"
+    elif female_pattern.search(demographics_lower):
+        gender = "Female"
 
-    # Symptom Presentation
-    total_symptoms = 0
-    if "Primary_Symptom" in symptoms:
-        total_symptoms += 1
-    if "Secondary_Symptoms" in symptoms:
-        secondary = symptoms["Secondary_Symptoms"]
-        if isinstance(secondary, list):
-            total_symptoms += len(secondary)
-        elif isinstance(secondary, str):
-            total_symptoms += 1
+    # Prepare text for LLM
+    def clean_field(val):
+        if isinstance(val, list):
+            return " ".join(val)
+        elif isinstance(val, dict):
+            return " ".join(f"{k}: {v}" for k, v in val.items())
+        return str(val)
 
-    if total_symptoms >= 3:
-        categories["symptom_presentation"] = "Multiple Classic Symptoms"
-    elif total_symptoms == 1:
-        categories["symptom_presentation"] = "Single Symptom Only"
-    elif total_symptoms > 1:
-        categories["symptom_presentation"] = "Non-Specific Symptoms"
-    else:
-        categories["symptom_presentation"] = "Unknown"
+    sh = clean_field(patient_info.get('Social_History', ''))
+    pmh = clean_field(patient_info.get('Past_Medical_History', ''))
+    hpi = clean_field(patient_info.get('History_of_Present_Illness', ''))
 
-    return pd.Series(categories)
+    try:
+        llm_result = classify_bias_llm(demographics, sh, pmh, hpi)
+    except Exception as e:
+        print(f"LLM failure: {e}")
+        llm_result = {k: "Unknown" for k in [
+            "Smoking Status", "Alcohol Use", "Drug Use", "Occupation Type",
+            "Comorbidity Status", "Symptom Presentation"
+        ]}
+
+    # Combine both LLM and regex-derived values
+    all_categories = {
+        "age_group": age_group,
+        "gender": gender,
+        "smoking_status": llm_result.get("Smoking Status", "Unknown"),
+        "alcohol_use": llm_result.get("Alcohol Use", "Unknown"),
+        "drug_use": llm_result.get("Drug Use", "Unknown"),
+        "occupation_type": llm_result.get("Occupation Type", "Unknown"),
+        "comorbidity_status": llm_result.get("Comorbidity Status", "Unknown"),
+        "symptom_presentation": llm_result.get("Symptom Presentation", "Unknown")
+    }
+
+    return pd.Series(all_categories)
+
