@@ -1,0 +1,781 @@
+{
+  "run_timestamp": "20250716_233128",
+  "num_scenarios": 20,
+  "logs": [
+    {
+      "timestamp": "2025-07-16 23:14:09.881252",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia Gravis",
+          "Lambert-Eaton Myasthenic Syndrome",
+          "Ocular Myopathies",
+          "Other Neuromuscular Disorders"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia Gravis (ocular and generalized form)",
+      "is_correct": true,
+      "tests_left_out": [
+        "Electromyography",
+        "Blood_Tests",
+        "Imaging"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a neurologist. The patient's symptoms\u2014fluctuating muscle weakness that worsens with activity and improves with rest, ptosis (drooping eyelids), double vision, and difficulty with eye movements\u2014are characteristic of neuromuscular disorders such as myasthenia gravis. A neurologist specializes in diagnosing and managing neurological and neuromuscular conditions, making them the appropriate specialist to further evaluate and treat this patient.",
+      "self_confidence": "95%",
+      "demographics": "age_group                             30-40\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:14:59.852438",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Autoimmune or paraneoplastic cerebellar degeneration",
+          "Vitamin deficiencies (B12, E, copper)"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Autoimmune cerebellar degeneration, potentially paraneoplastic in origin, associated with Crohn's disease.",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Neurologist.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                            30-40\ngender                                              Female\nsmoking_status                                     Unknown\nalcohol_use                                        Unknown\ndrug_use                                           Unknown\noccupation_type                                    Unknown\ncomorbidity_status      Immunosuppressed/Special Treatment\nsymptom_presentation                               Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:15:50.304840",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 2,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Hirschsprung disease",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Test",
+        "Abdominal_X-ray",
+        "Barium_Enema"
+      ],
+      "determined_specialist": "Pediatric Gastroenterologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Intussusception",
+          "Functional or Colicky Abdominal Distension"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Intermittent intussusception",
+      "is_correct": false,
+      "tests_left_out": [
+        "Blood_Test",
+        "Barium_Enema",
+        "Abdominal_X-ray"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this case is a Pediatric Gastroenterologist.",
+      "self_confidence": "85%",
+      "demographics": "age_group                               0-1\ngender                                 Male\nsmoking_status                      Unknown\nalcohol_use                         Unknown\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:16:39.056797",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 3,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Diffuse large B-cell lymphoma",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Work",
+        "Imaging",
+        "Biopsy"
+      ],
+      "determined_specialist": "Oncologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "lymphoma",
+          "leukemia",
+          "tuberculosis",
+          "atypical infections",
+          "granulomatous diseases"
+        ],
+        "diagnoses_considered_count": 5,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Lymphoma (most likely diffuse large B-cell lymphoma or other high-grade non-Hodgkin lymphoma) presenting with systemic \"B\" symptoms, lymphadenopathy, and constitutional features. Differential diagnoses such as infectious lymphadenitis (e.g., tuberculosis) remain considerations until biopsy results confirm malignancy.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Biopsy",
+        "Imaging",
+        "Blood_Work"
+      ],
+      "specialist_reason": "The patient's symptoms\u2014persistent fatigue, abdominal pain, night sweats, weight loss, and enlarged lymph node\u2014are concerning for a possible lymphatic or hematologic malignancy, such as lymphoma or leukemia. These conditions often require specialized evaluation, including detailed blood work, imaging, and sometimes biopsy, to confirm diagnosis and plan treatment. Therefore, the most relevant medical specialist for this patient is an **Oncologist**, specifically one with expertise in hematologic cancers (hematologist-oncologist).",
+      "self_confidence": "85%",
+      "demographics": "age_group                             50-60\ngender                                 Male\nsmoking_status                       Smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type                Manual Labor\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:17:31.523617",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 4,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Acute interstitial nephritis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "determined_specialist": "Urologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "pyelonephritis",
+          "renal abscess",
+          "obstructive uropathy",
+          "neoplasm",
+          "musculoskeletal pain"
+        ],
+        "diagnoses_considered_count": 5,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Atypical acute pyelonephritis, potentially complicated by renal abscess or early obstructive process, given persistent flank pain, systemic fever, and recent antibiotic use without urinary symptoms.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "specialist_reason": "The patient's presentation of persistent dull flank pain, fever, fatigue, and recent antibiotic use suggests a possible urinary tract or kidney infection, such as pyelonephritis. These conditions involve the urinary system, which falls under the specialty of urology. A urologist specializes in diagnosing and treating disorders of the urinary tract (kidneys, ureters, bladder, and urethra) and male reproductive organs. Given the symptoms and the need for potential imaging, urine analysis, or further intervention related to the urinary system, consulting a urologist is most appropriate. **Most relevant specialist: Urologist**",
+      "self_confidence": "85%",
+      "demographics": "age_group                                     60+\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                           Retired\ncomorbidity_status      Chronic Condition Present\nsymptom_presentation                      Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:18:22.709269",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 5,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Pes anserine bursitis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "X-Ray_Knee",
+        "MRI_Knee"
+      ],
+      "determined_specialist": "Orthopedic Surgeon",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Medial Meniscus Tear",
+          "Medial Collateral Ligament (MCL) Sprain or Tear",
+          "Pes Anserine Bursitis or Tendinopathy"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Medial Meniscus Tear with Associated Medial Collateral Ligament (MCL) Sprain",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Knee",
+        "X-Ray_Knee"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is an **Orthopedic Surgeon**. **Reasoning:** The patient presents with acute knee pain following physical activity, with symptoms including pain below the kneecap on the inside of the leg, instability, and difficulty bearing weight. These signs suggest possible soft tissue injuries such as meniscal tears or ligament injuries, which are within the scope of orthopedic surgery. The patient is also willing to undergo imaging like X-ray or MRI, which are commonly ordered and interpreted by orthopedic specialists to diagnose musculoskeletal injuries. **Therefore, an Orthopedic Surgeon is best suited to evaluate, diagnose, and manage this patient's knee injury, including performing physical examinations, ordering appropriate imaging, and providing surgical or non-surgical treatment options if necessary.**",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   20-30\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\ncomorbidity_status      Chronic Condition Present\nsymptom_presentation                      Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:19:14.485428",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 6,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Situational syncope",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electrocardiogram"
+      ],
+      "determined_specialist": "Cardiologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Neurally mediated syncope (vasovagal or situational)",
+          "Cardiac arrhythmia",
+          "Structural heart disease"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Cardiac arrhythmia, likely transient bradyarrhythmia or conduction abnormality (such as sinus node dysfunction or AV block) causing syncope without warning signs.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Electrocardiogram",
+        "Blood_Tests"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's case is a cardiologist.",
+      "self_confidence": "85%",
+      "demographics": "age_group                             50-60\ngender                                 Male\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:19:58.903681",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 7,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Congenital Rubella Infection",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "TORCH_Screen",
+        "Echocardiogram",
+        "Ophthalmologic_Consult",
+        "Hearing_Test"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Congenital Hypotonia (Floppy Infant Syndrome)",
+          "Sensorineural Hearing Loss",
+          "Genetic or Metabolic Disorders",
+          "Structural Brain Abnormalities",
+          "Neurodevelopmental Disorders",
+          "Neurodegenerative or Developmental Disorders",
+          "Syndromes affecting motor neurons and cranial nerves"
+        ],
+        "diagnoses_considered_count": 7,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Congenital neurodegenerative or developmental disorder affecting both central and peripheral nervous systems, such as spinal muscular atrophy (SMA) with associated cranial nerve involvement, leading to hypotonia, poor spontaneous movement, auditory deficits, and difficulty waking.",
+      "is_correct": false,
+      "tests_left_out": [
+        "TORCH_Screen",
+        "Echocardiogram",
+        "Ophthalmologic_Consult",
+        "Hearing_Test"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a **Neurologist**. This conclusion is based on the following key points from the dialogue: - The baby exhibits **excessive sleepiness and difficulty waking**, which can indicate neurological issues. - There are signs of **hypotonia (floppiness)** and decreased movement, suggesting abnormal muscle tone. - The baby has trouble passing hearing tests and does not respond to sounds, indicating possible sensory or neurological deficits. - The concern about reflex responses and abnormal eye movements (though not explicitly observed) points toward neurological assessment. These signs collectively suggest a neurological concern that warrants specialized evaluation by a neurologist, who can perform detailed neurological examinations and diagnostic testing to determine the underlying cause.",
+      "self_confidence": "85%",
+      "demographics": "age_group                   0-1\ngender                   Female\nsmoking_status          Unknown\nalcohol_use             Unknown\ndrug_use                Unknown\noccupation_type         Unknown\ncomorbidity_status      Unknown\nsymptom_presentation    Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:20:46.197736",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 8,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Phyllodes tumor",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Mammography",
+        "Biopsy"
+      ],
+      "determined_specialist": "Oncologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Breast carcinoma",
+          "Phyllodes tumor",
+          "Benign tumors (e.g., fibroadenoma)",
+          "Infectious or inflammatory processes (e.g., abscess)"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Likely phyllodes tumor (benign or borderline), with differential considerations including malignant phyllodes tumor or invasive carcinoma, given rapid growth and clinical features.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Biopsy",
+        "Mammography"
+      ],
+      "specialist_reason": "Based on the dialogue, the patient presents with a rapidly enlarging breast mass over four weeks, without pain, skin changes, nipple discharge, or systemic symptoms. The rapid growth raises concern for a malignant process, such as breast cancer, which requires specialized evaluation and management. The most relevant medical specialist for this case is an **Oncologist**, specifically a **Breast Oncologist** or **Medical Oncologist** with expertise in breast cancer. They are trained to evaluate suspicious breast masses, perform necessary diagnostic procedures (like biopsy), interpret pathology results, and develop appropriate treatment plans if malignancy is confirmed. **Summary:** The patient's presentation suggests a potential breast malignancy, making an Oncologist the most appropriate specialist to further assess, diagnose, and manage the condition.",
+      "self_confidence": "85%",
+      "demographics": "age_group                             40-50\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:21:34.669029",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 9,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Endometritis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Complete_Blood_Count",
+        "Urinalysis",
+        "Vital_Signs_at_Presentation"
+      ],
+      "determined_specialist": "Gynecologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Urinary Tract Infection (UTI)",
+          "Pelvic or intra-abdominal infection",
+          "Postpartum complications",
+          "Pelvic inflammatory disease (PID)",
+          "Postpartum endometritis",
+          "Retained products of conception",
+          "Wound infection"
+        ],
+        "diagnoses_considered_count": 7,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Postpartum endometritis",
+      "is_correct": true,
+      "tests_left_out": [
+        "Urinalysis",
+        "Vital_Signs_at_Presentation",
+        "Complete_Blood_Count"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Gynecologist. The patient's history and symptoms\u2014such as fever, lower abdominal tenderness, increased urinary frequency, and the context of recent delivery\u2014point toward a possible pelvic or gynecological infection, such as endometritis or other postpartum complications. A gynecologist specializes in female reproductive health and is best equipped to evaluate, diagnose, and manage postpartum pelvic infections or other gynecological issues.",
+      "self_confidence": "85%",
+      "demographics": "age_group                             20-30\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                     Non-drinker\ndrug_use                      Non-drug User\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:22:27.556809",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 10,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Hemorrhoids",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Complete_Blood_Count",
+        "Anoscopy"
+      ],
+      "determined_specialist": "Colorectal Surgeon",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Hemorrhoids",
+          "Anal fissure",
+          "Rectal polyps or benign tumors",
+          "Malignant lesions"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Rectal adenomatous polyp or benign rectal lesion with possible early neoplastic changes, presenting as a palpable rectal mass and bright red rectal bleeding. Malignancy cannot be excluded without histopathological evaluation, but current evidence suggests a benign or pre-malignant process.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Anoscopy",
+        "Complete_Blood_Count"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Colorectal Surgeon**.",
+      "self_confidence": "85%",
+      "demographics": "age_group                             40-50\ngender                               Female\nsmoking_status                      Unknown\nalcohol_use                         Unknown\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:23:14.106380",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 11,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Complex partial seizure",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Electroencephalogram",
+        "MRI_Brain",
+        "Complete_Blood_Count",
+        "Serum_Electrolytes"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "focal seizure with impaired awareness",
+          "temporal lobe epilepsy"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Temporal Lobe Epilepsy (Complex Partial Seizures) with Impaired Awareness",
+      "is_correct": true,
+      "tests_left_out": [
+        "Electroencephalogram",
+        "MRI_Brain",
+        "Complete_Blood_Count",
+        "Serum_Electrolytes"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a neurologist. The patient's episodes\u2014characterized by staring, impaired awareness, automatisms (hand gestures), and post-episode amnesia\u2014are suggestive of seizure activity, likely focal seizures with impaired awareness. A neurologist specializes in diagnosing and managing neurological disorders, including epilepsy and seizure disorders, and can perform appropriate evaluations such as EEG and neuroimaging to confirm the diagnosis and develop a treatment plan.",
+      "self_confidence": "90%",
+      "demographics": "age_group                              0-10\ngender                                 Male\nsmoking_status                      Unknown\nalcohol_use                         Unknown\ndrug_use                            Unknown\noccupation_type                     Student\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:23:59.200233",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 12,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Posterior hip dislocation",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Imaging"
+      ],
+      "determined_specialist": "Orthopedic Surgeon",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Posterior Hip Dislocation",
+          "Hip Fracture",
+          "Ipsilateral Femoral Head or Neck Fracture",
+          "Acetabular fracture or other pelvic injuries"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Posterior hip dislocation without associated fractures",
+      "is_correct": true,
+      "tests_left_out": [
+        "Imaging"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is an Orthopedic Surgeon. **Rationale:** - The patient exhibits signs consistent with a hip dislocation or fracture, including leg shortening, internal rotation, groin pain, and difficulty bearing weight. - These injuries involve the musculoskeletal system, particularly the bones and joints of the hip and pelvis. - Orthopedic Surgeons specialize in diagnosing and managing musculoskeletal injuries, including fractures, dislocations, and complex joint injuries. - The patient's willingness to undergo imaging studies like X-rays further supports the need for specialized assessment and potential surgical intervention if necessary. **In summary:** Given the nature of the injury and the clinical presentation, an Orthopedic Surgeon is the most appropriate specialist to evaluate, diagnose, and treat this patient's hip injury.",
+      "self_confidence": "95%",
+      "demographics": "age_group                             20-30\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:24:48.682162",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 13,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Hirschsprung\u00e2\u20ac\u2122s disease",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Abdominal_X-ray",
+        "Rectal_Biopsy"
+      ],
+      "determined_specialist": "Pediatric Gastroenterologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Hirschsprung disease",
+          "intestinal atresia",
+          "duodenal atresia",
+          "annular pancreas",
+          "jejunal atresia",
+          "ileal atresia",
+          "malrotation with volvulus"
+        ],
+        "diagnoses_considered_count": 7,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Congenital duodenal atresia with associated proximal intestinal obstruction (possibly duodenal atresia or annular pancreas) presenting with bilious vomiting, absence of meconium passage, abdominal distension, and feeding refusal.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Abdominal_X-ray",
+        "Rectal_Biopsy"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Pediatric Gastroenterologist. **Rationale:** The infant exhibits signs suggestive of a congenital gastrointestinal disorder, such as Hirschsprung disease or intestinal obstruction, indicated by bilious vomiting, absence of meconium passage since birth, abdominal distension, and feeding difficulties. These complex gastrointestinal issues in infants require specialized evaluation and management, which falls under the expertise of a Pediatric Gastroenterologist.",
+      "self_confidence": "95%",
+      "demographics": "age_group                               0-1\ngender                                 Male\nsmoking_status                      Unknown\nalcohol_use                         Unknown\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:26:23.189494",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 14,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Rupture of the flexor digitorum profundus tendon at its point of insertion",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "X-ray_of_the_Right_Hand",
+        "MRI_of_the_Right_Hand"
+      ],
+      "determined_specialist": "Orthopedic Surgeon",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Flexor tendon injury (laceration or rupture)",
+          "Fracture of the distal phalanx",
+          "Avulsion injury (e.g., mallet finger)"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Complete rupture of the flexor digitorum profundus (FDP) tendon of the right ring finger, likely at the distal phalanx level, secondary to forceful traction injury during football play. No evidence of associated fracture or avulsion injury based on clinical examination.",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_of_the_Right_Hand",
+        "X-ray_of_the_Right_Hand"
+      ],
+      "specialist_reason": "Based on the patient's history of trauma, swelling, pain, inability to bend the finger, and potential deformity, the most appropriate specialist to evaluate and manage this condition is an Orthopedic Surgeon. They specialize in musculoskeletal injuries, including fractures, dislocations, and soft tissue injuries of the bones, joints, and tendons in the hand and fingers.",
+      "self_confidence": "95%",
+      "demographics": "age_group                             20-30\ngender                                 Male\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type                     Student\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:27:10.710290",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 15,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Epidermoid cyst",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Imaging",
+        "Complete_Blood_Count",
+        "Serum_Chemistry"
+      ],
+      "determined_specialist": "Endocrinologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Benign thyroid nodules or goiter",
+          "Thyroid cyst or colloid nodule",
+          "Thyroid malignancy"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Benign thyroid nodule or multinodular goiter, likely colloid in nature, with low suspicion for malignancy based on clinical presentation and ultrasound features.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Serum_Chemistry",
+        "Complete_Blood_Count",
+        "Imaging"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is an Endocrinologist. **Reasoning:** - The patient presents with a gradually enlarging neck swelling, which is most suggestive of a thyroid or other endocrine gland issue. - The absence of pain, systemic symptoms, or signs of infection points away from infectious or malignant causes and toward a benign or functional endocrine disorder. - The patient's history and physical exam focus on thyroid-related questions, and further evaluation (ultrasound, fine-needle aspiration) is typically managed by an endocrinologist. - Endocrinologists specialize in diagnosing and treating thyroid and other hormonal gland disorders, making them the most appropriate specialist for this case.",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   40-50\ngender                                       Male\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\ncomorbidity_status      Chronic Condition Present\nsymptom_presentation                      Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:27:57.929392",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 16,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "C. difficile colitis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Complete_Blood_Count",
+        "ESR",
+        "Stool_Test"
+      ],
+      "determined_specialist": "Gastroenterologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Clostridioides difficile infection",
+          "antibiotic-associated diarrhea",
+          "viral gastroenteritis"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Clostridioides difficile colitis (antibiotic-associated infectious colitis) with dehydration and potential severity.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Stool_Test",
+        "ESR",
+        "Complete_Blood_Count"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a **Gastroenterologist**. **Rationale:** - The patient presents with gastrointestinal symptoms such as diarrhea, abdominal cramping, and tenderness. - Recent antibiotic use raises concern for antibiotic-associated diarrhea, including Clostridioides difficile infection. - The need for stool testing, assessment of gastrointestinal function, and management of potential infectious or inflammatory bowel conditions aligns with a gastroenterologist's expertise. - The patient's dehydration and electrolyte imbalance also require specialized gastrointestinal and internal medicine management. Therefore, a Gastroenterologist is best suited to evaluate, diagnose, and treat this patient's gastrointestinal issues comprehensively.",
+      "self_confidence": "90%",
+      "demographics": "age_group                             50-60\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                     Non-drinker\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:28:48.176630",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 17,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Pyoderma gangrenosum",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Complete_Blood_Count",
+        "Blood_Glucose_Level",
+        "Skin_Biopsy"
+      ],
+      "determined_specialist": "Vascular Surgeon",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Infectious causes (cellulitis, abscess, ulcer)",
+          "Mycobacterial or atypical infections",
+          "Peripheral arterial disease (PAD)",
+          "Vasculitis",
+          "Osteomyelitis"
+        ],
+        "diagnoses_considered_count": 5,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Diabetic foot ulcer complicated by peripheral arterial disease (ischemic ulcer) with superimposed bacterial infection (likely cellulitis progressing to abscess)",
+      "is_correct": false,
+      "tests_left_out": [
+        "Skin_Biopsy",
+        "Complete_Blood_Count",
+        "Blood_Glucose_Level"
+      ],
+      "specialist_reason": "The patient's presentation of a progressively enlarging, painful ulcer with signs of infection (pus, foul odor, redness, warmth, tenderness), along with underlying conditions such as diabetes and Crohn's disease, suggests a complex wound that may involve vascular compromise. The absence of neurological symptoms like numbness or tingling points away from primarily neurological causes. Given these factors, a **Vascular Surgeon** is the most appropriate specialist to evaluate potential vascular issues such as peripheral arterial disease or compromised blood flow, which are common in diabetic patients and can impair wound healing or contribute to ulcer formation. Addressing vascular insufficiency is crucial for effective management and healing of the ulcer. **Therefore, the most relevant medical specialist type is: Vascular Surgeon.**",
+      "self_confidence": "85%",
+      "demographics": "age_group                                   50-60\ngender                                     Female\nsmoking_status                            Unknown\nalcohol_use                               Unknown\ndrug_use                                  Unknown\noccupation_type                           Unknown\ncomorbidity_status      Chronic Condition Present\nsymptom_presentation                      Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:29:50.032173",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 18,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Uterine rupture",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Hematology",
+        "Coagulation_Profile",
+        "Imaging"
+      ],
+      "determined_specialist": "Obstetrician",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Placental Abruption",
+          "Placenta Previa"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Placental Abruption at 38 weeks gestation presenting with heavy vaginal bleeding, abdominal and back pain, uterine tenderness, and signs of maternal hypovolemia.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Hematology",
+        "Coagulation_Profile",
+        "Imaging"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is an obstetrician.",
+      "self_confidence": "95%",
+      "demographics": "age_group                             30-40\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    },
+    {
+      "timestamp": "2025-07-16 23:30:38.197710",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 19,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Disc herniation",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Lumbar_Spine"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Lumbar Disc Herniation (Lumbar Radiculopathy)",
+          "Lumbar Spinal Stenosis"
+        ],
+        "diagnoses_considered_count": 2,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Lumbar disc herniation causing unilateral radiculopathy (likely involving L4-L5 or L5-S1 nerve roots)",
+      "is_correct": true,
+      "tests_left_out": [
+        "MRI_Lumbar_Spine"
+      ],
+      "specialist_reason": "The patient's symptoms\u2014radiating leg pain, tingling in the foot, and absence of bladder or bowel dysfunction\u2014suggest a neurological issue involving nerve roots or the spinal cord. The pattern of pain and sensory changes points toward a possible nerve compression or radiculopathy. Given these considerations, a neurologist is the most appropriate specialist to evaluate, diagnose, and manage this condition, as they specialize in disorders of the nervous system, including nerve root and spinal cord issues.",
+      "self_confidence": "85%",
+      "demographics": "age_group                             20-30\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                     Non-drinker\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
+    }
+  ]
+}

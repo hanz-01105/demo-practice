@@ -1,10 +1,10 @@
-import os
+import os   
 import json
 from datetime import datetime
 from base_files.prototype.demo import run_single_scenario
 from base_files.prototype.scenario import ScenarioMedQA
 from base_files.prototype.categorizer import categorize_scenario
-#from venv.statistical_analysis import run_analysis
+from base_files.prototype.statistical_analysis import run_analysis
 
 # Ensure logs directory exists
 os.makedirs("base_files/logs", exist_ok=True)
@@ -14,7 +14,7 @@ with open("base_files/data/agentclinic_medqa_extended.jsonl", "r") as f:
     scenarios = [ScenarioMedQA(json.loads(line)) for line in f]
 
 # Optional: Limit for debugging
-#scenarios = scenarios[:5]
+scenarios = scenarios[:5]
 
 # Parameters
 DATASET = "MedQA"
@@ -32,7 +32,7 @@ for idx, scenario in enumerate(scenarios):
         max_consultation_turns=MAX_CONSULTATION_TURNS,
         scenario_idx=idx,
         bias=None
-    )
+)
 
     if "dialogue_history" in result:
         del result["dialogue_history"]
@@ -72,4 +72,4 @@ with open(latest_output_path, "w") as f:
 print(f"\nSaved {len(all_results)} scenario logs to {output_path}")
 
 # Run statistical analysis on latest results
-#run_analysis("agentclinic_run_latest.json")
+run_analysis("agentclinic_run_latest.json")

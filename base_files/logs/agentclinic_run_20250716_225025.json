@@ -1,9 +1,9 @@
 {
-  "run_timestamp": "20250721_183304",
+  "run_timestamp": "20250716_225025",
   "num_scenarios": 5,
   "logs": [
     {
-      "timestamp": "2025-07-21 18:27:14.967284",
+      "timestamp": "2025-07-16 22:46:26.851838",
       "model": "gpt-4.1",
       "dataset": "MedQA",
       "scenario_id": 0,
@@ -23,25 +23,27 @@
       "consultation_analysis": {
         "premature_conclusion": false,
         "diagnoses_considered": [
-          "Myasthenia gravis (MG)",
-          "Lambert-Eaton myasthenic syndrome (LEMS)"
+          "myasthenia gravis",
+          "ocular myopathies",
+          "Lambert-Eaton myasthenic syndrome",
+          "early multiple sclerosis"
         ],
-        "diagnoses_considered_count": 2,
+        "diagnoses_considered_count": 4,
         "disagreements": 0
       },
-      "final_doctor_diagnosis": "Myasthenia gravis (MG), likely ocular onset with potential progression to generalized muscle weakness",
+      "final_doctor_diagnosis": "Myasthenia gravis (ocular form)",
       "is_correct": true,
       "tests_left_out": [
         "Imaging",
         "Blood_Tests",
         "Electromyography"
       ],
-      "specialist_reason": "The most relevant medical specialist for this patient's condition is a neurologist.",
+      "specialist_reason": "The patient's symptoms\u2014double vision, drooping eyelids (ptosis), muscle weakness that worsens with activity and improves with rest, and absence of significant sensory deficits\u2014are characteristic of a neuromuscular junction disorder, most notably myasthenia gravis. Given this clinical picture, the most relevant medical specialist to consult is a **Neurologist**. Neurologists specialize in disorders of the nervous system, including neuromuscular diseases like myasthenia gravis, and are equipped to perform specialized examinations, diagnostic tests (such as antibody testing, electromyography, and nerve conduction studies), and initiate appropriate treatment plans.",
       "self_confidence": "95%",
       "demographics": "age_group                             30-40\ngender                               Female\nsmoking_status                   Non-smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type            Knowledge Worker\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
     },
     {
-      "timestamp": "2025-07-21 18:28:14.893032",
+      "timestamp": "2025-07-16 22:47:18.288263",
       "model": "gpt-4.1",
       "dataset": "MedQA",
       "scenario_id": 1,
@@ -59,22 +61,25 @@
       "consultation_analysis": {
         "premature_conclusion": false,
         "diagnoses_considered": [
-          "Paraneoplastic cerebellar degeneration"
+          "Vitamin B12 deficiency (Cobalamin deficiency)",
+          "Subacute combined degeneration of the spinal cord",
+          "Other nutritional deficiencies (folate, vitamin D)",
+          "Structural causes such as neurodegenerative conditions or lesions"
         ],
-        "diagnoses_considered_count": 1,
+        "diagnoses_considered_count": 4,
         "disagreements": 0
       },
-      "final_doctor_diagnosis": "Paraneoplastic cerebellar degeneration, most likely associated with Anti-Yo antibodies, secondary to an underlying occult malignancy (e.g., ovarian or breast cancer).",
+      "final_doctor_diagnosis": "Vitamin B12 deficiency (subacute combined degeneration of the spinal cord) secondary to malabsorption due to Crohn's disease involving the terminal ileum.",
       "is_correct": false,
       "tests_left_out": [
         "MRI_Brain"
       ],
-      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a **Neurologist**. **Rationale:** - The patient exhibits neurological symptoms such as gait and limb ataxia, unsteady walking, double vision, and abnormal eye movements (nystagmus), which are indicative of cerebellar or central nervous system involvement. - The symptoms have developed gradually over weeks, with additional signs like weakness and coordination problems, suggesting a neurological process rather than a primary musculoskeletal or systemic issue. - The absence of systemic symptoms like weight loss or systemic illness points toward a neurological etiology. - The detailed neurological history and examination are essential for diagnosis and management, which falls within the expertise of a neurologist. **In summary:** A neurologist is best suited to evaluate, diagnose, and manage this patient's neurological symptoms.",
+      "specialist_reason": "The patient's neurological symptoms\u2014progressive gait and limb ataxia, limb weakness, sensory disturbances, and coordination issues\u2014along with their history of Crohn's disease and potential nutritional deficiencies (such as vitamin B12 or folate deficiency), suggest a neurological condition that requires specialized assessment. A neurologist is the most appropriate specialist to evaluate these symptoms because they specialize in diagnosing and managing neurological disorders, including those related to the nervous system, such as cerebellar ataxia, peripheral neuropathy, or neurological complications of nutritional deficiencies. They can perform detailed neurological examinations, order appropriate diagnostic tests (like MRI, nerve conduction studies, or blood tests for vitamin levels), and develop a targeted treatment plan. **Most relevant specialist: Neurologist**",
       "self_confidence": "85%",
       "demographics": "age_group                                            30-40\ngender                                              Female\nsmoking_status                                     Unknown\nalcohol_use                                        Unknown\ndrug_use                                           Unknown\noccupation_type                                    Unknown\ncomorbidity_status      Immunosuppressed/Special Treatment\nsymptom_presentation                               Unknown\ndtype: object"
     },
     {
-      "timestamp": "2025-07-21 18:29:21.270998",
+      "timestamp": "2025-07-16 22:48:07.821586",
       "model": "gpt-4.1",
       "dataset": "MedQA",
       "scenario_id": 2,
@@ -94,26 +99,26 @@
       "consultation_analysis": {
         "premature_conclusion": false,
         "diagnoses_considered": [
-          "Intestinal Obstruction or Volvulus",
-          "Hirschsprung Disease",
-          "Intussusception"
+          "Hirschsprung's Disease",
+          "Meconium Plug Syndrome",
+          "Functional Constipation"
         ],
         "diagnoses_considered_count": 3,
         "disagreements": 0
       },
-      "final_doctor_diagnosis": "Intussusception in a neonate presenting with abdominal distension, fussiness, feeding difficulties, and tenderness.",
-      "is_correct": false,
+      "final_doctor_diagnosis": "Hirschsprung's disease (aganglionic megacolon) presenting with chronic constipation, abdominal distension, tenderness, and difficulty passing stool in an infant.",
+      "is_correct": true,
       "tests_left_out": [
-        "Abdominal_X-ray",
         "Blood_Test",
-        "Barium_Enema"
+        "Barium_Enema",
+        "Abdominal_X-ray"
       ],
-      "specialist_reason": "The most relevant medical specialist for this case is a Pediatric Gastroenterologist. **Rationale:** The infant presents with symptoms such as persistent fussiness, abdominal swelling, difficulty feeding, and discomfort upon abdominal touch, which suggest a gastrointestinal issue. These symptoms are characteristic of conditions affecting the digestive system in infants, such as congenital anomalies, gastrointestinal obstructions, or other pediatric GI disorders. A Pediatric Gastroenterologist specializes in diagnosing and managing gastrointestinal problems in children, making them the most appropriate specialist to evaluate and treat this infant's condition.",
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Pediatric Gastroenterologist.",
       "self_confidence": "85%",
       "demographics": "age_group                               0-1\ngender                                 Male\nsmoking_status                      Unknown\nalcohol_use                         Unknown\ndrug_use                            Unknown\noccupation_type                     Unknown\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
     },
     {
-      "timestamp": "2025-07-21 18:30:54.876863",
+      "timestamp": "2025-07-16 22:48:54.200831",
       "model": "gpt-4.1",
       "dataset": "MedQA",
       "scenario_id": 3,
@@ -133,26 +138,27 @@
       "consultation_analysis": {
         "premature_conclusion": false,
         "diagnoses_considered": [
-          "Lymphoma (Hodgkin or Non-Hodgkin)",
-          "Metastatic carcinoma",
-          "Infectious causes (e.g., tuberculosis)"
+          "lymphoma",
+          "metastatic malignancies involving lymph nodes",
+          "infectious causes like tuberculosis",
+          "systemic illnesses like sarcoidosis"
         ],
-        "diagnoses_considered_count": 3,
+        "diagnoses_considered_count": 4,
         "disagreements": 0
       },
-      "final_doctor_diagnosis": "Likely Hodgkin lymphoma or Non-Hodgkin lymphoma presenting with supraclavicular lymphadenopathy, systemic B symptoms (night sweats, weight loss, fatigue), and recent onset of neck swelling. Differential diagnosis also includes metastatic carcinoma, but lymphoma remains the most probable given the clinical features.",
+      "final_doctor_diagnosis": "Hodgkin lymphoma (likely classical Hodgkin lymphoma, nodular sclerosis subtype) presenting with supraclavicular lymphadenopathy (Virchow's node), systemic B symptoms (fever, night sweats, weight loss), and abdominal pain.",
       "is_correct": false,
       "tests_left_out": [
-        "Imaging",
+        "Blood_Work",
         "Biopsy",
-        "Blood_Work"
+        "Imaging"
       ],
-      "specialist_reason": "Based on the patient's symptoms\u2014particularly the persistent night sweats, unexplained weight loss, enlarged neck lymph node, and fatigue\u2014the most relevant medical specialist would be an **Oncologist**. These signs are concerning for potential malignancies such as lymphoma or other cancers, which require specialized evaluation and management by an oncologist.",
+      "specialist_reason": "The patient's presentation of persistent fatigue, weight loss, night sweats, abdominal pain, and enlarged lymph nodes suggests a possible systemic or malignant process, such as lymphoma or other cancers involving the lymphatic system. Therefore, the most relevant medical specialist to evaluate and manage this case is an **Oncologist**.",
       "self_confidence": "85%",
       "demographics": "age_group                             50-60\ngender                                 Male\nsmoking_status                       Smoker\nalcohol_use                         Drinker\ndrug_use                            Unknown\noccupation_type                Manual Labor\ncomorbidity_status      No Significant PMHx\nsymptom_presentation                Unknown\ndtype: object"
     },
     {
-      "timestamp": "2025-07-21 18:31:55.099705",
+      "timestamp": "2025-07-16 22:49:40.474968",
       "model": "gpt-4.1",
       "dataset": "MedQA",
       "scenario_id": 4,
@@ -171,21 +177,21 @@
       "consultation_analysis": {
         "premature_conclusion": false,
         "diagnoses_considered": [
-          "Acute Pyelonephritis",
+          "Pyelonephritis",
           "Renal abscess",
-          "Nephrolithiasis (kidney stones)"
+          "Obstructive uropathy"
         ],
         "diagnoses_considered_count": 3,
         "disagreements": 0
       },
-      "final_doctor_diagnosis": "Acute pyelonephritis without urinary obstruction or stones, presenting with systemic signs (fever, chills, flank pain, fatigue) and no urinary symptoms. The clinical picture suggests a renal infection likely caused by bacterial pathogens such as E. coli, with potential for abscess formation if untreated.",
+      "final_doctor_diagnosis": "Acute pyelonephritis with possible renal abscess formation, likely secondary to ascending infection, potentially exacerbated by recent antibiotic use and underlying predisposing factors such as anatomical anomalies or stones.",
       "is_correct": false,
       "tests_left_out": [
-        "Urinalysis",
-        "Serum_Biochemistry"
+        "Serum_Biochemistry",
+        "Urinalysis"
       ],
-      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Urologist. **Rationale:** - The patient presents with flank pain, fever, chills, and fatigue, which are suggestive of a kidney infection (pyelonephritis). - The absence of urinary symptoms like burning or urgency does not rule out urinary tract involvement. - Urologists specialize in the diagnosis and treatment of urinary tract and kidney disorders, including infections, stones, and structural abnormalities. - They are also skilled in managing complications related to the urinary system and performing relevant diagnostic procedures if needed. While infectious disease specialists or nephrologists could also be involved depending on the case progression, the primary specialist for initial evaluation and management of suspected urinary tract infections involving the kidneys is a Urologist.",
-      "self_confidence": "95%",
+      "specialist_reason": "The patient's presentation of dull, constant flank pain, tenderness and swelling in the side, fever, and recent antibiotic use suggests a possible kidney infection (pyelonephritis) or other urinary tract issues involving the kidneys. These symptoms are within the scope of urological concerns related to the urinary tract and kidneys. Therefore, the most relevant medical specialist for this case is a **Urologist**.",
+      "self_confidence": "90%",
       "demographics": "age_group                                     60+\ngender                                     Female\nsmoking_status                         Non-smoker\nalcohol_use                               Drinker\ndrug_use                                  Unknown\noccupation_type                           Retired\ncomorbidity_status      Chronic Condition Present\nsymptom_presentation                      Unknown\ndtype: object"
     }
   ]

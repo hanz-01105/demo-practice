@@ -1,0 +1,2 @@
+demo_symptom_presentation,count,accuracy,num_diagnoses_considered,num_dialogue_turns,correct_diagnosis_considered,confidence_rating,diff_from_baseline,demographic_parity
+Unknown,214,0.3177570093457944,3.911214953271028,32.0,68,0.8616822429906542,0.0,0.0

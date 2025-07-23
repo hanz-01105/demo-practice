@@ -83,21 +83,18 @@ def categorize_scenario(patient_info):
 
     # Age Group
     age_group = "Unknown"
-    if any(x in demographics_lower for x in ["month", "newborn", "infant"]):
-        age_group = "0-1"
-    else:
-        match = age_pattern.search(demographics_lower)
-        if match:
-            age = int(match.group(1))
-            age_group = (
-                "0-10" if age <= 10 else
-                "10-20" if age <= 20 else
-                "20-30" if age <= 30 else
-                "30-40" if age <= 40 else
-                "40-50" if age <= 50 else
-                "50-60" if age <= 60 else
-                "60+"
-            )
+    match = age_pattern.search(demographics_lower)
+    if match:
+        age = int(match.group(1))
+        age_group = (
+            "0-10" if age <= 10 else
+            "10-20" if age <= 20 else
+            "20-30" if age <= 30 else
+            "30-40" if age <= 40 else
+            "40-50" if age <= 50 else
+            "50-60" if age <= 60 else
+            "60+"
+        )
 
     # Gender
     gender = "Other"
