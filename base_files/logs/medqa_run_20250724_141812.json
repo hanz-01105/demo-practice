@@ -1,0 +1,266 @@
+{
+  "run_timestamp": "20250724_141812",
+  "dataset": "MedQA",
+  "results": [
+    {
+      "timestamp": "2025-07-24 14:12:11.279360",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 0,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Myasthenia gravis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Myasthenia gravis (MG)",
+          "Lambert-Eaton Myasthenic Syndrome (LEMS)",
+          "Botulism"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Myasthenia gravis (ocular and generalized) with associated thymoma suspected based on clinical presentation of fluctuating muscle weakness, ptosis, diplopia, and activity-dependent symptom worsening.",
+      "is_correct": true,
+      "tests_left_out": [
+        "Blood_Tests",
+        "Electromyography",
+        "Imaging"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a **Neurologist**.",
+      "self_confidence": "95%",
+      "demographics": {
+        "Demographics": "35-year-old female",
+        "History": "The patient reports a 1-month history of experiencing double vision (diplopia), difficulty in climbing stairs, and weakness when trying to brush her hair. She notes that these symptoms tend to worsen after physical activity but improve significantly after a few hours of rest.",
+        "Symptoms": {
+          "Primary_Symptom": "Double vision",
+          "Secondary_Symptoms": [
+            "Difficulty climbing stairs",
+            "Weakness in upper limbs",
+            "Improvement of symptoms after rest"
+          ]
+        },
+        "Past_Medical_History": "No significant past medical history.",
+        "Social_History": "Non-smoker, drinks wine occasionally. Works as a graphic designer.",
+        "Review_of_Systems": "Patient denies experiencing any chest pain, palpitations, shortness of breath, or recent infections."
+      }
+    },
+    {
+      "timestamp": "2025-07-24 14:13:28.367369",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 1,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Progressive multifocal encephalopathy (PML)",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "MRI_Brain"
+      ],
+      "determined_specialist": "Neurologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Multiple Sclerosis (MS)",
+          "Paraneoplastic or autoimmune cerebellar degeneration",
+          "Autoimmune cerebellitis"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Multiple Sclerosis (MS) presenting with cerebellar and motor deficits",
+      "is_correct": false,
+      "tests_left_out": [
+        "MRI_Brain"
+      ],
+      "specialist_reason": "The patient's symptoms of progressive gait and limb ataxia, right arm weakness, unsteadiness, and coordination issues suggest involvement of the nervous system, particularly the cerebellum and related pathways. Given the neurological nature of these symptoms, the most relevant medical specialist to evaluate and manage this condition is a **Neurologist**.",
+      "self_confidence": "85%",
+      "demographics": {
+        "Demographics": "35-year-old woman",
+        "History": "The patient presents for a follow-up regarding her Crohn disease, and reports new-onset difficulty walking, described by her peers as 'appearing drunk'. She has a significant history of Crohn disease diagnosed 2 years ago, which has escalated in severity, failing to respond to standard therapies. She has been on natalizumab for the past year.",
+        "Symptoms": {
+          "Primary_Symptom": "Difficulty walking with a 'drunken gait'",
+          "Secondary_Symptoms": [
+            "Gait ataxia",
+            "Limb ataxia",
+            "Reduced strength in the right upper limb"
+          ]
+        },
+        "Past_Medical_History": "Crohn disease diagnosed 2 years ago, current treatment includes natalizumab for the past year.",
+        "Social_History": "Information not provided.",
+        "Review_of_Systems": "No additional symptoms provided."
+      }
+    },
+    {
+      "timestamp": "2025-07-24 14:14:40.255911",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 2,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Hirschsprung disease",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Test",
+        "Abdominal_X-ray",
+        "Barium_Enema"
+      ],
+      "determined_specialist": "Pediatric Gastroenterologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Constipation or functional bowel obstruction",
+          "Intra-abdominal mass or cyst (e.g., ovarian cysts, mesenteric cysts)",
+          "Congenital anomalies (e.g., malrotation with volvulus)",
+          "Neuroblastoma"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Congenital intra-abdominal cyst, most likely a mesenteric or omental cyst, presenting with a hard, distended, and tender abdomen in an infant.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Abdominal_X-ray",
+        "Blood_Test",
+        "Barium_Enema"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's presentation is a Pediatric Gastroenterologist.",
+      "self_confidence": "85%",
+      "demographics": {
+        "Demographics": "8-month-old boy",
+        "History": "The patient has been very fussy and has shown decreased interest in feeding for the past few days. His mother reports that despite the feeding difficulties, she believes the child has been gaining weight. There were no complications during birth at 39 weeks of gestation.",
+        "Symptoms": {
+          "Primary_Symptom": "Crying, especially intense with abdominal palpation",
+          "Secondary_Symptoms": [
+            "Distended abdomen",
+            "Decreased feeding",
+            "Weight gain despite decreased feeding"
+          ]
+        },
+        "Past_Medical_History": "No significant past medical or surgical history. Delivered vaginally at 39 weeks without complications.",
+        "Social_History": "First child to young parents, no history of similar illness in the family.",
+        "Review_of_Systems": "No episodes of fever, vomiting, or diarrhea. The baby has not had any known illnesses since birth."
+      }
+    },
+    {
+      "timestamp": "2025-07-24 14:15:57.727529",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 3,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Diffuse large B-cell lymphoma",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Blood_Work",
+        "Imaging",
+        "Biopsy"
+      ],
+      "determined_specialist": "Oncologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "lymphoma",
+          "metastatic carcinoma",
+          "germ cell tumor",
+          "infectious causes (e.g., tuberculosis)"
+        ],
+        "diagnoses_considered_count": 4,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Likely Hodgkin lymphoma presenting with supraclavicular lymphadenopathy (Virchow's node), systemic B symptoms (weight loss, night sweats, fatigue), and no evidence of infection or other primary malignancy at this stage.",
+      "is_correct": false,
+      "tests_left_out": [
+        "Blood_Work",
+        "Imaging",
+        "Biopsy"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's case is an Oncologist. This conclusion is based on the patient's symptoms, which include significant weight loss, night sweats, fatigue, and an enlarged supraclavicular lymph node. These signs are concerning for potential malignancies such as lymphoma, leukemia, or other cancers that can present with lymphadenopathy and systemic symptoms. An oncologist specializes in diagnosing and treating cancers, and would be the appropriate specialist to evaluate further, order necessary diagnostic tests (such as biopsies or imaging), and develop an appropriate treatment plan.",
+      "self_confidence": "85%",
+      "demographics": {
+        "Demographics": "55-year-old male",
+        "History": "The patient reports experiencing fatigue, worsening abdominal pain for the past 4 weeks, excessive night sweats, and a noticeable weight loss of approximately 5.4 kg (12 lb). Additionally, the patient noticed neck swelling developing over the last 4 days.",
+        "Symptoms": {
+          "Primary_Symptom": "Fatigue, abdominal pain",
+          "Secondary_Symptoms": [
+            "Excessive night sweats",
+            "Weight loss of 5.4 kg (12 lb)",
+            "Neck swelling for 4 days"
+          ]
+        },
+        "Past_Medical_History": "The patient does not report any significant past medical history. No previous major illnesses or surgeries.",
+        "Social_History": "The patient has a history of smoking, 1 pack per day for the past 30 years. Drinks alcohol socially. Works in a construction company.",
+        "Review_of_Systems": "Patient also reports feeling an unusual fullness in the belly area and has difficulty wearing his usual clothing due to this. Denies fever, cough, or recent travel."
+      }
+    },
+    {
+      "timestamp": "2025-07-24 14:17:02.928301",
+      "model": "gpt-4.1",
+      "dataset": "MedQA",
+      "scenario_id": 4,
+      "bias_applied": null,
+      "max_patient_turns": 10,
+      "max_consultation_turns": 5,
+      "correct_diagnosis": "Acute interstitial nephritis",
+      "num_dialogue_turns": 32,
+      "requested_tests": [],
+      "tests_requested_count": 0,
+      "available_tests": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "determined_specialist": "Nephrologist",
+      "consultation_analysis": {
+        "premature_conclusion": false,
+        "diagnoses_considered": [
+          "Pyelonephritis",
+          "Renal abscess",
+          "Musculoskeletal causes"
+        ],
+        "diagnoses_considered_count": 3,
+        "disagreements": 0
+      },
+      "final_doctor_diagnosis": "Acute pyelonephritis, likely complicated by early renal abscess formation",
+      "is_correct": false,
+      "tests_left_out": [
+        "Serum_Biochemistry",
+        "Urinalysis"
+      ],
+      "specialist_reason": "The most relevant medical specialist for this patient's condition is a Nephrologist. The patient's presentation of flank pain, fever, tenderness over the flank area, and recent antibiotic use suggests a possible kidney-related issue, such as pyelonephritis or other renal pathology. A nephrologist specializes in kidney diseases and can provide expert evaluation and management of renal infections, dysfunction, or other nephrological conditions that may be underlying these symptoms.",
+      "self_confidence": "85%",
+      "demographics": {
+        "Demographics": "62-year-old woman",
+        "History": "The patient presents with complaints of fatigue, flank pain, and a persistent fever. She reports that these symptoms have continued despite the resolution of her sinusitis symptoms. She was initially treated with amoxicillin for acute sinusitis for 12 days, during which she developed a rash. The antibiotic was then changed to cephalexin for an additional week, and the rash resolved. She has a medical history of essential hypertension, hyperlipidemia, and gastric reflux and has been on a stable regimen of lisinopril, simvastatin, and omeprazole.",
+        "Symptoms": {
+          "Primary_Symptom": "Fatigue, flank pain, and fever",
+          "Secondary_Symptoms": [
+            "History of rash during antibiotic treatment",
+            "Persistent symptoms despite resolution of initial sinusitis"
+          ]
+        },
+        "Past_Medical_History": "Essential hypertension, hyperlipidemia, gastric reflux",
+        "Social_History": "Non-smoker, drinks alcohol socially, retired school teacher.",
+        "Review_of_Systems": "Denies nausea, vomiting, dysuria, or recent changes in urine color. Reports a resolved skin rash."
+      }
+    }
+  ]
+}
