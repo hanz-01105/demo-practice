@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 
 # --- Enhanced Constants ---
-LOG_PATH = "logs"
+LOG_PATH = "base_files/logs"
 LOG_FILE = "MedQA_Ext_none_bias_corrected_20250725_114108.json"
 
 # Improved symptom categorization with more comprehensive keywords
@@ -461,7 +461,7 @@ def generate_summary_insights(df: pd.DataFrame):
     category_performance['accuracy'] = category_performance['mean'] * 100
     category_performance = category_performance.sort_values('accuracy', ascending=False)
     
-    print("\n🔍 Performance Rankings:")
+    print("\n Performance Rankings:")
     for _, row in category_performance.iterrows():
         if row['count'] >= 3:  # Only show categories with sufficient data
             print(f"  {row['symptom_presentation']}: {row['accuracy']:.1f}% ({row['count']} cases)")
@@ -469,7 +469,7 @@ def generate_summary_insights(df: pd.DataFrame):
     # Complexity insights
     if 'num_diagnoses_considered' in df.columns:
         complexity_corr = df[['num_diagnoses_considered', 'is_correct']].corr().iloc[0, 1]
-        print(f"\n📊 Complexity Correlation:")
+        print(f"\n Complexity Correlation:")
         print(f"  Correlation between diagnostic complexity and accuracy: {complexity_corr:.3f}")
         
         if complexity_corr > 0.1:
@@ -480,7 +480,7 @@ def generate_summary_insights(df: pd.DataFrame):
             print("  → No strong correlation between complexity and outcomes")
     
     # Recommendations
-    print(f"\n💡 Recommendations:")
+    print(f"\n Recommendations:")
     
     best_category = category_performance.iloc[0]
     worst_category = category_performance.iloc[-1]
@@ -508,7 +508,7 @@ if __name__ == "__main__":
         # Enhanced data preparation
         if "consultation_analysis.diagnoses_considered_count" in processed_df.columns:
             processed_df['num_diagnoses_considered'] = processed_df["consultation_analysis.diagnoses_considered_count"]
-            print(f"✓ Diagnoses considered data available (avg: {processed_df['num_diagnoses_considered'].mean():.1f})")
+            print(f" Diagnoses considered data available (avg: {processed_df['num_diagnoses_considered'].mean():.1f})")
         else:
             print("  Warning: No diagnoses considered count found")
             processed_df['num_diagnoses_considered'] = 0
@@ -529,7 +529,7 @@ if __name__ == "__main__":
         print(f"   Average Diagnoses Considered: {avg_diagnoses:.1f}")
 
         # Enhanced symptom extraction and categorization
-        print("\n🔄 Extracting and categorizing symptoms...")
+        print("\n Extracting and categorizing symptoms...")
         processed_df['symptoms_raw'] = processed_df.apply(enhanced_extract_symptoms_from_log, axis=1)
         
         # Apply enhanced categorization
@@ -537,7 +537,7 @@ if __name__ == "__main__":
         processed_df['symptom_presentation'] = [result[0] for result in categorization_results]
         processed_df['categorization_details'] = [result[1] for result in categorization_results]
         
-        print("✓ Enhanced symptom categorization complete.")
+        print(" Enhanced symptom categorization complete.")
 
         # Distribution analysis
         print("\n" + "="*60)
@@ -575,7 +575,7 @@ if __name__ == "__main__":
             print(f"   Accuracy: {accuracy:.1f}% {ci}")
             print(f"   Cases: {correct}/{total} correct")
             if avg_diag > 0:
-                print(f"  🔍 Avg Diagnoses Considered: {avg_diag:.1f}")
+                print(f"   Avg Diagnoses Considered: {avg_diag:.1f}")
         
         # Enhanced complexity analysis
         analyze_diagnostic_complexity_enhanced(processed_df)
