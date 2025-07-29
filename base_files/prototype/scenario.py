@@ -2,7 +2,7 @@ import openai, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
-from .util import query_model
+from util import query_model
 import pandas as pd
 
 # --- Base Scenario Class ---
@@ -61,7 +61,7 @@ class ScenarioLoader:
         self.dataset = dataset
         self.scenario_map = {
             "MedQA": (ScenarioMedQA, "../data/templates/agentclinic_medqa.jsonl"),
-            "MedQA_Ext": (ScenarioMedQA, "../data/templates/agentclinic_medqa_extended.jsonl"),
+            "MedQA_Ext": (ScenarioMedQA, "../data/agentclinic_medqa_extended.jsonl"),
             "NEJM": (ScenarioNEJM, "../data/templates/agentclinic_nejm.jsonl"),
             "NEJM_Ext": (ScenarioNEJM, "../data/templates/agentclinic_nejm_extended.jsonl"),
         }

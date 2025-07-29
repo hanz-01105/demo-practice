@@ -1,9 +1,9 @@
 from datetime import datetime
 import argparse, os, json, time
-from .prompts import ALL_BIASES
-from .util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
-from .scenario import ScenarioLoader
-from .agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
+from prompts import ALL_BIASES
+from util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
+from scenario import ScenarioLoader
+from agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
 
 """ 
 RELEASE NOTES:
@@ -178,7 +178,9 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
 
 def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences, consultation_turns):
     """Run a single bias-dataset combination test"""
-    log_file = get_log_file(dataset, bias)
+    # Custom filename for bias-corrected run
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(BASE_LOG_DIR, f"{dataset}_{bias}_bias_corrected_{timestamp}.json")
     completed_scenario_ids = get_completed_scenarios(log_file) # Renamed for clarity
     
     print(f"\n=== Testing {bias} bias on {dataset} dataset ===")
@@ -213,7 +215,7 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
     for scenario_idx in scenarios_to_process:
         print(f"\n--- Running Scenario {scenario_idx + 1}/{scenarios_to_run} with {bias} bias ---")
         scenario = scenario_loader.get_scenario(id=scenario_idx)
-        breakpoint() 
+
         if scenario is None:
             print(f"Error loading scenario {scenario_idx}, skipping.")
             continue
@@ -222,7 +224,7 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
         run_log, is_correct = run_single_scenario(
             scenario, dataset, total_inferences, consultation_turns, scenario_idx, bias
         )        
-        breakpoint() 
+
 
         if is_correct:
             total_correct_current_session += 1
@@ -278,18 +280,18 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
 def main():
     # Create argument parser for optional parameters
     parser = argparse.ArgumentParser(description='Run medical diagnosis simulation with bias testing')
-    parser.add_argument('--dataset', choices=['MedQA', 'NEJM', 'all'], default='all',
-                      help='Which dataset to use (default: all)')
+    parser.add_argument('--dataset', choices=['MedQA', 'MedQA_Ext', 'NEJM', 'NEJM_Ext', 'all'], default='all',
+                  help='Which dataset to use (default: all)')
     parser.add_argument('--bias', help='Specific bias to test (default: test all biases)')
     parser.add_argument('--scenarios', type=int, default=NUM_SCENARIOS,
                       help=f'Number of scenarios to run per combination (default: {NUM_SCENARIOS})')
     args = parser.parse_args()
     
     # Determine which datasets to test
-    datasets_to_test = ['MedQA', 'NEJM'] if args.dataset == 'all' else [args.dataset]
-    
-    # Determine which biases to test
-    biases_to_test = [args.bias] if args.bias else ['none'] + list(ALL_BIASES.keys())
+    # Force to test only MedQA_Ext with no bias
+    datasets_to_test = ['MedQA_Ext']
+    biases_to_test = ['none']
+    args.scenarios = 214  # Force 214 scenarios
     
     print(f"Starting comprehensive bias testing across {len(datasets_to_test)} datasets and {len(biases_to_test)} biases")
     print(f"Base settings: {args.scenarios} scenarios per combination, {TOTAL_INFERENCES} patient interactions, {CONSULTATION_TURNS} consultation turns")
@@ -343,6 +345,7 @@ def main():
     summary["total_duration_seconds"] = (datetime.fromisoformat(summary["end_time"]) - 
                                         datetime.fromisoformat(summary["start_time"])).total_seconds()
     
+    os.makedirs(BASE_LOG_DIR, exist_ok=True)  # Ensure directory exists
     with open(os.path.join(BASE_LOG_DIR, "bias_testing_summary.json"), 'w') as f:
         json.dump(summary, f, indent=2)
     
@@ -350,7 +353,42 @@ def main():
     print(f"Completed {summary['completed_combinations']}/{summary['total_combinations']} combinations")
     print(f"Total duration: {summary['total_duration_seconds']/3600:.2f} hours")
     print(f"Full results saved to {os.path.join(BASE_LOG_DIR, 'bias_testing_summary.json')}")
+    print("=== PATH DEBUGGING ===")
+    print(f"Current working directory: {os.getcwd()}")
+    print()
 
+    # Test different possible paths
+    possible_paths = [
+        "base_files/data/agentclinic_medqa_extended.jsonl",
+        "../data/agentclinic_medqa_extended.jsonl", 
+        "../../base_files/data/agentclinic_medqa_extended.jsonl",
+        "../base_files/data/agentclinic_medqa_extended.jsonl",
+        "./base_files/data/agentclinic_medqa_extended.jsonl"
+    ]
+
+    print("Testing possible file paths:")
+    for path in possible_paths:
+        exists = os.path.exists(path)
+        abs_path = os.path.abspath(path)
+        print(f"  {path:<50} {'✅ EXISTS' if exists else '❌ NOT FOUND'}")
+        if exists:
+            print(f"    Absolute path: {abs_path}")
+            print(f"    File size: {os.path.getsize(path)} bytes")
+
+    print()
+    print("Directory contents:")
+    try:
+        print("Current directory:", os.listdir("."))
+    except:
+        print("Could not list current directory")
+
+    try:
+        if os.path.exists("base_files"):
+            print("base_files directory:", os.listdir("base_files"))
+        if os.path.exists("base_files/data"):
+            print("base_files/data directory:", os.listdir("base_files/data"))
+    except:
+        print("Could not list base_files directories")
 
 if __name__ == "__main__":
     main()

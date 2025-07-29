@@ -2,7 +2,7 @@ import openai, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
-from .prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
+from prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
 
 BASE_LOG_DIR = "logs" # TODO ~ Add to .gitignore
 MODEL_NAME = "gpt-4.1-nano" 
@@ -34,7 +34,8 @@ def compare_results(diagnosis, correct_diagnosis):
 def get_log_file(dataset, bias_name):
     """Create a log file name based on dataset and bias"""
     os.makedirs(BASE_LOG_DIR, exist_ok=True)
-    return os.path.join(BASE_LOG_DIR, f"{dataset}_{bias_name}_log.json")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    return os.path.join(BASE_LOG_DIR, f"{dataset}_{bias_name}_bias_corrected_{timestamp}.json")
 
 def log_scenario_data(data, log_file):
     """Log data to a specific log file"""

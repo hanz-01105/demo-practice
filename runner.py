@@ -10,7 +10,7 @@ with open("base_files/data/agentclinic_medqa_extended.jsonl", "r") as f:
 scenarios = scenarios[:5]  # limit to first 5 for testing
 
 # Config
-DATASET = "MedQA"
+DATASET = "MedQA_Ext"
 TOTAL_INFERENCES = 10
 MAX_CONSULTATION_TURNS = 5
 
