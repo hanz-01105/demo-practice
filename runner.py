@@ -7,7 +7,7 @@ from base_files.prototype.scenario import ScenarioMedQA, BaseScenario
 # Load scenarios
 with open("base_files/data/agentclinic_medqa_extended.jsonl", "r") as f:
     scenarios = [ScenarioMedQA(json.loads(line)) for line in f]
-scenarios = scenarios[:5]  # limit to first 5 for testing
+#scenarios = scenarios[13:14]  # limit to first 5 for testing
 
 # Config
 DATASET = "MedQA_Ext"
@@ -17,6 +17,7 @@ MAX_CONSULTATION_TURNS = 5
 all_results = []
 
 for idx, scenario in enumerate(scenarios):
+    print(f"scenario {idx}")
     result, is_correct = run_single_scenario(
         scenario=scenario,
         dataset=DATASET,

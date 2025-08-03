@@ -1,9 +1,9 @@
 from datetime import datetime
 import argparse, os, json, time
-from prompts import ALL_BIASES
-from util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
-from scenario import ScenarioLoader
-from agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
+from .prompts import ALL_BIASES
+from .util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
+from .scenario import ScenarioLoader
+from .agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
 
 """ 
 RELEASE NOTES:
@@ -47,6 +47,14 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
         "consultation_analysis": {},
         "final_doctor_diagnosis": None,
         "is_correct": None,
+        "top_1_diagnosis": None,
+        "top_1_confidence": None,
+        "top_3_diagnoses": None,
+        "top_3_confidence": None,
+        "top_5_diagnoses": None,
+        "top_5_confidence": None,
+        "top_7_diagnoses": None,
+        "top_7_confidence": None,
     }
 
     # --- Patient Interaction Phase --- # 
@@ -137,25 +145,43 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     print("\n--- Phase 4: Final Diagnosis ---")
     final_diagnosis_result = doctor_agent.get_final_diagnosis()
 
-    final_diagnosis_text = final_diagnosis_result["diagnosis"]
-    confidence_score = final_diagnosis_result["confidence"]
+    diagnoses_list = final_diagnosis_result.get("diagnoses", [])
+    confidence_list = final_diagnosis_result.get("confidences", [])
 
-    # Fallback if the LLM didn’t output it cleanly
-    if not final_diagnosis_text:
-        final_diagnosis_text = "No diagnosis provided in correct format."
+    print(f"\nFinal Diagnosis: {diagnoses_list}")
+    print(f"Confidence Scores: {confidence_list}")
+
+    if len(confidence_list) < len(diagnoses_list):
+        confidence_list.extend([None] * (len(diagnoses_list) - len(confidence_list)))
 
     # Log the final diagnosis and confidence
-    print(f"\nFinal Diagnosis by Doctor: {final_diagnosis_text}")
+    print(f"\nFinal Diagnosis by Doctor: {diagnoses_list}")
     print(f"Correct Diagnosis: {scenario.diagnosis_information()}")
-    print(f"Doctor's Self-Confidence: {confidence_score}")
+    print(f"Doctor's Self-Confidence: {confidence_list}")
 
-    is_correct = compare_results(final_diagnosis_text, scenario.diagnosis_information())
+    # Compare top-1 diagnosis to correct diagnosis for correctness
+    is_correct = compare_results(diagnoses_list[0], scenario.diagnosis_information())
     print(f"Scenario {scenario_idx}: Diagnosis was {'CORRECT' if is_correct else 'INCORRECT'}")
 
-    run_log["final_doctor_diagnosis"] = final_diagnosis_text
-    run_log["self_confidence"] = confidence_score 
+
+    # Log all top-k diagnoses and confidence scores
+    run_log["final_doctor_diagnosis"] = diagnoses_list[0]
+    run_log["self_confidence"] = confidence_list
     run_log["is_correct"] = is_correct
     run_log["num_dialogue_turns"] = len(run_log["dialogue_history"])
+
+    # Store top-k explicitly (if available)
+    run_log["top_1_diagnosis"] = diagnoses_list[0] if len(diagnoses_list) > 0 else None
+    run_log["top_1_confidence"] = confidence_list[0] if len(confidence_list) > 0 else None
+
+    run_log["top_3_diagnoses"] = diagnoses_list[:3]
+    run_log["top_3_confidence"] = confidence_list[:3]
+
+    run_log["top_5_diagnoses"] = diagnoses_list[:5]
+    run_log["top_5_confidence"] = confidence_list[:5]
+
+    run_log["top_7_diagnoses"] = diagnoses_list[:7]
+    run_log["top_7_confidence"] = confidence_list[:7]
 
     # --- Consultation Analysis Phase (Moved here) --- # 
     # ------------------------------------------------ # 

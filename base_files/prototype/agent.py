@@ -1,5 +1,7 @@
-from util import query_model
-from prompts import ALL_BIASES
+from .util import query_model
+from .prompts import ALL_BIASES
+import json
+import re
 
 # --- Agent Classes ---
 class Agent:
@@ -174,7 +176,7 @@ Aim to reach a diagnosis when sufficient evidence is available."""
 {self.agent_hist}
 
 FINAL DIAGNOSIS TASK:
-Based on the complete consultation history above, provide your final diagnosis using evidence-based clinical reasoning.
+Based on the complete consultation history above, provide your top 7 diagnoses using evidence-based clinical reasoning ordered by statistical likelyhood.
 
 DECISION FRAMEWORK:
 1. Consider all diagnoses discussed during the consultation
@@ -182,7 +184,7 @@ DECISION FRAMEWORK:
    - Statistical likelihood in this patient demographic
    - Strength of supporting clinical evidence
    - How well it explains all the patient's symptoms
-3. Choose the diagnosis with the highest evidence-weighted probability
+3. Order the top 7 diagnoses by the highest evidence-weighted probability
 4. Remember: Common conditions are more likely than rare conditions
 
 CRITICAL INSTRUCTIONS:
@@ -191,11 +193,35 @@ CRITICAL INSTRUCTIONS:
 - DO choose based on positive evidence and statistical likelihood
 - Consider Occam's Razor: the simplest explanation that fits the evidence
 
-Provide your response in this exact format:
-DIAGNOSIS READY: [Your single most likely diagnosis based on evidence and statistical probability]
-CONFIDENCE: [Your confidence percentage based on strength of evidence]
+FORMATTING INSTRUCTIONS:
+    - DO NOT include extra commentary or reasoning outside the JSON.
+    - DO NOT output text before or after the JSON.
+    - ONLY return strict JSON in this exact format:
 
-Briefly explain your reasoning focusing on why this diagnosis is more statistically likely than the alternatives."""
+    {{
+        "diagnoses": [
+            "Diagnosis 1",
+            "Diagnosis 2",
+            "Diagnosis 3",
+            "Diagnosis 4",
+            "Diagnosis 5",
+            "Diagnosis 6",
+            "Diagnosis 7"
+        ],
+        "confidences": [
+            confidence for Diagnosis 1,
+            confidence for Diagnosis 2,
+            confidence for Diagnosis 3,
+            confidence for Diagnosis 4,
+            confidence for Diagnosis 5,
+            confidence for Diagnosis 6,
+            confidence for Diagnosis 7
+        ]
+    }}
+
+Confidence scores should be numeric percentages (0-100) mapped to each diagnosis.
+
+Briefly explain your reasoning focusing on why your top 1 diagnosis is more statistically likely than the alternatives."""
 
         system_prompt = f"""You are Dr. Agent making a final diagnosis after a complete evaluation with specialist consultation.
 
@@ -209,21 +235,30 @@ Specialty consulted: {self.specialist_type}
 Your goal: Provide the most statistically likely diagnosis based on all available evidence."""
 
         response = query_model(prompt, system_prompt)
+        print(f"response: {response}")
+        cleaned = re.sub(r"```[a-z]*|```", "", response).strip()
+        print(f"cleaned: {cleaned}")
 
-        diagnosis_text = ""
-        confidence = ""
+        try:
+            json_match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(0)
+                parsed = json.loads(json_str)
+            else:
+                raise ValueError("No JSON object found")
+            diagnoses = parsed.get("diagnoses", [])
+            confidences = parsed.get("confidences", [])
+            confidences = [float(c) for c in confidences]
+        except (json.JSONDecodeError, ValueError):
+            diagnoses, confidences = [], []
 
-        if "DIAGNOSIS READY:" in response:
-            diagnosis_text = response.split("DIAGNOSIS READY:")[1].split("CONFIDENCE:")[0].strip()
-
-        if "CONFIDENCE:" in response:
-            confidence = response.split("CONFIDENCE:")[1].strip()
+        print(f"Diagnoses {diagnoses}")
+        print(f"Confidences {confidences}")
 
         return {
-            "diagnosis": diagnosis_text,
-            "confidence": confidence
+            "diagnoses": diagnoses,
+            "confidences": confidences
         }
-
 
 class MeasurementAgent(Agent):
     def _init_data(self):

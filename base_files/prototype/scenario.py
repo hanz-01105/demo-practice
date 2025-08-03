@@ -2,7 +2,7 @@ import openai, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
-from util import query_model
+from .util import query_model
 import pandas as pd
 
 # --- Base Scenario Class ---

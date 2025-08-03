@@ -2,7 +2,7 @@ import openai, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
-from prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
+from .prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
 
 BASE_LOG_DIR = "logs" # TODO ~ Add to .gitignore
 MODEL_NAME = "gpt-4.1-nano" 
