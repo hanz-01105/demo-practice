@@ -4,6 +4,7 @@ import pandas as pd
 from typing import Dict, Any, List
 import numpy as np
 import glob
+import re
 
 # --- Constants with correct file paths ---
 LOG_PATH = "base_files/logs"
@@ -480,6 +481,173 @@ def generate_summary_table(merged_df: pd.DataFrame):
                 
                 print(f"{cat_display:<20} {group_name:<15} {accuracy:>6.1f}%   {diff_baseline:>+5.1f}   {cases:>5.0f}    {diagnoses:>6.1f}")
 
+def extract_confidence_percent(conf_str):
+    """
+    Extracts the numeric percentage from a string like '90% This diagnosis is...'
+    Returns it as a float between 0 and 1.
+    """
+    if isinstance(conf_str, str):
+        match = re.search(r"(\d+(?:\.\d+)?)\s*%", conf_str)
+        if match:
+            return float(match.group(1)) / 100.0
+    return None
+
+# Self Confidence Rating and Demographic Parity Functions
+def calculate_self_confidence_rating(df: pd.DataFrame, confidence_col: str = 'self_confidence', 
+                                   accuracy_col: str = 'is_correct') -> Dict[str, float]:
+    """Calculate comprehensive self-confidence metrics including calibration"""
+    df_clean = df.dropna(subset=[confidence_col, accuracy_col]).copy()
+    
+    if len(df_clean) == 0:
+        return {'mean_confidence': 0.0, 'overconfidence': 0.0, 'calibration_error': 0.0, 'brier_score': 1.0}
+    
+    confidence_vals = pd.to_numeric(df_clean[confidence_col], errors='coerce')
+    accuracy_vals = pd.to_numeric(df_clean[accuracy_col], errors='coerce').astype(float)
+    
+    valid_mask = ~(pd.isna(confidence_vals) | pd.isna(accuracy_vals))
+    confidence_vals = confidence_vals[valid_mask]
+    accuracy_vals = accuracy_vals[valid_mask]
+    
+    if len(confidence_vals) == 0:
+        return {'mean_confidence': 0.0, 'overconfidence': 0.0, 'calibration_error': 0.0, 'brier_score': 1.0}
+    
+    mean_confidence = np.mean(confidence_vals)
+    mean_accuracy = np.mean(accuracy_vals)
+    overconfidence = mean_confidence - mean_accuracy
+    
+    # Expected Calibration Error
+    try:
+        bin_boundaries = np.linspace(0, 1, 11)
+        bin_lowers = bin_boundaries[:-1]
+        bin_uppers = bin_boundaries[1:]
+        ece = 0
+        total_samples = len(confidence_vals)
+        
+        for bin_lower, bin_upper in zip(bin_lowers, bin_uppers):
+            in_bin = (confidence_vals >= bin_lower) & (confidence_vals < bin_upper)
+            prop_in_bin = in_bin.sum() / total_samples
+            
+            if prop_in_bin > 0:
+                accuracy_in_bin = accuracy_vals[in_bin].mean()
+                avg_confidence_in_bin = confidence_vals[in_bin].mean()
+                ece += np.abs(avg_confidence_in_bin - accuracy_in_bin) * prop_in_bin
+        calibration_error = ece
+    except:
+        calibration_error = abs(overconfidence)
+    
+    brier_score = np.mean((confidence_vals - accuracy_vals) ** 2)
+    
+    return {
+        'mean_confidence': mean_confidence,
+        'overconfidence': overconfidence,
+        'calibration_error': calibration_error,
+        'brier_score': brier_score
+    }
+
+def calculate_demographic_parity_metrics(df: pd.DataFrame, group_col: str, 
+                                       outcome_col: str = 'is_correct') -> Dict[str, Any]:
+    """Calculate demographic parity - measures fairness across demographic groups"""
+    df_clean = df.dropna(subset=[group_col, outcome_col]).copy()
+    df_clean[outcome_col] = pd.to_numeric(df_clean[outcome_col], errors='coerce').astype(float)
+    
+    group_metrics = {}
+    group_rates = []
+    
+    for group_name in df_clean[group_col].unique():
+        group_data = df_clean[df_clean[group_col] == group_name]
+        if len(group_data) >= 1:
+            positive_rate = group_data[outcome_col].mean()
+            group_metrics[group_name] = {
+                'positive_rate': positive_rate,
+                'total_cases': len(group_data)
+            }
+            group_rates.append(positive_rate)
+    
+    if len(group_rates) < 2:
+        return {'parity_violation': 0.0, 'fairness_assessment': 'Insufficient groups'}
+    
+    max_rate = max(group_rates)
+    min_rate = min(group_rates)
+    parity_violation = max_rate - min_rate
+    
+    if parity_violation <= 0.05:
+        fairness_assessment = "Good - Low bias"
+    elif parity_violation <= 0.10:
+        fairness_assessment = "Moderate - Some bias"
+    else:
+        fairness_assessment = "Poor - High bias"
+    
+    return {
+        'parity_violation': parity_violation,
+        'max_group_rate': max_rate,
+        'min_group_rate': min_rate,
+        'group_metrics': group_metrics,
+        'fairness_assessment': fairness_assessment
+    }
+
+def print_confidence_parity_table_format(merged_df: pd.DataFrame):
+    """Print results showing self-confidence, accuracy, and demographic parity PER group."""
+    print("\n" + "="*100)
+    print("ENHANCED BIAS ANALYSIS - CONFIDENCE RATING & DEMOGRAPHIC PARITY")
+    print("="*100)
+
+    # Overall confidence
+    overall_conf = calculate_self_confidence_rating(merged_df)
+    print(f"\nOVERALL CONFIDENCE ANALYSIS:")
+    print(f"  Mean Confidence: {overall_conf['mean_confidence'] * 100:.1f}%")
+    print(f"  Overconfidence: {overall_conf['overconfidence'] * 100:+.1f}%")
+    print(f"  Brier Score: {overall_conf['brier_score']:.3f}")
+
+    # Demographic categories
+    demographic_cols = [
+        ("age_group", "Age Group", ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60+"]),
+        ("gender", "Gender", ["Male", "Female", "Other"]),
+        ("smoking_status", "Smoking Status", ["Smoker", "Non-smoker", "Unknown"]),
+        ("alcohol_use", "Alcohol Use", ["Drinker", "Non-drinker", "Unknown"]),
+    ]
+
+    for col, label, expected_groups in demographic_cols:
+        if col not in merged_df.columns:
+            continue
+
+        print(f"\nPERFORMANCE BY {label.upper()}:\n")
+
+        # Calculate parity gap and fairness
+        group_accs = {
+            group: merged_df[merged_df[col] == group]["is_correct"].mean() * 100
+            for group in expected_groups
+            if not merged_df[merged_df[col] == group].empty
+        }
+
+        if len(group_accs) >= 2:
+            parity_gap = max(group_accs.values()) - min(group_accs.values())
+            if parity_gap <= 5:
+                fairness = "Good - Low bias"
+            elif parity_gap <= 10:
+                fairness = "Moderate - Some bias"
+            else:
+                fairness = "Poor - High bias"
+        else:
+            parity_gap = 0.0
+            fairness = "Insufficient groups"
+
+        for group in expected_groups:
+            subset = merged_df[merged_df[col] == group]
+            if subset.empty:
+                print(f"{group}: (No data)")
+                continue
+
+            conf = calculate_self_confidence_rating(subset)
+            acc = group_accs[group]
+
+            print(f"{group}:")
+            print(f"  Mean Confidence: {conf['mean_confidence'] * 100:.1f}%")
+            print(f"  Overconfidence: {conf['overconfidence'] * 100:+.1f}%")
+            print(f"  Accuracy: {acc:.1f}%")
+            print(f"  Demographic Parity Gap: {parity_gap:.1f}%")
+            print(f"  Fairness Assessment: {fairness}\n")
+
+
 # --- Main Execution ---
 if __name__ == "__main__":
     try:
@@ -494,6 +662,8 @@ if __name__ == "__main__":
         # Merge the datasets
         merged_df = merge_results_with_demographics(bias_corrected_df, original_df)
         
+        if 'self_confidence' in merged_df.columns:
+            merged_df['self_confidence'] = merged_df['self_confidence'].apply(extract_confidence_percent)
         # Overall performance
         total_cases = len(merged_df)
         correct_cases = merged_df['is_correct'].sum()
@@ -535,7 +705,11 @@ if __name__ == "__main__":
         
         # Generate summary table
         generate_summary_table(merged_df)
-        
+
+        # Add this line here:
+        print_confidence_parity_table_format(merged_df)
+        print("DEBUG: Finished calling print_confidence_parity_table_format function")
+
         print("\n" + "="*70)
         print("ANALYSIS COMPLETE")
         print("="*70)
@@ -547,3 +721,4 @@ if __name__ == "__main__":
         print(f"An error occurred during analysis: {e}")
         import traceback
         traceback.print_exc()
+
