@@ -5,6 +5,7 @@ import pandas as pd
 from typing import Dict, Any, List, Tuple
 import numpy as np
 from collections import defaultdict
+from scipy import stats
 
 import warnings
 warnings.filterwarnings('ignore', category=FutureWarning)
@@ -499,6 +500,273 @@ def generate_summary_insights(df: pd.DataFrame):
             print(f"  3. Review high-complexity cases (6+ diagnoses considered)")
             print(f"     ({len(high_complexity)} cases with {high_complex_accuracy:.1f}% accuracy)")
 
+
+# === SELF CONFIDENCE + DEMOGRAPHIC PARITY FUNCTIONS ===
+def calculate_confidence_metrics(df: pd.DataFrame, group_col: str) -> pd.DataFrame:
+    """Calculate self-confidence metrics for each group."""
+    results = []
+    
+    for group_name in df[group_col].unique():
+        if group_name == 'Unclassified':
+            continue
+            
+        group_data = df[df[group_col] == group_name].copy()
+        
+        if len(group_data) == 0:
+            continue
+        
+        # Basic metrics
+        total_cases = len(group_data)
+        correct_cases = group_data['is_correct'].sum()
+        accuracy = (correct_cases / total_cases) * 100 if total_cases > 0 else 0
+        
+        # Self-confidence metrics using diagnostic complexity as proxy
+        confidence_metrics = {}
+        
+        if 'num_diagnoses_considered' in group_data.columns:
+            # Fewer diagnoses considered might indicate higher confidence
+            avg_diagnoses = group_data['num_diagnoses_considered'].mean()
+            confidence_metrics['avg_diagnoses_considered'] = avg_diagnoses
+            # Inverse relationship: fewer diagnoses = higher confidence proxy
+            confidence_metrics['confidence_proxy'] = max(0, (10 - avg_diagnoses) / 10 * 100)
+            
+            # Calibration metrics (confidence vs actual performance)
+            expected_accuracy = confidence_metrics['confidence_proxy']
+            actual_accuracy = accuracy
+            calibration_error = abs(expected_accuracy - actual_accuracy)
+            confidence_metrics['calibration_error'] = calibration_error
+        
+        results.append({
+            'Group': group_name,
+            'Total_Cases': total_cases,
+            'Correct_Cases': correct_cases,
+            'Accuracy_%': accuracy,
+            **confidence_metrics
+        })
+    
+    return pd.DataFrame(results).sort_values('Accuracy_%', ascending=False)
+
+def calculate_demographic_parity(df: pd.DataFrame, group_col: str) -> pd.DataFrame:
+    """Calculate demographic parity metrics across groups."""
+    results = []
+    
+    # Overall baseline performance
+    overall_accuracy = df['is_correct'].mean() * 100
+    
+    for group_name in df[group_col].unique():
+        if group_name == 'Unclassified':
+            continue
+            
+        group_data = df[df[group_col] == group_name].copy()
+        
+        if len(group_data) == 0:
+            continue
+        
+        total_cases = len(group_data)
+        accuracy = (group_data['is_correct'].sum() / total_cases) * 100
+        
+        # Calculate parity metrics
+        parity_gap = accuracy - overall_accuracy
+        representation = (total_cases / len(df)) * 100
+        
+        # Statistical significance test (if sample size allows)
+        if total_cases >= 5:
+            # Perform z-test comparing group accuracy to overall accuracy
+            group_correct = group_data['is_correct'].sum()
+            overall_correct = df['is_correct'].sum()
+            overall_total = len(df)
+            
+            # Two-proportion z-test
+            p1 = group_correct / total_cases
+            p2 = overall_correct / overall_total
+            
+            pooled_p = (group_correct + overall_correct) / (total_cases + overall_total)
+            se = np.sqrt(pooled_p * (1 - pooled_p) * (1/total_cases + 1/overall_total))
+            
+            if se > 0:
+                z_score = (p1 - p2) / se
+                p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
+                is_significant = p_value < 0.05
+            else:
+                z_score = 0
+                p_value = 1.0
+                is_significant = False
+        else:
+            z_score = 0
+            p_value = 1.0
+            is_significant = False
+        
+        results.append({
+            'Group': group_name,
+            'Total_Cases': total_cases,
+            'Accuracy_%': accuracy,
+            'Parity_Gap_%': parity_gap,
+            'Representation_%': representation,
+            'Z_Score': z_score,
+            'P_Value': p_value,
+            'Statistically_Significant': is_significant
+        })
+    
+    return pd.DataFrame(results).sort_values('Parity_Gap_%', ascending=False)
+
+def print_combined_analysis(df: pd.DataFrame, group_col: str, expected_groups: List[str]):
+    """Combined confidence and parity analysis in a comprehensive table format."""
+    print("\n" + "="*100)
+    print(f"SYMPTOM PRESENTATION - CONFIDENCE RATING & DEMOGRAPHIC PARITY")
+    print("="*100)
+    
+    # Calculate metrics for all groups
+    results = []
+    overall_accuracy = df['is_correct'].mean() * 100
+    
+    for group_name in expected_groups:
+        group_data = df[df[group_col] == group_name]
+        
+        if len(group_data) == 0:
+            results.append({
+                'Group': group_name,
+                'Cases': 0,
+                'Accuracy_%': 0,
+                'Confidence_Proxy_%': 0,
+                'Parity_Gap_%': 0,
+                'Representation_%': 0,
+                'Status': 'No Data'
+            })
+            continue
+        
+        total_cases = len(group_data)
+        correct_cases = group_data['is_correct'].sum()
+        accuracy = (correct_cases / total_cases) * 100
+        
+        # Confidence proxy (based on diagnostic complexity)
+        avg_diagnoses = group_data['num_diagnoses_considered'].mean() if 'num_diagnoses_considered' in group_data.columns else 4.0
+        confidence_proxy = max(0, (10 - avg_diagnoses) / 10 * 100)  # Inverse relationship
+        
+        # Parity metrics
+        parity_gap = accuracy - overall_accuracy
+        representation = (total_cases / len(df)) * 100
+        
+        # Status determination
+        if total_cases < 5:
+            status = 'Low Sample'
+        elif abs(parity_gap) > 10:
+            status = 'High Disparity'
+        elif accuracy > overall_accuracy + 5:
+            status = 'Above Average'
+        elif accuracy < overall_accuracy - 5:
+            status = 'Below Average'
+        else:
+            status = 'Balanced'
+        
+        results.append({
+            'Group': group_name,
+            'Cases': total_cases,
+            'Accuracy_%': accuracy,
+            'Confidence_Proxy_%': confidence_proxy,
+            'Parity_Gap_%': parity_gap,
+            'Representation_%': representation,
+            'Status': status
+        })
+    
+    # Create and display results table
+    results_df = pd.DataFrame(results)
+    
+    print(f"\nOverall Baseline Accuracy: {overall_accuracy:.1f}%")
+    print(f"Total Cases: {len(df)}")
+    print("\n" + "-" * 100)
+    print(f"{'Group':<25} {'Cases':<6} {'Accuracy':<9} {'Confidence':<11} {'Parity Gap':<11} {'Repr %':<7} {'Status':<15}")
+    print("-" * 100)
+    
+    for _, row in results_df.iterrows():
+        if row['Cases'] > 0:
+            print(f"{row['Group']:<25} {row['Cases']:<6} {row['Accuracy_%']:<8.1f}% "
+                  f"{row['Confidence_Proxy_%']:<10.1f}% {row['Parity_Gap_%']:<+10.1f}% "
+                  f"{row['Representation_%']:<6.1f}% {row['Status']:<15}")
+        else:
+            print(f"{row['Group']:<25} {row['Cases']:<6} {'N/A':<8} {'N/A':<10} "
+                  f"{'N/A':<10} {'N/A':<6} {row['Status']:<15}")
+    
+    print("-" * 100)
+    
+    # Detailed confidence analysis
+    print("\n" + "="*60)
+    print("DETAILED CONFIDENCE ANALYSIS")
+    print("="*60)
+    
+    confidence_df = calculate_confidence_metrics(df, group_col)
+    
+    for _, row in confidence_df.iterrows():
+        if row['Total_Cases'] > 0:
+            print(f"\n{row['Group']}:")
+            print(f"  Cases: {row['Total_Cases']}")
+            print(f"  Accuracy: {row['Accuracy_%']:.1f}%")
+            
+            if 'confidence_proxy' in row:
+                print(f"  Confidence Proxy: {row['confidence_proxy']:.1f}%")
+                print(f"  Avg Diagnoses Considered: {row['avg_diagnoses_considered']:.1f}")
+            
+            if 'calibration_error' in row:
+                calibration_status = "Well-calibrated" if row['calibration_error'] < 10 else "Poorly-calibrated"
+                print(f"  Calibration Error: {row['calibration_error']:.1f}% ({calibration_status})")
+    
+    # Detailed parity analysis
+    print("\n" + "="*60)
+    print("DETAILED DEMOGRAPHIC PARITY ANALYSIS")
+    print("="*60)
+    
+    parity_df = calculate_demographic_parity(df, group_col)
+    
+    for _, row in parity_df.iterrows():
+        if row['Total_Cases'] > 0:
+            print(f"\n{row['Group']}:")
+            print(f"  Cases: {row['Total_Cases']} ({row['Representation_%']:.1f}% of dataset)")
+            print(f"  Accuracy: {row['Accuracy_%']:.1f}%")
+            print(f"  Parity Gap: {row['Parity_Gap_%']:+.1f}%")
+            
+            if row['Statistically_Significant']:
+                significance = " *SIGNIFICANT*" if abs(row['Parity_Gap_%']) > 5 else " *significant*"
+                print(f"  Statistical Test: Z={row['Z_Score']:.2f}, p={row['P_Value']:.3f}{significance}")
+            else:
+                print(f"  Statistical Test: Not significant (p={row['P_Value']:.3f})")
+    
+    # Summary insights
+    print("\n" + "="*60)
+    print("KEY FINDINGS & RECOMMENDATIONS")
+    print("="*60)
+    
+    if results_df['Cases'].sum() > 0:
+        valid_results = results_df[results_df['Cases'] > 0]
+        
+        if not valid_results.empty:
+            print("\nConfidence Insights:")
+            highest_conf = valid_results.loc[valid_results['Confidence_Proxy_%'].idxmax()]
+            lowest_conf = valid_results.loc[valid_results['Confidence_Proxy_%'].idxmin()]
+            
+            print(f"  • Highest Confidence: {highest_conf['Group']} ({highest_conf['Confidence_Proxy_%']:.1f}%)")
+            print(f"  • Lowest Confidence: {lowest_conf['Group']} ({lowest_conf['Confidence_Proxy_%']:.1f}%)")
+            
+            print("\nParity Insights:")
+            largest_advantage = valid_results.loc[valid_results['Parity_Gap_%'].idxmax()]
+            largest_disadvantage = valid_results.loc[valid_results['Parity_Gap_%'].idxmin()]
+            
+            if largest_advantage['Parity_Gap_%'] > 5:
+                print(f"  • Performance Advantage: {largest_advantage['Group']} ({largest_advantage['Parity_Gap_%']:+.1f}%)")
+            if largest_disadvantage['Parity_Gap_%'] < -5:
+                print(f"  • Performance Disadvantage: {largest_disadvantage['Group']} ({largest_disadvantage['Parity_Gap_%']:+.1f}%)")
+            
+            # Representation insights
+            underrep = valid_results[valid_results['Representation_%'] < 5]
+            if not underrep.empty:
+                print(f"\nRepresentation Concerns:")
+                print(f"  • {len(underrep)} group(s) are underrepresented (< 5% of data)")
+                for _, row in underrep.iterrows():
+                    print(f"    - {row['Group']}: {row['Representation_%']:.1f}% ({row['Cases']} cases)")
+    
+    print("\nMethodology Notes:")
+    print("  • Confidence Proxy: Inverse of diagnostic complexity (fewer diagnoses = higher confidence)")
+    print("  • Parity Gap: Difference from overall accuracy baseline")
+    print("  • Statistical significance tested using two-proportion z-test")
+
 # Main execution block
 if __name__ == "__main__":
     try:
@@ -582,7 +850,27 @@ if __name__ == "__main__":
         
         # Generate insights and recommendations
         generate_summary_insights(processed_df)
-        
+
+        # === SELF CONFIDENCE + DEMOGRAPHIC PARITY for Symptom Presentation ===
+        if "symptom_presentation" in processed_df.columns:
+            # Define all the expected presentation categories
+            presentation_groups = [
+                "Classic Textbook",
+                "Atypical/Vague Wording",
+                "Multi-System Complex", 
+                "Single Symptom Only"
+            ]
+
+            # Ensure the column exists and is clean
+            processed_df["symptom_presentation"] = processed_df["symptom_presentation"].astype(str)
+
+            # Call the function to display confidence + parity
+            print_combined_analysis(
+                df=processed_df,
+                group_col="symptom_presentation",
+                expected_groups=presentation_groups
+            )
+
         # Sample diagnostic reasoning (improved)
         print("\n" + "="*60)
         print("SAMPLE DIAGNOSTIC REASONING")
@@ -614,4 +902,3 @@ if __name__ == "__main__":
         print(f"\n An error occurred during processing: {e}")
         import traceback
         traceback.print_exc()
-
