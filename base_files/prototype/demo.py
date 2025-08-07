@@ -9,14 +9,15 @@ from .agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
 RELEASE NOTES:
 1. Credit to Hassan and Liu et al. along with AgentClinic authors for code template
 2. Adapting original MAS for to simulate multi-agent architectures
+3. Updated to use Anthropic Claude API instead of OpenAI
 """
 
 # --- Constants ---
 BASE_LOG_DIR = "logs"
-MODEL_NAME = "gpt-4.1" 
+MODEL_NAME = "claude-sonnet-4-20250514"  # Updated to use Claude Sonnet 4
 
 # --- Simulation Configuration Constants ---
-AGENT_DATASET = "MedQA"  # Start with MedQA as requested
+AGENT_DATASET = "MedQA_Ext"  # Start with MedQA as requested
 NUM_SCENARIOS = 25       # Minimum 50 scenarios per bias-dataset combo
 TOTAL_INFERENCES = 10
 CONSULTATION_TURNS = 5
@@ -148,11 +149,9 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     diagnoses_list = final_diagnosis_result.get("diagnoses", [])
     confidence_list = final_diagnosis_result.get("confidences", [])
 
-    print(f"\nFinal Diagnosis: {diagnoses_list}")
-    print(f"Confidence Scores: {confidence_list}")
-
-    if len(confidence_list) < len(diagnoses_list):
-        confidence_list.extend([None] * (len(diagnoses_list) - len(confidence_list)))
+    # Fallback if the LLM didn't output it cleanly
+    if not final_diagnosis_text:
+        final_diagnosis_text = "No diagnosis provided in correct format."
 
     # Log the final diagnosis and confidence
     print(f"\nFinal Diagnosis by Doctor: {diagnoses_list}")
@@ -205,13 +204,17 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
 def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences, consultation_turns):
     """Run a single bias-dataset combination test"""
     # Custom filename for bias-corrected run
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = os.path.join(BASE_LOG_DIR, f"{dataset}_{bias}_bias_corrected_{timestamp}.json")
+    log_file = get_log_file(dataset, bias) 
     completed_scenario_ids = get_completed_scenarios(log_file) # Renamed for clarity
     
     print(f"\n=== Testing {bias} bias on {dataset} dataset ===")
     print(f"Log file: {log_file}")
-    print(f"Already completed scenario IDs: {len(completed_scenario_ids)}")
+    print(f"Already completed scenarios: {len(completed_scenario_ids)}")
+    if completed_scenario_ids:
+        print(f"Completed scenario ID range: {min(completed_scenario_ids)}-{max(completed_scenario_ids)}")
+        print(f"Next scenario to process: {max(completed_scenario_ids) + 1}")
+    else:
+        print("No scenarios completed yet. Starting from scenario 0.")
 
     # Calculate number of correct scenarios from previous runs
     num_correct_from_previous_runs = 0
@@ -239,7 +242,7 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
     print(f"Scenarios to run in this session: {len(scenarios_to_process)} of {scenarios_to_run} total planned")
     
     for scenario_idx in scenarios_to_process:
-        print(f"\n--- Running Scenario {scenario_idx + 1}/{scenarios_to_run} with {bias} bias ---")
+        print(f"\n--- Running Scenario {scenario_idx}/{scenarios_to_run-1} with {bias} bias ---")
         scenario = scenario_loader.get_scenario(id=scenario_idx)
 
         if scenario is None:
@@ -305,7 +308,7 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
 
 def main():
     # Create argument parser for optional parameters
-    parser = argparse.ArgumentParser(description='Run medical diagnosis simulation with bias testing')
+    parser = argparse.ArgumentParser(description='Run medical diagnosis simulation with bias testing using Anthropic Claude')
     parser.add_argument('--dataset', choices=['MedQA', 'MedQA_Ext', 'NEJM', 'NEJM_Ext', 'all'], default='all',
                   help='Which dataset to use (default: all)')
     parser.add_argument('--bias', help='Specific bias to test (default: test all biases)')
@@ -320,11 +323,14 @@ def main():
     args.scenarios = 214  # Force 214 scenarios
     
     print(f"Starting comprehensive bias testing across {len(datasets_to_test)} datasets and {len(biases_to_test)} biases")
+    print(f"Using Anthropic Claude API ({MODEL_NAME})")
     print(f"Base settings: {args.scenarios} scenarios per combination, {TOTAL_INFERENCES} patient interactions, {CONSULTATION_TURNS} consultation turns")
     
     # Create summary report structures
     summary = {
         "start_time": datetime.now().isoformat(),
+        "model_used": MODEL_NAME,
+        "api_provider": "Anthropic",
         "completed_combinations": 0,
         "total_combinations": len(datasets_to_test) * len(biases_to_test),
         "results_by_combination": {}
@@ -379,42 +385,6 @@ def main():
     print(f"Completed {summary['completed_combinations']}/{summary['total_combinations']} combinations")
     print(f"Total duration: {summary['total_duration_seconds']/3600:.2f} hours")
     print(f"Full results saved to {os.path.join(BASE_LOG_DIR, 'bias_testing_summary.json')}")
-    print("=== PATH DEBUGGING ===")
-    print(f"Current working directory: {os.getcwd()}")
-    print()
-
-    # Test different possible paths
-    possible_paths = [
-        "base_files/data/agentclinic_medqa_extended.jsonl",
-        "../data/agentclinic_medqa_extended.jsonl", 
-        "../../base_files/data/agentclinic_medqa_extended.jsonl",
-        "../base_files/data/agentclinic_medqa_extended.jsonl",
-        "./base_files/data/agentclinic_medqa_extended.jsonl"
-    ]
-
-    print("Testing possible file paths:")
-    for path in possible_paths:
-        exists = os.path.exists(path)
-        abs_path = os.path.abspath(path)
-        print(f"  {path:<50} {'✅ EXISTS' if exists else '❌ NOT FOUND'}")
-        if exists:
-            print(f"    Absolute path: {abs_path}")
-            print(f"    File size: {os.path.getsize(path)} bytes")
-
-    print()
-    print("Directory contents:")
-    try:
-        print("Current directory:", os.listdir("."))
-    except:
-        print("Could not list current directory")
-
-    try:
-        if os.path.exists("base_files"):
-            print("base_files directory:", os.listdir("base_files"))
-        if os.path.exists("base_files/data"):
-            print("base_files/data directory:", os.listdir("base_files/data"))
-    except:
-        print("Could not list base_files directories")
 
 if __name__ == "__main__":
     main()

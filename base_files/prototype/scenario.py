@@ -1,9 +1,17 @@
-import openai, re, random, time, json, os
+import anthropic, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
 from .util import query_model
 import pandas as pd
+
+# --- FIX: ROBUST PATH SETUP ---
+# Get the absolute path of the directory containing this script (e.g., '.../prototype/')
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+# The 'base_files' directory is one level up from the script's directory
+BASE_FILES_DIR = os.path.dirname(SCRIPT_DIR)
+# --- END FIX ---
+
 
 # --- Base Scenario Class ---
 class BaseScenario:
@@ -59,12 +67,17 @@ class ScenarioNEJM(BaseScenario):
 class ScenarioLoader:
     def __init__(self, dataset):
         self.dataset = dataset
+        
+        # --- FIX: Build absolute paths to data files ---
+        data_dir = os.path.join(BASE_FILES_DIR, 'data')
+        
         self.scenario_map = {
-            "MedQA": (ScenarioMedQA, "../data/templates/agentclinic_medqa.jsonl"),
-            "MedQA_Ext": (ScenarioMedQA, "../data/agentclinic_medqa_extended.jsonl"),
-            "NEJM": (ScenarioNEJM, "../data/templates/agentclinic_nejm.jsonl"),
-            "NEJM_Ext": (ScenarioNEJM, "../data/templates/agentclinic_nejm_extended.jsonl"),
+            "MedQA": (ScenarioMedQA, os.path.join(data_dir, "templates/agentclinic_medqa.jsonl")),
+            "MedQA_Ext": (ScenarioMedQA, os.path.join(data_dir, "agentclinic_medqa_extended.jsonl")),
+            "NEJM": (ScenarioNEJM, os.path.join(data_dir, "templates/agentclinic_nejm.jsonl")),
+            "NEJM_Ext": (ScenarioNEJM, os.path.join(data_dir, "templates/agentclinic_nejm_extended.jsonl")),
         }
+        # --- END FIX ---
         
         if dataset not in self.scenario_map:
             raise ValueError(f"Dataset '{dataset}' not recognized. Choices are: {list(self.scenario_map.keys())}")
@@ -74,6 +87,7 @@ class ScenarioLoader:
     def _load_scenarios(self):
         scenario_class, filename = self.scenario_map[self.dataset]
         
+        # This 'open' call will now use the full, correct path
         with open(filename, "r") as f:
             self.scenario_strs = [json.loads(line) for line in f]
         self.scenarios = [scenario_class(_str) for _str in self.scenario_strs]

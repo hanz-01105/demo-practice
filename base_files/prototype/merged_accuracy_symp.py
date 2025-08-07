@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 
 # --- Enhanced Constants ---
 LOG_PATH = "base_files/logs"
-LOG_FILE = "MedQA_Ext_none_bias_corrected_20250725_114108.json"
+LOG_FILE = "extracted_results_MedQA_Ext_corrected.json"
 
 # Improved symptom categorization with more comprehensive keywords
 CLASSIC_KEYWORDS = [

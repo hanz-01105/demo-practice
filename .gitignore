@@ -4,3 +4,7 @@ venv/
 # Python cache files
 __pycache__/
 *.pyc
+
+# Add these lines to your .gitignore file
+*.json
+logs/

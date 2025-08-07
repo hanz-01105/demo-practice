@@ -52,5 +52,5 @@ with open(outfile, "w") as f:
         "results": all_results
     }, f, indent=2, default=str)
 
-print(f"✅ Logs saved to {outfile}")
+print(f" Logs saved to {outfile}")
 

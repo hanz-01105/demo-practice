@@ -1,29 +1,30 @@
-import openai, re, random, time, json, os
+import anthropic, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
 from .prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
 
-BASE_LOG_DIR = "logs" # TODO ~ Add to .gitignore
-MODEL_NAME = "gpt-4.1-nano" 
+BASE_LOG_DIR = "base_files/logs" # TODO ~ Add to .gitignore
+MODEL_NAME = "claude-sonnet-4-20250514" 
 
 # --- Utility Functions ---
 def query_model(prompt, system_prompt, max_tokens=200):
-    api_key = os.environ.get("OPENAI_API_KEY")
-    client = openai.OpenAI(api_key=api_key)
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt}
-    ]
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    client = anthropic.Anthropic(api_key=api_key)  # Change this line
     
-    response = client.chat.completions.create(
-        model=MODEL_NAME,
-        messages=messages,
+    # Anthropic format - system prompt is separate
+    response = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        system=system_prompt,  # System prompt goes here
+        messages=[
+            {"role": "user", "content": prompt}  # Only user message here
+        ],
         temperature=0.05,
         max_tokens=max_tokens,
     )
-    answer = response.choices[0].message.content.strip()
-    return re.sub(r"\s+", " ", answer)
+    
+    # Extract text from Anthropic response
+    return response.content[0].text
 
 def compare_results(diagnosis, correct_diagnosis):
     prompt = f"Here is the correct diagnosis: {correct_diagnosis}\nHere was the doctor dialogue/diagnosis: {diagnosis}\nAre these referring to the same underlying medical condition? Please respond only with Yes or No."
@@ -32,10 +33,20 @@ def compare_results(diagnosis, correct_diagnosis):
     return answer.strip().lower() == "yes"
 
 def get_log_file(dataset, bias_name):
-    """Create a log file name based on dataset and bias"""
+    """
+    Creates a log file name.
+    Uses a specific, hardcoded file for the 'MedQA_Ext'/'none' run,
+    and generates standard names for all other runs.
+    """
     os.makedirs(BASE_LOG_DIR, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return os.path.join(BASE_LOG_DIR, f"{dataset}_{bias_name}_bias_corrected_{timestamp}.json")
+
+    # Check if this is the specific run you want to use the special file for
+    if dataset == 'MedQA_Ext' and bias_name == 'none':
+        # For this exact combination, return your desired filename
+        return os.path.join(BASE_LOG_DIR, "MedQA_Ext_none_bias_corrected_20250804_211039.json")
+    else:
+        # For all other future experiments, create a clean, standard filename
+        return os.path.join(BASE_LOG_DIR, f"{dataset}_{bias_name}_bias_corrected.json")
 
 def log_scenario_data(data, log_file):
     """Log data to a specific log file"""
