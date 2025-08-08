@@ -19,10 +19,10 @@ You are a careful medical data classifier.
 Classify each variable based on the patient data below. If no info, return "Unknown".
 
 --- Symptom Presentation Category Guide ---
-- "Classic Textbook": The patient's symptoms clearly match textbook descriptions for a known condition. (e.g., crushing chest pain radiating to the arm for myocardial infarction)
-- "Atypical/Vague Wording": The symptoms are non-specific, vague, or don't align with common textbook patterns. (e.g., "just feeling off", or mild fatigue without context)
-- "Multi-System Complex": Multiple unrelated systems are involved or symptoms span several organ systems. (e.g., neurological, gastrointestinal, and dermatologic symptoms all at once)
-- "Single Symptom Only": Only one specific symptom is reported without significant elaboration. (e.g., only "headache" or only "back pain")
+- "Classic Textbook": Clear textbook-matching symptoms (e.g., chest pain radiating to arm for MI).
+- "Atypical/Vague Wording": Non-specific or vague symptoms not clearly matching textbook patterns.
+- "Multi-System Complex": Symptoms span multiple unrelated organ systems.
+- "Single Symptom Only": Only one isolated symptom reported.
 
 --- Input ---
 Demographics: "{demographics}"
@@ -35,7 +35,7 @@ Return strict JSON with these keys:
 - Alcohol Use [Drinker, Non-drinker, Unknown]
 - Drug Use [Drug User, Non-drug User, Unknown]
 - Occupation Type [Manual Labor, Knowledge Worker, Student, Retired, Unemployed, Unknown]
-- Comorbidity Status [Hypertension, Diabetes Mellitus, Cancer, Other, None, Unknown]
+- Comorbidity Status [Chronic Condition Present, Immunosuppressed/Special Treatment, None]
 - Symptom Presentation [Classic Textbook, Atypical/Vague Wording, Multi-System Complex, Single Symptom Only, Unknown]
 """
     response = client.chat.completions.create(
@@ -47,15 +47,22 @@ Return strict JSON with these keys:
         ]
     )
     raw = response.choices[0].message.content.strip()
-    raw = re.sub(r"```[a-z]*|```", "", raw)
+    raw = re.sub(r"```[a-z]*|```", "", raw)  # Remove any accidental markdown
     return json.loads(raw)
 
-def categorize_patient(demo_text, social_text, pmh_text, history_text):
-    demographics_lower = demo_text.lower()
+def categorize_patient(demo_dict):
+    """
+    Categorizes a patient based on demographics dictionary from each scenario log.
+    """
+    demo_text = demo_dict.get("Demographics", "")
+    social_text = demo_dict.get("Social_History", "")
+    pmh_text = demo_dict.get("Past_Medical_History", "")
+    history_text = demo_dict.get("History", "")
+
+    demographics_lower = str(demo_text).lower()
     age_group = "Unknown"
     gender = "Other"
 
-    # Age
     age = None
     if any(x in demographics_lower for x in ["month", "newborn", "infant"]):
         age = 0
@@ -74,13 +81,13 @@ def categorize_patient(demo_text, social_text, pmh_text, history_text):
             "50-60" if age <= 60 else "60+"
         )
 
-    # Gender
+
     if male_pattern.search(demographics_lower):
         gender = "Male"
     elif female_pattern.search(demographics_lower):
         gender = "Female"
 
-    # LLM categories
+
     llm = call_llm_classifier(demo_text, social_text, pmh_text, history_text)
 
     return {
@@ -89,4 +96,22 @@ def categorize_patient(demo_text, social_text, pmh_text, history_text):
         **llm
     }
 
+def run_categorization(input_json="base_files/logs/medqa_run_20250803_001542.json", output_csv="categorized_patients.csv"):
+    with open(input_json, "r") as f:
+        data = json.load(f)
 
+    results = data["results"]
+    categorized_records = []
+
+    for entry in results:
+        demographics = entry.get("demographics", {})
+        categorization = categorize_patient(demographics)
+        categorization["scenario_id"] = entry["scenario_id"]
+        categorized_records.append(categorization)
+
+    df = pd.DataFrame(categorized_records)
+    df.to_csv(output_csv, index=False)
+    print(f"Categorized data saved to {output_csv}")
+
+if __name__ == "__main__":
+    run_categorization()
