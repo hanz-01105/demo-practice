@@ -3,6 +3,9 @@ import os
 from datetime import datetime
 import sys
 import re
+from typing import Any, Dict
+import numpy as np
+import pandas as pd
 
 # Add the prototype directory to path to import scenario classes
 sys.path.append('prototype')
@@ -11,6 +14,9 @@ sys.path.append('prototype')
 male_pattern = re.compile(r"\b(male|man|boy)\b", re.IGNORECASE)
 female_pattern = re.compile(r"\b(female|woman|girl)\b", re.IGNORECASE)
 age_pattern = re.compile(r"(\d+)[-\s]*year", re.IGNORECASE)
+
+def extract_demographics_from_text(demographics_text):
+    raise NotImplementedError
 
 def extract_demographics_from_scenario_data(scenario_id, dataset_file):
     """
@@ -40,7 +46,7 @@ def extract_demographics_from_scenario_data(scenario_id, dataset_file):
                 demographics_text = str(patient_info)
             
             return extract_demographics_from_text(demographics_text)
-        
+            
         print(f"No patient actor info found for scenario {scenario_id}")
         return None
         
@@ -450,6 +456,8 @@ def print_confidence_parity_table_format(merged_df: pd.DataFrame):
     # Overall confidence
     overall_conf = calculate_self_confidence_rating(merged_df)
     print(f"\nOVERALL CONFIDENCE ANALYSIS:")
+    overall_accuracy = merged_df["is_correct"].mean() * 100
+    overall_mean_confidence = calculate_self_confidence_rating(merged_df)['mean_confidence'] * 100
     print(f"  Mean Confidence: {overall_conf['mean_confidence'] * 100:.1f}%")
     print(f"  Overconfidence: {overall_conf['overconfidence'] * 100:+.1f}%")
     print(f"  Brier Score: {overall_conf['brier_score']:.3f}")
@@ -466,42 +474,40 @@ def print_confidence_parity_table_format(merged_df: pd.DataFrame):
         if col not in merged_df.columns:
             continue
 
-        print(f"\nPERFORMANCE BY {label.upper()}:\n")
+    print(f"\nPERFORMANCE BY {label.upper()}:\n")
 
-        # Calculate parity gap and fairness
-        group_accs = {
-            group: merged_df[merged_df[col] == group]["is_correct"].mean() * 100
-            for group in expected_groups
-            if not merged_df[merged_df[col] == group].empty
-        }
+    for group in expected_groups:
+        subset = merged_df[merged_df[col] == group]
+        if subset.empty:
+            print(f"{group}: (No data)")
+            continue
 
-        if len(group_accs) >= 2:
-            parity_gap = max(group_accs.values()) - min(group_accs.values())
-            if parity_gap <= 5:
-                fairness = "Good - Low bias"
-            elif parity_gap <= 10:
-                fairness = "Moderate - Some bias"
-            else:
-                fairness = "Poor - High bias"
+        # per-group metrics
+        conf = calculate_self_confidence_rating(subset)
+        group_mean_conf = conf['mean_confidence'] * 100
+        acc = subset["is_correct"].mean() * 100
+
+        # gaps relative to overall
+        parity_gap = overall_accuracy - acc
+        confidence_diff = overall_mean_confidence - group_mean_conf
+
+        # fairness label based on absolute parity gap
+        abs_gap = abs(parity_gap)
+        if abs_gap <= 5:
+            fairness = "Good - Low bias"
+        elif abs_gap <= 10:
+            fairness = "Moderate - Some bias"
         else:
-            parity_gap = 0.0
-            fairness = "Insufficient groups"
+            fairness = "Poor - High bias"
 
-        for group in expected_groups:
-            subset = merged_df[merged_df[col] == group]
-            if subset.empty:
-                print(f"{group}: (No data)")
-                continue
+        print(f"{group}:")
+        print(f"  Mean Confidence: {group_mean_conf:.1f}%")
+        print(f"  Overconfidence: {conf['overconfidence'] * 100:+.1f}%")
+        print(f"  Accuracy: {acc:.1f}%")
+        print(f"  Demographic Parity Gap: {parity_gap:+.1f}%  (overall − group)")
+        print(f"  Confidence Difference: {confidence_diff:+.1f}%  (overall − group)")
+        print(f"  Fairness Assessment: {fairness}\n")
 
-            conf = calculate_self_confidence_rating(subset)
-            acc = group_accs[group]
-
-            print(f"{group}:")
-            print(f"  Mean Confidence: {conf['mean_confidence'] * 100:.1f}%")
-            print(f"  Overconfidence: {conf['overconfidence'] * 100:+.1f}%")
-            print(f"  Accuracy: {acc:.1f}%")
-            print(f"  Demographic Parity Gap: {parity_gap:.1f}%")
-            print(f"  Fairness Assessment: {fairness}\n")
 
 def main():
     # Running from base_files directory
