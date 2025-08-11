@@ -339,8 +339,8 @@ def extract_log_data(log_file_path, output_file_path):
 
 def main():
     # Running from base_files directory
-    input_log_file = "base_files/logs/MedQA_Ext_none_bias_corrected_20250804_211039.json"
-    output_file = "base_files/logs/extracted_results_MedQA_Ext_corrected.json"
+    input_log_file = "base_files/logs/MedQA_Ext_none_claude.json"
+    output_file = "base_files/logs/extracted_results_MedQA_Ext_claude.json"
     
     print(f"Extracting data from: {input_log_file}")
     print(f"Output will be saved to: {output_file}")

@@ -1,19 +1,21 @@
 from datetime import datetime
 import argparse, os, json, time
-from .prompts import ALL_BIASES
-from .util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
-from .scenario import ScenarioLoader
-from .agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
+from prompts import ALL_BIASES
+from util import compare_results, get_log_file, log_scenario_data, analyze_consultation, get_completed_scenarios
+from scenario import ScenarioLoader
+from agent import PatientAgent, DoctorAgent, MeasurementAgent, SpecialistAgent
 
 """ 
 RELEASE NOTES:
 1. Credit to Hassan and Liu et al. along with AgentClinic authors for code template
 2. Adapting original MAS for to simulate multi-agent architectures
 3. Updated to use Anthropic Claude API instead of OpenAI
+4. Modified to use completely new log directory structure
 """
 
 # --- Constants ---
-BASE_LOG_DIR = "logs"
+# Use existing log directory structure
+BASE_LOG_DIR = "../log"  # Since we're running from base-agents/base_files/prototype/demo.py
 MODEL_NAME = "claude-sonnet-4-20250514"  # Updated to use Claude Sonnet 4
 
 # --- Simulation Configuration Constants ---
@@ -21,6 +23,55 @@ AGENT_DATASET = "MedQA_Ext"  # Start with MedQA as requested
 NUM_SCENARIOS = 25       # Minimum 50 scenarios per bias-dataset combo
 TOTAL_INFERENCES = 10
 CONSULTATION_TURNS = 5
+
+# --- Log File Management Functions ---
+def get_new_log_file(dataset, bias):
+    """Get log file path in existing log directory"""
+    os.makedirs(BASE_LOG_DIR, exist_ok=True)
+    bias_str = bias if bias else "no_bias"
+    filename = f"{dataset}_{bias_str}_results.json"
+    return os.path.join(BASE_LOG_DIR, filename)
+
+def get_new_completed_scenarios(log_file):
+    """Get list of completed scenario IDs from existing log file"""
+    if not os.path.exists(log_file):
+        return set()
+    
+    try:
+        with open(log_file, 'r') as f:
+            data = json.load(f)
+            if isinstance(data, list):
+                return set(entry.get("scenario_id") for entry in data if "scenario_id" in entry)
+    except (json.JSONDecodeError, FileNotFoundError):
+        return set()
+    return set()
+
+def log_new_scenario_data(run_log, log_file):
+    """Log scenario data to existing log directory"""
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(log_file), exist_ok=True)
+    
+    # Convert datetime objects to strings for JSON serialization
+    if isinstance(run_log.get("timestamp"), datetime):
+        run_log["timestamp"] = run_log["timestamp"].isoformat()
+    
+    # Load existing data
+    existing_data = []
+    if os.path.exists(log_file):
+        try:
+            with open(log_file, 'r') as f:
+                existing_data = json.load(f)
+        except json.JSONDecodeError:
+            existing_data = []
+    
+    # Append new data
+    existing_data.append(run_log)
+    
+    # Write back to file
+    with open(log_file, 'w') as f:
+        json.dump(existing_data, f, indent=2)
+    
+    print(f"Logged scenario {run_log.get('scenario_id')} to {log_file}")
 
 # --- Main Simulation Logic ---
 def run_single_scenario(scenario, dataset, total_inferences, max_consultation_turns, scenario_idx, bias=None):
@@ -150,8 +201,7 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     confidence_list = final_diagnosis_result.get("confidences", [])
 
     # Fallback if the LLM didn't output it cleanly
-    if not final_diagnosis_text:
-        final_diagnosis_text = "No diagnosis provided in correct format."
+    final_diagnosis_text = diagnoses_list[0] if diagnoses_list else "No diagnosis provided in correct format."
 
     # Log the final diagnosis and confidence
     print(f"\nFinal Diagnosis by Doctor: {diagnoses_list}")
@@ -159,12 +209,11 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     print(f"Doctor's Self-Confidence: {confidence_list}")
 
     # Compare top-1 diagnosis to correct diagnosis for correctness
-    is_correct = compare_results(diagnoses_list[0], scenario.diagnosis_information())
+    is_correct = compare_results(diagnoses_list[0] if diagnoses_list else "", scenario.diagnosis_information())
     print(f"Scenario {scenario_idx}: Diagnosis was {'CORRECT' if is_correct else 'INCORRECT'}")
 
-
     # Log all top-k diagnoses and confidence scores
-    run_log["final_doctor_diagnosis"] = diagnoses_list[0]
+    run_log["final_doctor_diagnosis"] = diagnoses_list[0] if diagnoses_list else None
     run_log["self_confidence"] = confidence_list
     run_log["is_correct"] = is_correct
     run_log["num_dialogue_turns"] = len(run_log["dialogue_history"])
@@ -202,10 +251,10 @@ def run_single_scenario(scenario, dataset, total_inferences, max_consultation_tu
     return run_log, run_log.get("is_correct", False)
 
 def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences, consultation_turns):
-    """Run a single bias-dataset combination test"""
-    # Custom filename for bias-corrected run
-    log_file = get_log_file(dataset, bias) 
-    completed_scenario_ids = get_completed_scenarios(log_file) # Renamed for clarity
+    """Run a single bias-dataset combination test with new logging"""
+    # Use existing log file function
+    log_file = get_new_log_file(dataset, bias) 
+    completed_scenario_ids = get_new_completed_scenarios(log_file)
     
     print(f"\n=== Testing {bias} bias on {dataset} dataset ===")
     print(f"Log file: {log_file}")
@@ -234,8 +283,8 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
     max_available = scenario_loader.num_scenarios
     scenarios_to_run = min(num_scenarios, max_available)
     
-    total_correct_current_session = 0 # Renamed for clarity
-    total_simulated_current_session = 0 # Renamed for clarity
+    total_correct_current_session = 0
+    total_simulated_current_session = 0
     
     # Create a list of scenarios to run, skipping already completed ones
     scenarios_to_process = [i for i in range(scenarios_to_run) if i not in completed_scenario_ids]
@@ -254,11 +303,11 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
             scenario, dataset, total_inferences, consultation_turns, scenario_idx, bias
         )        
 
-
         if is_correct:
             total_correct_current_session += 1
 
-        log_scenario_data(run_log, log_file)
+        # Use existing logging function
+        log_new_scenario_data(run_log, log_file)
         print(f"Tests requested in Scenario {scenario_idx + 1}: {run_log.get('requested_tests', [])}")
         
         # Update progress
@@ -271,10 +320,6 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
             overall_correct_count = num_correct_from_previous_runs + total_correct_current_session
             
             overall_accuracy_so_far = (overall_correct_count / overall_completed_count) * 100 if overall_completed_count > 0 else 0
-            # The original problematic line was:
-            # overall_accuracy = ((len([s for s in completed_scenarios if s in run_log.get("is_correct", False)]) + total_correct) / 
-            #                    overall_completed) * 100 if overall_completed > 0 else 0
-            # This is now correctly calculated as overall_accuracy_so_far.
             print(f"Overall Progress for {bias} on {dataset}: {overall_completed_count}/{scenarios_to_run} scenarios completed. Overall Accuracy: {overall_accuracy_so_far:.2f}% ({overall_correct_count}/{overall_completed_count})")
     
     # Calculate final statistics for this combination
@@ -286,18 +331,14 @@ def run_bias_dataset_combination(dataset, bias, num_scenarios, total_inferences,
             with open(log_file, 'r') as f:
                 try:
                     all_results = json.load(f)
-                    if not isinstance(all_results, list): # Ensure it's a list
+                    if not isinstance(all_results, list):
                         all_results = []
                 except json.JSONDecodeError:
                     print(f"Warning: Could not parse final log file {log_file} for final stats. Results may be inaccurate.")
                     all_results = []
 
-        correct_count_total = sum(1 for entry in all_results if entry.get("is_correct")) # Ensure entry.get("is_correct") is True
-        
-        # Ensure final_completed_count matches the number of entries if all were logged correctly
-        # This uses the actual number of entries in the log file for accuracy if possible.
+        correct_count_total = sum(1 for entry in all_results if entry.get("is_correct"))
         actual_entries_in_log = len(all_results)
-        
         final_accuracy = (correct_count_total / actual_entries_in_log) * 100 if actual_entries_in_log > 0 else 0
         
         print(f"\n=== Results for {bias} bias on {dataset} dataset ===")
@@ -322,13 +363,16 @@ def main():
     biases_to_test = ['none']
     args.scenarios = 214  # Force 214 scenarios
     
-    print(f"Starting comprehensive bias testing across {len(datasets_to_test)} datasets and {len(biases_to_test)} biases")
+    print(f"Starting comprehensive bias testing")
+    print(f"Log directory: {os.path.abspath(BASE_LOG_DIR)}")
+    print(f"Testing across {len(datasets_to_test)} datasets and {len(biases_to_test)} biases")
     print(f"Using Anthropic Claude API ({MODEL_NAME})")
     print(f"Base settings: {args.scenarios} scenarios per combination, {TOTAL_INFERENCES} patient interactions, {CONSULTATION_TURNS} consultation turns")
     
     # Create summary report structures
     summary = {
         "start_time": datetime.now().isoformat(),
+        "log_directory": BASE_LOG_DIR,
         "model_used": MODEL_NAME,
         "api_provider": "Anthropic",
         "completed_combinations": 0,
@@ -350,19 +394,20 @@ def main():
                 
                 # Update summary
                 combination_key = f"{dataset}_{bias}"
-                log_file = get_log_file(dataset, bias)
+                log_file = get_new_log_file(dataset, bias)
                 
                 if os.path.exists(log_file):
                     with open(log_file, 'r') as f:
                         results = json.load(f)
                         correct_count = sum(1 for entry in results if entry.get("is_correct", False))
-                        total_count = len(results);
+                        total_count = len(results)
                         
                         summary["results_by_combination"][combination_key] = {
                             "completed": completed,
                             "scenarios_run": total_count,
                             "correct_diagnoses": correct_count,
-                            "accuracy": (correct_count / total_count) * 100 if total_count > 0 else 0
+                            "accuracy": (correct_count / total_count) * 100 if total_count > 0 else 0,
+                            "log_file": log_file
                         }
                 
                 if completed:
@@ -372,19 +417,20 @@ def main():
                 print(f"Error running {dataset} with {bias} bias: {e}")
                 # Continue with next combination even if this one fails
     
-    # Save summary report
+    # Save summary report in existing log directory
     summary["end_time"] = datetime.now().isoformat()
     summary["total_duration_seconds"] = (datetime.fromisoformat(summary["end_time"]) - 
                                         datetime.fromisoformat(summary["start_time"])).total_seconds()
     
-    os.makedirs(BASE_LOG_DIR, exist_ok=True)  # Ensure directory exists
-    with open(os.path.join(BASE_LOG_DIR, "bias_testing_summary.json"), 'w') as f:
+    summary_file = os.path.join(BASE_LOG_DIR, "bias_testing_summary.json")
+    with open(summary_file, 'w') as f:
         json.dump(summary, f, indent=2)
     
     print("\n\n=== BIAS TESTING COMPLETE ===")
     print(f"Completed {summary['completed_combinations']}/{summary['total_combinations']} combinations")
     print(f"Total duration: {summary['total_duration_seconds']/3600:.2f} hours")
-    print(f"Full results saved to {os.path.join(BASE_LOG_DIR, 'bias_testing_summary.json')}")
+    print(f"All logs stored in: {os.path.abspath(BASE_LOG_DIR)}")
+    print(f"Full results saved to {summary_file}")
 
 if __name__ == "__main__":
     main()

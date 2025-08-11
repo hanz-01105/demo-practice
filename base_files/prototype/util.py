@@ -2,7 +2,7 @@ import anthropic, re, random, time, json, os
 from datetime import datetime
 import argparse
 import glob
-from .prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
+from prompts import COGNITIVE_BIASES, DEMOGRAPHIC_BIASES
 
 BASE_LOG_DIR = "base_files/logs" # TODO ~ Add to .gitignore
 MODEL_NAME = "claude-sonnet-4-20250514" 
