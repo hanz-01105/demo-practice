@@ -1,0 +1,4 @@
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Non-smoker,94,0.096,0.128,0.138,0.138,3.798,79.947,85.000
+Smoker,30,0.067,0.067,0.067,0.067,4.033,84.167,77.500
+Unknown,90,0.122,0.122,0.122,0.122,3.967,81.778,82.727

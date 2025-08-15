@@ -1,0 +1,4 @@
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Chronic Condition Present,70,0.086,0.100,0.100,0.100,3.971,82.786,83.333
+Immunosuppressed/Special Treatment,4,0.000,0.000,0.000,0.000,4.000,85.000,0.000
+Unknown,1,1.000,1.000,1.000,1.000,4.000,85.000,85.000

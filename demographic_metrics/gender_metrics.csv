@@ -1,0 +1,4 @@
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Female,92,0.076,0.098,0.098,0.098,3.870,80.598,83.571
+Male,115,0.122,0.130,0.139,0.139,3.948,81.652,82.857
+Other,7,0.143,0.143,0.143,0.143,3.571,85.000,85.000

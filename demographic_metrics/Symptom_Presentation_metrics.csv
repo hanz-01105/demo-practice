@@ -1,0 +1,6 @@
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Atypical/Vague Wording,73,0.110,0.123,0.123,0.123,3.959,81.438,83.125
+Classic Textbook,23,0.130,0.130,0.130,0.130,3.696,80.000,85.000
+Multi-System Complex,66,0.030,0.045,0.045,0.045,3.803,80.833,77.500
+Single Symptom Only,47,0.149,0.170,0.191,0.191,3.957,82.021,83.571
+Unknown,5,0.400,0.400,0.400,0.400,4.800,85.000,85.000

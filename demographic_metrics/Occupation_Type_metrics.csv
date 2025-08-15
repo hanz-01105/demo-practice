@@ -1,0 +1,7 @@
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Knowledge Worker,28,0.107,0.143,0.143,0.143,3.821,81.786,85.000
+Manual Labor,11,0.182,0.182,0.182,0.182,4.182,83.182,85.000
+Retired,18,0.056,0.111,0.111,0.111,3.389,77.222,85.000
+Student,38,0.132,0.158,0.184,0.184,3.842,81.053,85.000
+Unemployed,2,0.000,0.000,0.000,0.000,4.500,90.000,0.000
+Unknown,117,0.094,0.094,0.094,0.094,3.983,81.581,81.364
