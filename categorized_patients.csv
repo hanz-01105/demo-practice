@@ -1,0 +1,215 @@
+age_group,gender,Smoking Status,Alcohol Use,Drug Use,Occupation Type,Comorbidity Status,Symptom Presentation,scenario_id
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Multi-System Complex,0
+30-40,Female,Unknown,Unknown,Unknown,Unknown,Immunosuppressed/Special Treatment,Atypical/Vague Wording,1
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,2
+50-60,Male,Smoker,Drinker,Unknown,Manual Labor,None,Multi-System Complex,3
+60+,Female,Non-smoker,Drinker,Unknown,Retired,Chronic Condition Present,Multi-System Complex,4
+20-30,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,5
+50-60,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Classic Textbook,6
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Unknown,7
+40-50,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,8
+20-30,Female,Non-smoker,Non-drinker,Non-drug User,Unknown,None,Multi-System Complex,9
+40-50,Female,Unknown,Unknown,Unknown,Unknown,None,Single Symptom Only,10
+0-10,Male,Non-smoker,Non-drinker,Non-drug User,Student,None,Atypical/Vague Wording,11
+20-30,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,12
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,13
+20-30,Male,Non-smoker,Drinker,Unknown,Student,None,Single Symptom Only,14
+40-50,Male,Unknown,Unknown,Unknown,Manual Labor,Chronic Condition Present,Single Symptom Only,15
+50-60,Female,Non-smoker,Non-drinker,Unknown,Unknown,None,Classic Textbook,16
+50-60,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,17
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Classic Textbook,18
+20-30,Female,Non-smoker,Non-drinker,Unknown,Unknown,None,Classic Textbook,19
+30-40,Male,Unknown,Unknown,Unknown,Unknown,Immunosuppressed/Special Treatment,Single Symptom Only,20
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,21
+60+,Male,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,22
+30-40,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,23
+30-40,Female,Non-smoker,Non-drinker,Unknown,Knowledge Worker,None,Multi-System Complex,24
+30-40,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,25
+30-40,Female,Non-smoker,Non-drinker,Non-drug User,Unknown,Chronic Condition Present,Atypical/Vague Wording,26
+50-60,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,27
+40-50,Female,Smoker,Drinker,Non-drug User,Unknown,Chronic Condition Present,Atypical/Vague Wording,28
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,29
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,30
+60+,Male,Smoker,Drinker,Non-drug User,Unknown,Chronic Condition Present,Atypical/Vague Wording,31
+10-20,Male,Unknown,Drinker,Drug User,Unknown,None,Multi-System Complex,32
+0-10,Male,Non-smoker,Unknown,Unknown,Student,None,Unknown,33
+10-20,Female,Non-smoker,Non-drinker,Non-drug User,Student,None,Classic Textbook,34
+0-10,Male,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,35
+20-30,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,36
+50-60,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Multi-System Complex,37
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,38
+50-60,Male,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,39
+40-50,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Classic Textbook,40
+20-30,Female,Non-smoker,Non-drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,41
+40-50,Female,Unknown,Drinker,Unknown,Manual Labor,Chronic Condition Present,Multi-System Complex,42
+60+,Male,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,43
+50-60,Female,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,44
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,45
+20-30,Female,Non-smoker,Drinker,Non-drug User,Student,None,Single Symptom Only,46
+60+,Male,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,47
+10-20,Male,Non-smoker,Non-drinker,Non-drug User,Student,None,Multi-System Complex,48
+40-50,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,49
+10-20,Female,Non-smoker,Non-drinker,Non-drug User,Student,Chronic Condition Present,Multi-System Complex,50
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,51
+60+,Male,Smoker,Non-drinker,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,52
+60+,Female,Non-smoker,Drinker,Unknown,Retired,None,Classic Textbook,53
+20-30,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,54
+60+,Male,Smoker,Unknown,Unknown,Unknown,None,Single Symptom Only,55
+0-10,Male,Unknown,Unknown,Unknown,Student,None,Atypical/Vague Wording,56
+60+,Male,Smoker,Drinker,Unknown,Unknown,None,Atypical/Vague Wording,57
+20-30,Male,Unknown,Unknown,Unknown,Student,None,Atypical/Vague Wording,58
+10-20,Female,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,59
+20-30,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,60
+0-10,Male,Non-smoker,Unknown,Unknown,Unknown,None,Multi-System Complex,61
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,62
+20-30,Female,Unknown,Non-drinker,Non-drug User,Unknown,None,Multi-System Complex,63
+40-50,Male,Non-smoker,Non-drinker,Unknown,Knowledge Worker,Chronic Condition Present,Single Symptom Only,64
+60+,Male,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,65
+0-10,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,66
+0-10,Female,Non-smoker,Non-drinker,Non-drug User,Student,None,Multi-System Complex,67
+30-40,Female,Non-smoker,Non-drinker,Unknown,Unknown,None,Atypical/Vague Wording,68
+40-50,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,69
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,70
+20-30,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,71
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,72
+50-60,Male,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,73
+60+,Female,Non-smoker,Non-drinker,Unknown,Retired,None,Single Symptom Only,74
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,75
+50-60,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,76
+20-30,Male,Non-smoker,Drinker,Unknown,Unknown,None,Multi-System Complex,77
+50-60,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,78
+20-30,Female,Non-smoker,Non-drinker,Unknown,Unknown,None,Multi-System Complex,79
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Single Symptom Only,80
+40-50,Female,Smoker,Unknown,Non-drug User,Unemployed,Chronic Condition Present,Multi-System Complex,81
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,82
+20-30,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,83
+0-10,Female,Unknown,Unknown,Unknown,Student,None,Atypical/Vague Wording,84
+40-50,Male,Unknown,Unknown,Unknown,Manual Labor,None,Multi-System Complex,85
+60+,Female,Non-smoker,Non-drinker,Unknown,Unknown,Chronic Condition Present,Unknown,86
+60+,Male,Non-smoker,Drinker,Non-drug User,Retired,None,Atypical/Vague Wording,87
+10-20,Female,Non-smoker,Unknown,Non-drug User,Student,None,Atypical/Vague Wording,88
+60+,Male,Non-smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,89
+60+,Female,Non-smoker,Drinker,Non-drug User,Retired,Chronic Condition Present,Atypical/Vague Wording,90
+50-60,Male,Smoker,Drinker,Drug User,Unknown,Chronic Condition Present,Multi-System Complex,91
+60+,Male,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,92
+50-60,Male,Unknown,Drinker,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,93
+50-60,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,Chronic Condition Present,Atypical/Vague Wording,94
+20-30,Other,Non-smoker,Non-drinker,Non-drug User,Student,Chronic Condition Present,Single Symptom Only,95
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Unknown,96
+40-50,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,97
+40-50,Male,Unknown,Unknown,Unknown,Unknown,Immunosuppressed/Special Treatment,Multi-System Complex,98
+60+,Male,Non-smoker,Drinker,Unknown,Retired,None,Atypical/Vague Wording,99
+20-30,Male,Unknown,Unknown,Non-drug User,Unemployed,None,Atypical/Vague Wording,100
+10-20,Male,Non-smoker,Non-drinker,Non-drug User,Student,Chronic Condition Present,Single Symptom Only,101
+0-10,Female,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,102
+0-10,Male,Non-smoker,Non-drinker,Non-drug User,Student,None,Single Symptom Only,103
+50-60,Female,Non-smoker,Non-drinker,Non-drug User,Unknown,Chronic Condition Present,Classic Textbook,104
+0-10,Other,Unknown,Unknown,Unknown,Unknown,None,Single Symptom Only,105
+30-40,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,106
+60+,Male,Non-smoker,Drinker,Unknown,Retired,None,Single Symptom Only,107
+50-60,Male,Non-smoker,Unknown,Unknown,Manual Labor,None,Atypical/Vague Wording,108
+50-60,Male,Smoker,Drinker,Non-drug User,Unknown,None,Atypical/Vague Wording,109
+50-60,Female,Smoker,Drinker,Unknown,Retired,Chronic Condition Present,Single Symptom Only,110
+20-30,Female,Non-smoker,Non-drinker,Non-drug User,Knowledge Worker,None,Atypical/Vague Wording,111
+50-60,Female,Non-smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,112
+10-20,Male,Unknown,Non-drinker,Non-drug User,Student,None,Classic Textbook,113
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,114
+20-30,Female,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,115
+50-60,Male,Smoker,Unknown,Unknown,Manual Labor,None,Atypical/Vague Wording,116
+20-30,Male,Non-smoker,Non-drinker,Non-drug User,Unknown,None,Atypical/Vague Wording,117
+0-10,Female,Non-smoker,Unknown,Unknown,Unknown,None,Multi-System Complex,118
+30-40,Female,Non-smoker,Non-drinker,Unknown,Unknown,None,Multi-System Complex,119
+60+,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,120
+10-20,Male,Non-smoker,Drinker,Unknown,Student,None,Single Symptom Only,121
+40-50,Male,Non-smoker,Non-drinker,Unknown,Knowledge Worker,Chronic Condition Present,Single Symptom Only,122
+20-30,Male,Non-smoker,Non-drinker,Unknown,Unknown,None,Classic Textbook,123
+60+,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,124
+0-10,Male,Unknown,Unknown,Unknown,Student,None,Single Symptom Only,125
+30-40,Female,Non-smoker,Non-drinker,Unknown,Knowledge Worker,None,Single Symptom Only,126
+30-40,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,127
+0-10,Male,Unknown,Unknown,Unknown,Student,None,Multi-System Complex,128
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,129
+30-40,Male,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,130
+60+,Male,Non-smoker,Drinker,Unknown,Retired,None,Single Symptom Only,131
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,132
+50-60,Male,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,133
+60+,Male,Non-smoker,Drinker,Unknown,Retired,None,Single Symptom Only,134
+0-10,Female,Non-smoker,Unknown,Unknown,Unknown,None,Single Symptom Only,135
+40-50,Female,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,136
+20-30,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Atypical/Vague Wording,137
+20-30,Female,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,138
+20-30,Male,Unknown,Unknown,Unknown,Manual Labor,None,Multi-System Complex,139
+0-10,Male,Non-smoker,Non-drinker,Non-drug User,Student,None,Multi-System Complex,140
+10-20,Female,Non-smoker,Non-drinker,Non-drug User,Student,None,Atypical/Vague Wording,141
+60+,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,142
+60+,Male,Non-smoker,Non-drinker,Unknown,Retired,Chronic Condition Present,Atypical/Vague Wording,143
+30-40,Male,Unknown,Unknown,Unknown,Manual Labor,Chronic Condition Present,Atypical/Vague Wording,144
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Multi-System Complex,145
+60+,Male,Non-smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,146
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,147
+40-50,Male,Smoker,Unknown,Drug User,Unknown,None,Multi-System Complex,148
+10-20,Female,Non-smoker,Non-drinker,Non-drug User,Unknown,None,Atypical/Vague Wording,149
+40-50,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,150
+40-50,Male,Non-smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,151
+40-50,Male,Unknown,Unknown,Unknown,Unknown,None,Single Symptom Only,152
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,153
+50-60,Male,Smoker,Unknown,Unknown,Manual Labor,Chronic Condition Present,Single Symptom Only,154
+50-60,Female,Smoker,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,155
+20-30,Male,Non-smoker,Drinker,Non-drug User,Knowledge Worker,None,Single Symptom Only,156
+30-40,Male,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,157
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,Chronic Condition Present,Atypical/Vague Wording,158
+20-30,Male,Non-smoker,Drinker,Non-drug User,Unknown,None,Single Symptom Only,159
+50-60,Male,Smoker,Unknown,Unknown,Manual Labor,Chronic Condition Present,Multi-System Complex,160
+60+,Female,Non-smoker,Non-drinker,Unknown,Retired,None,Multi-System Complex,161
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,162
+20-30,Female,Unknown,Unknown,Unknown,Knowledge Worker,Chronic Condition Present,Atypical/Vague Wording,163
+60+,Female,Non-smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,164
+60+,Male,Smoker,Non-drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,165
+30-40,Male,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Atypical/Vague Wording,166
+50-60,Male,Non-smoker,Non-drinker,Unknown,Retired,None,Atypical/Vague Wording,167
+20-30,Female,Non-smoker,Non-drinker,Unknown,Student,Immunosuppressed/Special Treatment,Atypical/Vague Wording,168
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Atypical/Vague Wording,169
+50-60,Male,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Classic Textbook,170
+30-40,Female,Unknown,Unknown,Unknown,Unknown,None,Classic Textbook,171
+20-30,Female,Non-smoker,Drinker,Non-drug User,Student,None,Atypical/Vague Wording,172
+60+,Male,Non-smoker,Drinker,Unknown,Retired,None,Unknown,173
+10-20,Male,Non-smoker,Non-drinker,Unknown,Student,Chronic Condition Present,Atypical/Vague Wording,174
+30-40,Female,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,175
+0-10,Male,Unknown,Unknown,Unknown,Unknown,None,Multi-System Complex,176
+60+,Male,Non-smoker,Drinker,Non-drug User,Retired,None,Multi-System Complex,177
+50-60,Male,Non-smoker,Unknown,Non-drug User,Unknown,Chronic Condition Present,Multi-System Complex,178
+20-30,Male,Unknown,Unknown,Drug User,Student,None,Atypical/Vague Wording,179
+40-50,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Multi-System Complex,180
+20-30,Male,Unknown,Unknown,Drug User,Unknown,None,Multi-System Complex,181
+60+,Male,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,182
+30-40,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,183
+50-60,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,184
+60+,Male,Smoker,Unknown,Unknown,Retired,Chronic Condition Present,Atypical/Vague Wording,185
+10-20,Female,Non-smoker,Unknown,Non-drug User,Student,None,Multi-System Complex,186
+40-50,Female,Non-smoker,Non-drinker,Non-drug User,Unknown,None,Classic Textbook,187
+0-10,Female,Unknown,Unknown,Unknown,Unknown,None,Atypical/Vague Wording,188
+20-30,Female,Unknown,Unknown,Drug User,Unknown,Chronic Condition Present,Atypical/Vague Wording,189
+20-30,Female,Unknown,Unknown,Unknown,Knowledge Worker,Chronic Condition Present,Atypical/Vague Wording,190
+60+,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,191
+50-60,Male,Smoker,Drinker,Unknown,Unknown,None,Multi-System Complex,192
+50-60,Male,Non-smoker,Unknown,Non-drug User,Unknown,None,Multi-System Complex,193
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Single Symptom Only,194
+30-40,Female,Non-smoker,Drinker,Unknown,Unknown,None,Classic Textbook,195
+20-30,Male,Non-smoker,Non-drinker,Non-drug User,Unknown,None,Single Symptom Only,196
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Atypical/Vague Wording,197
+50-60,Female,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Multi-System Complex,198
+60+,Male,Unknown,Unknown,Unknown,Retired,Unknown,Single Symptom Only,199
+20-30,Female,Non-smoker,Drinker,Unknown,Unknown,None,Multi-System Complex,200
+30-40,Female,Non-smoker,Drinker,Unknown,Knowledge Worker,None,Atypical/Vague Wording,201
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Single Symptom Only,202
+10-20,Female,Non-smoker,Unknown,Non-drug User,Student,None,Multi-System Complex,203
+30-40,Female,Smoker,Drinker,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,204
+20-30,Male,Unknown,Unknown,Drug User,Student,None,Atypical/Vague Wording,205
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Single Symptom Only,206
+50-60,Male,Smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Atypical/Vague Wording,207
+50-60,Female,Unknown,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,208
+10-20,Male,Non-smoker,Drinker,Unknown,Student,None,Single Symptom Only,209
+10-20,Male,Unknown,Unknown,Unknown,Student,None,Classic Textbook,210
+60+,Male,Non-smoker,Unknown,Unknown,Unknown,Chronic Condition Present,Single Symptom Only,211
+20-30,Female,Non-smoker,Non-drinker,Non-drug User,Manual Labor,None,Atypical/Vague Wording,212
+60+,Male,Non-smoker,Unknown,Unknown,Retired,Chronic Condition Present,Single Symptom Only,213

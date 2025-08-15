@@ -123,13 +123,13 @@ def categorize_and_summarize(log_path):
                 # On rate limit, wait and try again. The wait time increases exponentially.
                 # We'll cap the max wait time at 60 seconds to be reasonable.
                 wait_time = min(base_delay * (2 ** attempt), 60)
-                print(f"⏳ Rate limit hit. Pausing for {wait_time} seconds before retrying...")
+                print(f"Rate limit hit. Pausing for {wait_time} seconds before retrying...")
                 time.sleep(wait_time)
                 attempt += 1
 
             except Exception as e:
                 # For any other error, we stop the script to let you investigate.
-                print(f"🛑 A non-rate-limit error occurred on item {i+1}: {e}")
+                print(f"A non-rate-limit error occurred on item {i+1}: {e}")
                 print("Stopping script to prevent data loss or infinite loops. Please check the error.")
                 raise # Re-raise the exception to halt execution and show the full error.
         # --- END: Indefinite Retry Logic ---
