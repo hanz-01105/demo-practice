@@ -1,6 +1,6 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Atypical/Vague Wording,73,0.110,0.123,0.123,0.123,3.959,81.438,83.125
-Classic Textbook,23,0.130,0.130,0.130,0.130,3.696,80.000,85.000
-Multi-System Complex,66,0.030,0.045,0.045,0.045,3.803,80.833,77.500
-Single Symptom Only,47,0.149,0.170,0.191,0.191,3.957,82.021,83.571
-Unknown,5,0.400,0.400,0.400,0.400,4.800,85.000,85.000
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Atypical/Vague Wording,73,0.521,0.192,0.205,0.233,0.178,3.959,81.438,84.211
+Classic Textbook,23,0.522,0.174,0.174,0.174,0.174,3.696,80.000,85.000
+Multi-System Complex,66,0.591,0.106,0.121,0.121,0.061,3.803,80.833,83.718
+Single Symptom Only,47,0.745,0.319,0.319,0.319,0.340,3.957,82.021,83.429
+Unknown,5,0.800,0.400,0.600,0.600,0.400,4.800,85.000,85.000

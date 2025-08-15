@@ -1,4 +1,4 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Drinker,61,0.066,0.066,0.082,0.082,3.984,81.230,85.000
-Non-drinker,41,0.073,0.098,0.098,0.098,3.585,78.537,85.000
-Unknown,112,0.134,0.152,0.152,0.152,3.973,82.366,82.333
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Drinker,61,0.656,0.164,0.180,0.180,0.164,3.984,81.230,82.875
+Non-drinker,41,0.512,0.146,0.171,0.171,0.146,3.585,78.537,84.048
+Unknown,112,0.598,0.232,0.241,0.259,0.205,3.973,82.366,84.552

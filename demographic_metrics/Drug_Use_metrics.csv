@@ -1,4 +1,4 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Drug User,7,0.143,0.143,0.143,0.143,4.571,80.714,70.000
-Non-drug User,38,0.053,0.105,0.105,0.105,3.895,77.237,85.000
-Unknown,169,0.112,0.118,0.124,0.124,3.876,82.249,83.684
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
+Drug User,7,0.714,0.143,0.143,0.143,0.143,4.571,80.714,79.000
+Non-drug User,38,0.368,0.158,0.184,0.184,0.158,3.895,77.237,83.214
+Unknown,169,0.645,0.207,0.219,0.231,0.189,3.876,82.249,84.266
