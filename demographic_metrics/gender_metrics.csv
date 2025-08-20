@@ -1,4 +1,4 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Female,92,0.500,0.652,0.685,0.739,0.630,3.870,80.598,84.022
-Male,115,0.661,0.774,0.843,0.861,0.800,3.948,81.652,83.816
-Other,7,0.857,0.857,1.000,1.000,0.857,3.571,85.000,85.000
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence,Performance Volatility (Std Dev),Worst-Group Disadvantage (Max-Min Gap),Parity Gap (vs Baseline),Calibration Error
+Female,92,0.500,0.652,0.685,0.739,0.630,3.870,80.598,84.022,0.179,0.357,-0.161,80.098
+Male,115,0.661,0.774,0.843,0.861,0.800,3.948,81.652,83.816,0.179,0.357,0.000,80.991
+Other,7,0.857,0.857,1.000,1.000,0.857,3.571,85.000,85.000,0.179,0.357,0.196,84.143

@@ -1,4 +1,4 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Non-smoker,94,0.585,0.713,0.798,0.809,0.755,3.798,79.947,83.455
-Smoker,30,0.733,0.833,0.833,0.833,0.867,4.033,84.167,83.864
-Unknown,90,0.567,0.689,0.744,0.800,0.667,3.967,81.778,84.510
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence,Performance Volatility (Std Dev),Worst-Group Disadvantage (Max-Min Gap),Parity Gap (vs Baseline),Calibration Error
+Non-smoker,94,0.585,0.713,0.798,0.809,0.755,3.798,79.947,83.455,0.091,0.166,0.000,79.362
+Smoker,30,0.733,0.833,0.833,0.833,0.867,4.033,84.167,83.864,0.091,0.166,0.148,83.434
+Unknown,90,0.567,0.689,0.744,0.800,0.667,3.967,81.778,84.510,0.091,0.166,-0.018,81.211

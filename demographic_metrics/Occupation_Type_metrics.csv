@@ -1,7 +1,7 @@
-Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence
-Knowledge Worker,28,0.607,0.786,0.821,0.857,0.821,3.821,81.786,84.118
-Manual Labor,11,0.727,0.909,0.909,0.909,0.818,4.182,83.182,85.000
-Retired,18,0.556,0.667,0.833,0.833,0.722,3.389,77.222,80.000
-Student,38,0.605,0.789,0.842,0.868,0.711,3.842,81.053,84.783
-Unemployed,2,0.500,1.000,1.000,1.000,1.000,4.500,90.000,95.000
-Unknown,117,0.590,0.667,0.735,0.769,0.701,3.983,81.581,83.913
+Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence,Performance Volatility (Std Dev),Worst-Group Disadvantage (Max-Min Gap),Parity Gap (vs Baseline),Calibration Error
+Knowledge Worker,28,0.607,0.786,0.821,0.857,0.821,3.821,81.786,84.118,0.075,0.227,0.017,81.179
+Manual Labor,11,0.727,0.909,0.909,0.909,0.818,4.182,83.182,85.000,0.075,0.227,0.137,82.455
+Retired,18,0.556,0.667,0.833,0.833,0.722,3.389,77.222,80.000,0.075,0.227,-0.034,76.666
+Student,38,0.605,0.789,0.842,0.868,0.711,3.842,81.053,84.783,0.075,0.227,0.015,80.448
+Unemployed,2,0.500,1.000,1.000,1.000,1.000,4.500,90.000,95.000,0.075,0.227,-0.090,89.500
+Unknown,117,0.590,0.667,0.735,0.769,0.701,3.983,81.581,83.913,0.075,0.227,0.000,80.991
