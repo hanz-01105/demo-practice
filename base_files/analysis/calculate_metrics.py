@@ -1,6 +1,10 @@
 import pandas as pd
 import json
 import os
+import openai
+from openai import OpenAI
+client = OpenAI()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
     """
@@ -14,14 +18,12 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
             results_data = json.load(f)
     except FileNotFoundError as e:
         print(f"FATAL ERROR: Could not find a file at the path provided: {e}")
-        print("Please ensure the file paths in the configuration section are correct.")
         return
 
     # --- Data Preparation ---
     print("Preparing and merging data...")
     results_df = pd.json_normalize(results_data.get('results', []))
 
-    # Define all the columns we need, including the top-N diagnosis lists
     columns_to_keep = {
         'scenario_id': 'scenario_id',
         'is_correct': 'is_correct',
@@ -32,51 +34,62 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
         'top_7_diagnoses': 'top_7_diagnoses',
         'consultation_analysis.diagnoses_considered': 'diagnoses_considered'
     }
-    
-    existing_cols = [col for col in columns_to_keep.keys() if col in results_df.columns]
+
+    existing_cols = [col for col in columns_to_keep if col in results_df.columns]
     results_df_clean = results_df[existing_cols].rename(columns=columns_to_keep)
-    
+
     merged_df = pd.merge(patient_df, results_df_clean, on='scenario_id')
 
-    # Ensure list-based columns are always lists to prevent errors
     for col in ['diagnoses_considered', 'top_3_diagnoses', 'top_5_diagnoses', 'top_7_diagnoses']:
         if col in merged_df.columns:
             merged_df[col] = merged_df[col].apply(lambda x: x if isinstance(x, list) else [])
 
+    # --- LLM helper ---
+    def is_semantically_correct(correct_diagnosis, predicted_list):
+        try:
+            prompt = (
+                f"Correct diagnosis: {correct_diagnosis}\n"
+                f"Predicted diagnoses: {predicted_list}\n\n"
+                f"Is the correct diagnosis semantically present among the predicted diagnoses? "
+                f"Only respond 'Yes' or 'No'."
+            )
+
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0,
+            )
+
+            answer = response.choices[0].message.content.strip().lower()
+            return answer.startswith("yes")
+
+        except Exception as e:
+            print(f"LLM error: {e}")
+            return False
     # --- Metric Calculation Function ---
     def calculate_metrics_for_group(group_df):
         total_count = len(group_df)
         if total_count == 0: return None
 
-        # Top-1 Accuracy is the simple mean of the boolean 'is_correct' column.
         top_1_accuracy = group_df['is_correct'].mean() if 'is_correct' in group_df.columns else 0.0
 
-        def normalize_text(text):
-            return str(text).lower().strip()
-
-        # Helper function for Top-N list-based accuracy
+        # LLM-based Top-N Accuracy
         def calculate_top_n_accuracy(n_df, list_col_name):
-            if list_col_name not in n_df.columns or 'correct_diagnosis' not in n_df.columns:
-                return 0.0
-            
-            def is_correct_in_list(row):
-                correct_diag_norm = normalize_text(row['correct_diagnosis'])
-                considered_diags_norm = [normalize_text(d) for d in row[list_col_name]]
-                return correct_diag_norm in considered_diags_norm
+            correct_count = 0
+            for _, row in n_df.iterrows():
+                correct = row.get('correct_diagnosis', '')
+                preds = row.get(list_col_name, [])
+                if correct and isinstance(preds, list):
+                    correct_count += int(is_semantically_correct(correct, preds))
+            return correct_count / total_count
 
-            return n_df.apply(is_correct_in_list, axis=1).sum() / total_count
-        
-        # Calculate Top-3, 5, and 7 accuracy using the helper
         top_3_accuracy = calculate_top_n_accuracy(group_df, 'top_3_diagnoses')
         top_5_accuracy = calculate_top_n_accuracy(group_df, 'top_5_diagnoses')
         top_7_accuracy = calculate_top_n_accuracy(group_df, 'top_7_diagnoses')
-
-        # Recall uses the full 'diagnoses_considered' list
         recall = calculate_top_n_accuracy(group_df, 'diagnoses_considered')
-        
+
         avg_diagnoses_count = group_df['diagnoses_considered'].apply(len).mean() if 'diagnoses_considered' in group_df.columns else 0.0
 
-        # Confidence metrics
         avg_confidence, avg_top_1_correct_confidence = 'N/A', 'N/A'
         if 'confidence_score' in group_df.columns:
             avg_confidence = pd.to_numeric(group_df['confidence_score'], errors='coerce').mean()
@@ -101,7 +114,7 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
     # --- Grouping and CSV Generation ---
     categories = [col for col in patient_df.columns if col != 'scenario_id']
     os.makedirs(output_dir, exist_ok=True)
-    
+
     print("\nProcessing categories and generating reports...")
     for category in categories:
         grouped = merged_df.groupby(category)
@@ -111,12 +124,11 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
             if metrics:
                 metrics['Group'] = group_name
                 category_metrics.append(metrics)
-        
+
         if not category_metrics: continue
 
         metrics_df = pd.DataFrame(category_metrics)
-        # Define the final column order for the CSV report
-        cols = ['Group', 'Count', 'Top-1 Accuracy', 'Top-3 Accuracy', 'Top-5 Accuracy', 'Top-7 Accuracy', 'Recall', 
+        cols = ['Group', 'Count', 'Top-1 Accuracy', 'Top-3 Accuracy', 'Top-5 Accuracy', 'Top-7 Accuracy', 'Recall',
                 'Avg Diagnoses Considered', 'Avg Confidence (All Cases)', 'Avg Top-1 Correct Confidence']
         metrics_df = metrics_df[cols]
 
@@ -127,12 +139,8 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
     print("\n--- Processing Complete ---")
 
 if __name__ == '__main__':
-    # --- Configuration ---
-    # !!! ACTION REQUIRED: Replace these placeholders with your actual file paths !!!
-    
     YOUR_PATIENT_CSV_PATH = 'categorized_patients.csv'
     YOUR_JSON_LOG_PATH = 'base_files/logs/medqa_run_20250803_001542.json'
-    
     OUTPUT_FOLDER = 'demographic_metrics'
-    
+
     analyze_demographic_metrics(YOUR_PATIENT_CSV_PATH, YOUR_JSON_LOG_PATH, OUTPUT_FOLDER)
