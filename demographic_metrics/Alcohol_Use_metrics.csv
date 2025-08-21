@@ -1,4 +1,4 @@
 Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence,Performance Volatility (Std Dev),Worst-Group Disadvantage (Max-Min Gap),Parity Gap (vs Baseline),Calibration Error
-Drinker,61,0.656,0.754,0.820,0.820,0.754,3.984,81.230,82.875,0.072,0.144,0.058,80.574
-Non-drinker,41,0.512,0.683,0.756,0.780,0.732,3.585,78.537,84.048,0.072,0.144,-0.086,78.025
-Unknown,112,0.598,0.732,0.777,0.821,0.714,3.973,82.366,84.552,0.072,0.144,0.000,81.768
+Drinker,61,0.656,0.754,0.82,0.82,0.754,3.984,0.8123,0.82875,0.072,0.144,0.058,0.1563
+Non-drinker,41,0.512,0.683,0.756,0.78,0.732,3.585,0.78537,0.84048,0.072,0.144,-0.086,0.27337
+Unknown,112,0.598,0.732,0.777,0.821,0.714,3.973,0.82366,0.84552,0.072,0.144,0.0,0.22565999999999997
