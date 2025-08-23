@@ -1,0 +1,16 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Knowledge Worker,Manual Labor,1.0,False,0.12
+Knowledge Worker,Retired,1.0,False,0.050999999999999934
+Knowledge Worker,Student,1.0,False,0.0020000000000000018
+Knowledge Worker,Unemployed,1.0,False,0.10699999999999998
+Knowledge Worker,Unknown,1.0,False,0.017000000000000015
+Manual Labor,Retired,0.716689023909098,False,0.17099999999999993
+Manual Labor,Student,1.0,False,0.122
+Manual Labor,Unemployed,1.0,False,0.22699999999999998
+Manual Labor,Unknown,1.0,False,0.137
+Retired,Student,1.0,False,0.04899999999999993
+Retired,Unemployed,1.0,False,0.05600000000000005
+Retired,Unknown,0.8020053260146734,False,0.03399999999999992
+Student,Unemployed,1.0,False,0.10499999999999998
+Student,Unknown,1.0,False,0.015000000000000013
+Unemployed,Unknown,1.0,False,0.08999999999999997

@@ -1,0 +1,9 @@
+Category,Groups,Sample Size,Max Bias Magnitude,Performance Range,Severity Level
+Comorbidity Status,3,214,0.386,0.386,Critical
+Gender,3,214,0.357,0.357,Critical
+Drug Use,3,214,0.346,0.346,Critical
+Symptom Presentation,5,214,0.279,0.279,High
+Age Group,7,214,0.227,0.227,High
+Occupation Type,6,214,0.227,0.227,High
+Smoking Status,3,214,0.166,0.166,Moderate
+Alcohol Use,3,214,0.144,0.144,Moderate

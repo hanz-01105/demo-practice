@@ -1,0 +1,4 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Drinker,Non-drinker,0.1042898137678569,False,0.14400000000000002
+Drinker,Unknown,0.418229353555567,False,0.05800000000000005
+Non-drinker,Unknown,0.2757395187905204,False,0.08599999999999997

@@ -1,0 +1,11 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Atypical/Vague Wording,Classic Textbook,1.0,False,0.0010000000000000009
+Atypical/Vague Wording,Multi-System Complex,0.49461309401350423,False,0.06999999999999995
+Atypical/Vague Wording,Single Symptom Only,0.02101736842910649,True,0.22399999999999998
+Atypical/Vague Wording,Unknown,0.36621273463378734,False,0.279
+Classic Textbook,Multi-System Complex,0.6284367722978589,False,0.06899999999999995
+Classic Textbook,Single Symptom Only,0.10268738009915496,False,0.22299999999999998
+Classic Textbook,Unknown,0.3553113553113553,False,0.278
+Multi-System Complex,Single Symptom Only,0.10995838650132249,False,0.15400000000000003
+Multi-System Complex,Unknown,0.6417103990511762,False,0.20900000000000007
+Single Symptom Only,Unknown,1.0,False,0.05500000000000005

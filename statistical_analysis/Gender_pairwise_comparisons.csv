@@ -1,0 +1,4 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Female,Male,0.023105730023613106,True,0.16100000000000003
+Female,Other,0.43747019845771873,False,0.357
+Male,Other,1.0,False,0.19599999999999995

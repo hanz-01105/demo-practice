@@ -1,0 +1,4 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Chronic Condition Present,Immunosuppressed/Special Treatment,1.0,False,0.136
+Chronic Condition Present,Unknown,1.0,False,0.386
+Immunosuppressed/Special Treatment,Unknown,1.0,False,0.25
