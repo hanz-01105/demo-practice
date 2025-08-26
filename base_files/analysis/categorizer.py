@@ -39,7 +39,7 @@ Return strict JSON with these keys:
 - Symptom Presentation [Classic Textbook, Atypical/Vague Wording, Multi-System Complex, Single Symptom Only, Unknown]
 """
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4.1",
         temperature=0,
         messages=[
             {"role": "system", "content": "You are a careful medical data classifier."},

@@ -55,7 +55,7 @@ def analyze_demographic_metrics(patient_csv_path, json_log_path, output_dir):
             )
 
             response = client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-4.1",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0,
             )

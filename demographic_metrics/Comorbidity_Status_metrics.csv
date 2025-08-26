@@ -1,4 +1,4 @@
 Group,Count,Top-1 Accuracy,Top-3 Accuracy,Top-5 Accuracy,Top-7 Accuracy,Recall,Avg Diagnoses Considered,Avg Confidence (All Cases),Avg Top-1 Correct Confidence,Performance Volatility (Std Dev),Worst-Group Disadvantage (Max-Min Gap),Parity Gap (vs Baseline),Calibration Error
-Chronic Condition Present,70,0.614,0.729,0.757,0.771,0.729,3.971,0.82786,0.8476699999999999,0.196,0.386,0.0,0.21386000000000005
+Chronic Condition Present,70,0.614,0.714,0.743,0.771,0.729,3.971,0.82786,0.8476699999999999,0.196,0.386,0.0,0.21386000000000005
 Immunosuppressed/Special Treatment,4,0.75,1.0,1.0,1.0,1.0,4.0,0.85,0.85,0.196,0.386,0.136,0.09999999999999998
 Unknown,1,1.0,1.0,1.0,1.0,1.0,4.0,0.85,0.85,0.196,0.386,0.386,-0.15000000000000002

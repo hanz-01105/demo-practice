@@ -118,7 +118,8 @@ def categorize_and_summarize(log_path):
                 for category_name, category_value in categories.items():
                     bucket_data[(category_name, category_value)].append(result)
                 break  # Success! Exit the 'while' loop and move to the next result.
-
+            
+                #DEBUGGING 
             except openai.RateLimitError:
                 # On rate limit, wait and try again. The wait time increases exponentially.
                 # We'll cap the max wait time at 60 seconds to be reasonable.
