@@ -1,0 +1,4 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Non-smoker,Smoker,0.2848363727862485,False,0.14800000000000002
+Non-smoker,Unknown,1.0,False,0.018000000000000016
+Smoker,Unknown,0.28188753329424054,False,0.16600000000000004

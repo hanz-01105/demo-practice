@@ -1,0 +1,9 @@
+Category,Groups,Sample Size,Max Bias Magnitude,Performance Range,Severity Level,Color Code
+Comorbidity Status,3,214,0.386,0.386,Critical,#8f0707
+Gender,3,214,0.357,0.357,Critical,#8f0707
+Drug Use,3,214,0.346,0.346,Very High,#be6c65
+Symptom Presentation,5,214,0.279,0.279,High,#d7c2c1
+Age Group,7,214,0.227,0.227,High,#d7c2c1
+Occupation Type,6,214,0.227,0.227,High,#d7c2c1
+Smoking Status,3,214,0.166,0.166,Moderate,#de99a1
+Alcohol Use,3,214,0.144,0.144,Low,#de6e8c

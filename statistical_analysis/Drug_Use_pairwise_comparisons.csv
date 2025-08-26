@@ -1,0 +1,4 @@
+group1,group2,p_value,is_significant,accuracy_diff
+Drug User,Non-drug User,0.3986489970607952,False,0.346
+Drug User,Unknown,0.7019627035808109,False,0.06899999999999995
+Non-drug User,Unknown,0.0008890242539686805,True,0.277
